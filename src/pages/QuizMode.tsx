@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { GraduationCap, LogOut, Clock, Lightbulb, Check, ChevronRight, X } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { Progress } from '@/components/ui/Progress';
+
 import { cn } from '@/lib/utils';
 
 interface Answer {
