@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-    darkMode: ['class', '[data-theme="dark"]', '[data-theme="night-vision"]'],
+    darkMode: 'class',
     content: ['./index.html', './src/**/*.{ts,tsx}'],
     theme: {
         extend: {

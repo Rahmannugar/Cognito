@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { GraduationCap, Play, FileText, MessageCircle, Sparkles, ChevronRight, Check, Star } from 'lucide-react';
+import { GraduationCap, Play, FileText, MessageCircle, Sparkles, ChevronRight, Check } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
+import { ThemeToggle } from '@/components/shared/ThemeToggle';
 
 const FEATURES = [
     {
@@ -24,11 +25,7 @@ const FEATURES = [
     },
 ];
 
-const TESTIMONIALS = [
-    { name: 'Sarah K.', role: 'Medical Student', text: 'Cognito helped me understand complex anatomy concepts 3x faster than traditional studying.' },
-    { name: 'James M.', role: 'Software Engineer', text: 'The YouTube Tutor is a game-changer. I can finally learn from any tutorial with real comprehension.' },
-    { name: 'Emily R.', role: 'High School Student', text: 'My grades improved dramatically after using Cognito for just two weeks!' },
-];
+
 
 export default function Landing() {
     return (
@@ -44,9 +41,9 @@ export default function Landing() {
                     <nav className="hidden md:flex items-center gap-8">
                         <a href="#features" className="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">Features</a>
                         <a href="#how-it-works" className="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">How it Works</a>
-                        <a href="#testimonials" className="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">Testimonials</a>
                     </nav>
                     <div className="flex items-center gap-3">
+                        <ThemeToggle />
                         <Link to="/login">
                             <Button variant="ghost">Log In</Button>
                         </Link>
@@ -212,50 +209,7 @@ export default function Landing() {
                 </div>
             </section>
 
-            <section id="testimonials" className="py-20 px-6 bg-gray-50 dark:bg-gray-900">
-                <div className="max-w-7xl mx-auto">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="text-center mb-16"
-                    >
-                        <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                            Loved by Learners
-                        </h2>
-                        <div className="flex items-center justify-center gap-1 mb-4">
-                            {[...Array(5)].map((_, i) => (
-                                <Star key={i} className="w-6 h-6 text-yellow-400 fill-yellow-400" />
-                            ))}
-                        </div>
-                        <p className="text-gray-600 dark:text-gray-400">Join 50,000+ students already learning smarter</p>
-                    </motion.div>
 
-                    <div className="grid md:grid-cols-3 gap-8">
-                        {TESTIMONIALS.map((t, i) => (
-                            <motion.div
-                                key={t.name}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
-                                className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700"
-                            >
-                                <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">"{t.text}"</p>
-                                <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center text-white font-bold">
-                                        {t.name[0]}
-                                    </div>
-                                    <div>
-                                        <p className="font-semibold text-gray-900 dark:text-white">{t.name}</p>
-                                        <p className="text-sm text-gray-500">{t.role}</p>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
 
             <section className="py-20 px-6">
                 <div className="max-w-4xl mx-auto">
@@ -287,7 +241,7 @@ export default function Landing() {
                         </div>
                         <span className="text-lg font-bold text-gray-900 dark:text-white">Cognito</span>
                     </div>
-                    <p className="text-gray-500 text-sm">© 2025 Cognito. All rights reserved.</p>
+                    <p className="text-gray-500 text-sm">© {new Date().getFullYear()} Cognito. All rights reserved.</p>
                     <div className="flex items-center gap-6 text-sm text-gray-500">
                         <a href="#" className="hover:text-primary transition-colors">Privacy</a>
                         <a href="#" className="hover:text-primary transition-colors">Terms</a>

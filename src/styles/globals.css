@@ -14,13 +14,8 @@
     min-height: 100vh;
   }
 
-  [data-theme='dark'] body,
   .dark body {
     @apply bg-background-dark text-white;
-  }
-
-  [data-theme='night-vision'] body {
-    @apply bg-background-night text-white;
   }
 }
 
