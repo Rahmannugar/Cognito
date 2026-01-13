@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 import { MOCK_USER } from '@/lib/constants';
 
 const navLinks = [
-    { href: '/', label: 'Dashboard' },
+    { href: '/dashboard', label: 'Dashboard' },
     { href: '/classes', label: 'My Classes' },
     { href: '/community', label: 'Community' },
     { href: '/settings', label: 'Settings' },

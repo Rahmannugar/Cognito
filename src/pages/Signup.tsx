@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { GraduationCap, Mail, Lock, Eye, EyeOff } from 'lucide-react';
+import { GraduationCap, Mail, Lock, Eye, EyeOff, User } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 
-export default function Login() {
+export default function Signup() {
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
@@ -19,7 +19,7 @@ export default function Login() {
         }, 1000);
     };
 
-    const handleGoogleLogin = () => {
+    const handleGoogleSignup = () => {
         setIsLoading(true);
         setTimeout(() => {
             setIsLoading(false);
@@ -44,12 +44,12 @@ export default function Login() {
                                 <GraduationCap className="w-8 h-8 text-white" />
                             </div>
                         </Link>
-                        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Welcome back</h1>
-                        <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Sign in to continue learning</p>
+                        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Create your account</h1>
+                        <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Start your learning journey today</p>
                     </div>
 
                     <button
-                        onClick={handleGoogleLogin}
+                        onClick={handleGoogleSignup}
                         disabled={isLoading}
                         className="w-full flex items-center justify-center gap-3 px-4 py-3 border-2 border-gray-200 dark:border-gray-700 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-all mb-6 group"
                     >
@@ -69,11 +69,17 @@ export default function Login() {
                             <div className="w-full border-t border-gray-200 dark:border-gray-700" />
                         </div>
                         <div className="relative flex justify-center text-sm">
-                            <span className="px-4 bg-white dark:bg-gray-800 text-gray-500">or continue with email</span>
+                            <span className="px-4 bg-white dark:bg-gray-800 text-gray-500">or sign up with email</span>
                         </div>
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-4">
+                        <Input
+                            label="Full Name"
+                            type="text"
+                            placeholder="John Doe"
+                            icon={<User className="w-5 h-5" />}
+                        />
                         <Input
                             label="Email"
                             type="email"
@@ -96,23 +102,29 @@ export default function Login() {
                             </button>
                         </div>
 
-                        <div className="flex items-center justify-between text-sm pt-1">
-                            <label className="flex items-center gap-2 cursor-pointer">
-                                <input type="checkbox" className="rounded border-gray-300 text-primary focus:ring-primary" />
-                                <span className="text-gray-600 dark:text-gray-400">Remember me</span>
+                        <div className="flex items-start gap-3 pt-2">
+                            <input
+                                type="checkbox"
+                                id="terms"
+                                className="mt-0.5 rounded border-gray-300 text-primary focus:ring-primary"
+                            />
+                            <label htmlFor="terms" className="text-sm text-gray-600 dark:text-gray-400">
+                                I agree to the{' '}
+                                <a href="#" className="text-primary hover:underline">Terms of Service</a>
+                                {' '}and{' '}
+                                <a href="#" className="text-primary hover:underline">Privacy Policy</a>
                             </label>
-                            <a href="#" className="text-primary hover:underline font-medium">Forgot password?</a>
                         </div>
 
                         <Button type="submit" className="w-full" size="lg" loading={isLoading}>
-                            Sign In
+                            Create Account
                         </Button>
                     </form>
 
                     <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
-                        Don&apos;t have an account?{' '}
-                        <Link to="/signup" className="text-primary font-semibold hover:underline">
-                            Sign up free
+                        Already have an account?{' '}
+                        <Link to="/login" className="text-primary font-semibold hover:underline">
+                            Sign in
                         </Link>
                     </p>
                 </div>
