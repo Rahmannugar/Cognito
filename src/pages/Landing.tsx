@@ -350,65 +350,94 @@ export default function Landing() {
                     </div>
                 </section>
 
-                <section id="workflow" className="py-20 md:py-40 px-6">
-                    <div className="max-w-7xl mx-auto">
-                        <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-center">
-                            <div>
-                                <h2 className="text-4xl md:text-7xl font-black mb-12 md:mb-16 leading-tight tracking-tight">The Learning <br/> Path.</h2>
-                                <div className="space-y-12">
-                                    {WORKFLOW_STEPS.map((step, i) => (
-                                        <div key={i} className="flex gap-6 md:gap-8 group relative">
-                                            {i !== WORKFLOW_STEPS.length - 1 && (
-                                                <div className="absolute left-[15px] top-10 w-px h-16 bg-blue-100 dark:bg-blue-900/30" />
+                <section id="workflow" className="py-32 md:py-64 px-6 relative overflow-hidden">
+                    {/* Background Narrative: The Void */}
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(37,99,235,0.03),transparent_70%)] pointer-events-none" />
+                    
+                    <div className="max-w-4xl mx-auto text-center relative z-10">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            className="text-[10px] font-black uppercase tracking-[0.6em] text-blue-600 mb-6"
+                        >
+                            The Synthesis Protocol
+                        </motion.div>
+                        
+                        <h2 className="text-5xl md:text-8xl font-black mb-24 leading-[0.85] tracking-tight">
+                            Information <br/>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-b from-slate-400 to-slate-900 dark:from-white dark:to-white/20">Refined.</span>
+                        </h2>
+
+                        <div className="relative space-y-40">
+                            {/* The Signal Stream (Vertical Line) */}
+                            <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-blue-500/50 to-transparent -translate-x-1/2 hidden md:block" />
+
+                            {WORKFLOW_STEPS.map((step, i) => (
+                                <motion.div 
+                                    key={i}
+                                    initial={{ opacity: 0, y: 40 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: "-100px" }}
+                                    className="relative flex flex-col items-center group"
+                                >
+                                    {/* The "Crystal" - A bespoke geometric representation of the step */}
+                                    <div className="relative mb-16">
+                                        <div className="absolute inset-0 bg-blue-600/20 blur-[60px] rounded-full scale-150 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                                        
+                                        <div className="w-24 h-24 md:w-32 md:h-32 flex items-center justify-center relative">
+                                            {/* Custom Geometric Shapes instead of generic icons */}
+                                            {i === 0 && (
+                                                <div className="w-full h-full border border-blue-500/20 rotate-45 flex items-center justify-center group-hover:rotate-[135deg] transition-transform duration-1000">
+                                                    <div className="w-1/2 h-1/2 border border-blue-500/40" />
+                                                </div>
                                             )}
-                                            <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-[10px] font-black shrink-0 relative z-10 shadow-lg shadow-blue-500/20">
-                                                {step.n}
-                                            </div>
-                                            <div className="space-y-2">
-                                                <h3 className="text-xl font-black tracking-tight flex items-center gap-3">
-                                                    {step.t}
-                                                    <step.icon className="w-4 h-4 text-blue-600/40 group-hover:text-blue-600 transition-colors" />
-                                                </h3>
-                                                <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed tracking-tight text-sm max-w-md">{step.d}</p>
+                                            {i === 1 && (
+                                                <div className="w-full h-full flex items-center justify-center">
+                                                    <div className="w-full h-px bg-blue-500/30 absolute rotate-45" />
+                                                    <div className="w-full h-px bg-blue-500/30 absolute -rotate-45" />
+                                                    <div className="w-12 h-12 rounded-full border border-blue-500/60 bg-blue-500/5 animate-pulse" />
+                                                </div>
+                                            )}
+                                            {i === 2 && (
+                                                <div className="w-full h-full flex items-center justify-center">
+                                                    {[...Array(3)].map((_, j) => (
+                                                        <div 
+                                                            key={j}
+                                                            className="absolute w-16 h-16 border-t border-l border-blue-500/40"
+                                                            style={{ 
+                                                                transform: `rotate(${j * 120}deg) translateY(-8px)`,
+                                                            }}
+                                                        />
+                                                    ))}
+                                                    <div className="w-4 h-4 bg-blue-600 rotate-45 shadow-[0_0_20px_rgba(37,99,235,1)]" />
+                                                </div>
+                                            )}
+                                            
+                                            <div className="absolute inset-0 flex items-center justify-center">
+                                                <span className="text-[10px] font-black text-blue-600/40 group-hover:text-blue-600 transition-colors uppercase tracking-widest">{step.n}</span>
                                             </div>
                                         </div>
-                                    ))}
-                                </div>
-                            </div>
-                            <div className="relative">
-                                <div className="absolute inset-0 bg-blue-600/5 dark:bg-blue-600/10 blur-[120px] rounded-full" />
-                                <div className="relative aspect-square rounded-[40px] md:rounded-[48px] border border-slate-200 dark:border-white/10 bg-white dark:bg-[#05070a] overflow-hidden shadow-2xl">
-                                    <div className="grid grid-cols-4 gap-3 md:gap-4 p-6 md:p-8 w-full h-full relative z-10">
-                                        {[Terminal, BookOpen, Brain, Sparkles, Search, Clock, Zap, Activity, Terminal, BookOpen, Brain, Sparkles, Search, Clock, Zap, Activity].map((IconComp, i) => (
-                                            <motion.div 
-                                                key={i} 
-                                                initial={{ opacity: 0.1, scale: 0.8 }}
-                                                whileInView={{ opacity: 0.4, scale: 1 }}
-                                                transition={{ delay: i * 0.05 }}
-                                                className="rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 flex items-center justify-center shadow-inner"
-                                            >
-                                                <IconComp className="w-4 h-4 text-blue-600/60 dark:text-blue-500/60" />
-                                            </motion.div>
-                                        ))}
                                     </div>
-                                    <div className="absolute inset-0 flex items-center justify-center p-12 z-20">
-                                        <motion.div 
-                                            animate={{ scale: [1, 1.05, 1] }}
-                                            transition={{ duration: 4, repeat: Infinity }}
-                                            className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-blue-600/10 backdrop-blur-md flex items-center justify-center border border-blue-500/20 shadow-[0_0_50px_rgba(37,99,235,0.2)]"
-                                        >
-                                            <GraduationCap className="w-12 h-12 md:w-16 md:h-16 text-blue-600" />
-                                        </motion.div>
+
+                                    <div className="max-w-lg">
+                                        <h3 className="text-3xl md:text-5xl font-black mb-6 tracking-tight group-hover:text-blue-600 transition-colors duration-500">
+                                            {step.t}
+                                        </h3>
+                                        <p className="text-slate-500 dark:text-slate-400 text-lg md:text-xl font-medium leading-relaxed tracking-tight text-center">
+                                            {step.d}
+                                        </p>
                                     </div>
-                                    <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white dark:from-[#05070a] to-transparent z-10" />
-                                    
-                                    {/* Decorative connecting lines for intuition */}
-                                    <svg className="absolute inset-0 w-full h-full opacity-[0.03] dark:opacity-[0.07] pointer-events-none" viewBox="0 0 400 400">
-                                        <path d="M100 100 L300 300 M300 100 L100 300" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" />
-                                        <circle cx="200" cy="200" r="150" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="8 8" />
-                                    </svg>
-                                </div>
-                            </div>
+
+                                    {/* Connection Indicator */}
+                                    {i !== WORKFLOW_STEPS.length - 1 && (
+                                        <div className="mt-20 flex flex-col items-center gap-2">
+                                            <div className="w-1 h-1 rounded-full bg-blue-500/20" />
+                                            <div className="w-1 h-1 rounded-full bg-blue-500/40" />
+                                            <div className="w-1 h-1 rounded-full bg-blue-500/60" />
+                                        </div>
+                                    )}
+                                </motion.div>
+                            ))}
                         </div>
                     </div>
                 </section>
