@@ -32,7 +32,7 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
                         {src ? (
                             <img src={src} alt={alt} className="w-full h-full object-cover" />
                         ) : (
-                            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary to-purple-800 text-white font-bold text-xl">
+                            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary to-indigo-800 text-white font-bold text-xl">
                                 {alt.charAt(0).toUpperCase()}
                             </div>
                         )}

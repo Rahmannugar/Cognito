@@ -161,7 +161,7 @@ export default function Classes() {
                                                                 "h-full rounded-full transition-all",
                                                                 progress === 100
                                                                     ? "bg-gradient-to-r from-green-500 to-emerald-500"
-                                                                    : "bg-gradient-to-r from-primary to-purple-500"
+                                                                    : "bg-gradient-to-r from-primary to-indigo-500"
                                                             )}
                                                         />
                                                     </div>
@@ -206,7 +206,7 @@ export default function Classes() {
                     >
                         <div className="relative w-24 h-24 mx-auto mb-6">
                             <div className="absolute inset-0 bg-primary/10 rounded-full blur-xl" />
-                            <div className="relative w-24 h-24 rounded-full bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center border-2 border-primary/20">
+                            <div className="relative w-24 h-24 rounded-full bg-gradient-to-br from-primary/20 to-indigo-500/20 flex items-center justify-center border-2 border-primary/20">
                                 <BookOpen className="w-12 h-12 text-primary" />
                             </div>
                         </div>

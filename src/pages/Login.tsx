@@ -39,7 +39,7 @@ export default function Login() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-primary-dark via-primary to-purple-500 flex items-center justify-center p-4 relative overflow-hidden">
+        <div className="min-h-screen bg-gradient-to-br from-primary-dark via-primary to-blue-600 flex items-center justify-center p-4 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
             <motion.div
@@ -49,7 +49,7 @@ export default function Login() {
             >
                 <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl p-8 backdrop-blur-sm">
                     <div className="flex flex-col items-center mb-8">
-                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center shadow-lg mb-4">
+                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-indigo-600 flex items-center justify-center shadow-lg mb-4">
                             <GraduationCap className="w-8 h-8 text-white" />
                         </div>
                         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Welcome Back</h1>

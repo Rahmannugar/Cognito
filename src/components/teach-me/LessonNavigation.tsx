@@ -39,7 +39,7 @@ export function LessonNavigation({ lessons, currentLessonId, onSelectLesson, cla
         <div className={cn("flex flex-col h-full bg-[#1a1b26] border-r border-gray-800", className)}>
             <div className="h-16 flex items-center px-6 border-b border-gray-800 shrink-0">
                 <h2 className="font-bold text-lg tracking-tight text-white">
-                    Cognito <span className="text-purple-500 font-normal">Teach Me</span>
+                    Cognito <span className="text-indigo-500 font-normal">Teach Me</span>
                 </h2>
             </div>
 
@@ -82,10 +82,10 @@ export function LessonNavigation({ lessons, currentLessonId, onSelectLesson, cla
             <div className="p-6 border-t border-gray-800 shrink-0 mb-safe">
                 <div className="flex items-center justify-between mb-2">
                     <span className="text-xs font-semibold text-gray-500">Course Progress</span>
-                    <span className="text-xs font-bold text-purple-500">{getProgress()}%</span>
+                    <span className="text-xs font-bold text-indigo-500">{getProgress()}%</span>
                 </div>
                 <div className="h-1 bg-gray-800 rounded-full overflow-hidden">
-                    <div className="h-full bg-purple-500 transition-all duration-500" style={{ width: `${getProgress()}%` }} />
+                    <div className="h-full bg-indigo-500 transition-all duration-500" style={{ width: `${getProgress()}%` }} />
                 </div>
             </div>
         </div>

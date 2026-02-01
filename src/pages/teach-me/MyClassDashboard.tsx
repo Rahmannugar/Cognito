@@ -21,7 +21,7 @@ export function MyClassDashboard() {
 
             <div className="w-full max-w-3xl bg-white dark:bg-gray-900 rounded-3xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-xl">
                 {/* Banner */}
-                <div className="h-32 bg-gradient-to-r from-primary to-purple-600 relative">
+                <div className="h-32 bg-gradient-to-r from-primary to-indigo-600 relative">
                     <div className="absolute bottom-6 left-8">
                         <span className="px-3 py-1 bg-black/30 backdrop-blur text-white text-xs font-bold rounded-full uppercase tracking-wider">
                             Active Course

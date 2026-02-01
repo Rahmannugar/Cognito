@@ -77,7 +77,7 @@ export function LessonUnitsList() {
                     <ChevronLeft className="w-5 h-5" />
                 </button>
                 <h2 className="font-bold text-lg tracking-tight text-white">
-                    Course <span className="text-purple-500 font-normal">Curriculum</span>
+                    Course <span className="text-indigo-500 font-normal">Curriculum</span>
                 </h2>
             </div>
 
@@ -96,7 +96,7 @@ export function LessonUnitsList() {
                                 className={cn(
                                     "group w-full p-4 rounded-xl border-2 flex items-center justify-between text-left transition-all duration-300",
                                     isCurrent
-                                        ? "bg-purple-500/10 border-purple-500 shadow-[0_0_20px_rgba(168,85,247,0.15)]"
+                                        ? "bg-indigo-500/10 border-indigo-500 shadow-[0_0_20px_rgba(79,70,229,0.15)]"
                                         : isCompleted
                                             ? "bg-gray-800/50 border-gray-700 hover:bg-gray-800"
                                             : "bg-gray-900/50 border-transparent opacity-60 cursor-not-allowed"
@@ -105,7 +105,7 @@ export function LessonUnitsList() {
                                 <div className="flex items-center gap-4">
                                     <div className={cn(
                                         "w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm",
-                                        isCurrent ? "bg-purple-500 text-white" : "bg-gray-800 text-gray-500"
+                                        isCurrent ? "bg-indigo-500 text-white" : "bg-gray-800 text-gray-500"
                                     )}>
                                         {unit.unitOrder}
                                     </div>
@@ -127,7 +127,7 @@ export function LessonUnitsList() {
                                 <div className="text-gray-500">
                                     {isLocked && <Lock className="w-5 h-5" />}
                                     {isCompleted && <CheckCircle className="w-6 h-6 text-green-500" />}
-                                    {isCurrent && <PlayCircle className="w-8 h-8 text-purple-500 group-hover:scale-110 transition-transform" />}
+                                    {isCurrent && <PlayCircle className="w-8 h-8 text-indigo-500 group-hover:scale-110 transition-transform" />}
                                 </div>
                             </button>
                         );

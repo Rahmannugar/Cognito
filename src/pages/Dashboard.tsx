@@ -38,9 +38,9 @@ const LEARNING_MODES = [
         icon: Upload,
         href: '/pdf',
         buttonText: 'Upload PDF',
-        gradient: 'from-blue-500/10 to-purple-500/10',
+        gradient: 'from-blue-500/10 to-indigo-500/10',
         hoverBorder: 'hover:border-blue-200',
-        iconBg: 'from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20',
+        iconBg: 'from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20',
         iconColor: 'text-blue-600',
     },
     {
@@ -129,7 +129,7 @@ export default function Dashboard() {
                         className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary-dark to-primary p-8 md:p-10 text-white shadow-lg shadow-primary/20"
                     >
                         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
-                        <div className="absolute bottom-0 left-20 w-40 h-40 bg-purple-900/20 rounded-full blur-2xl pointer-events-none" />
+                        <div className="absolute bottom-0 left-20 w-40 h-40 bg-indigo-900/20 rounded-full blur-2xl pointer-events-none" />
                         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                             <div className="space-y-2">
                                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm border border-white/20 text-xs font-bold uppercase tracking-wider mb-2">
@@ -139,14 +139,14 @@ export default function Dashboard() {
                                 <h1 className="text-3xl md:text-4xl font-bold leading-tight">
                                     Welcome back, {user?.fullName}!
                                 </h1>
-                                <p className="text-purple-100 max-w-md text-sm md:text-base opacity-90">
+                                <p className="text-indigo-100 max-w-md text-sm md:text-base opacity-90">
                                     Ready to continue your learning journey?
                                 </p>
                             </div>
                             <div className="flex-shrink-0">
                                 <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 flex flex-col items-center justify-center min-w-[120px]">
                                     <span className="text-3xl font-bold">{goalProgress}%</span>
-                                    <span className="text-xs text-purple-100 uppercase tracking-wide">
+                                    <span className="text-xs text-indigo-100 uppercase tracking-wide">
                                         Weekly Goal ({stats.weeklyGoalHours || '?'}h)
                                     </span>
                                 </div>
@@ -225,8 +225,8 @@ export default function Dashboard() {
                                 icon={<Clock className="w-5 h-5" />}
                                 value={formatTime(stats.totalMinutesSpent || 0)}
                                 label="Hours Spent"
-                                iconBgColor="bg-purple-100 dark:bg-purple-900/30"
-                                iconColor="text-purple-600"
+                                iconBgColor="bg-indigo-100 dark:bg-indigo-900/30"
+                                iconColor="text-indigo-600"
                             />
                             <StatsCard
                                 icon={<Flame className="w-5 h-5" />}

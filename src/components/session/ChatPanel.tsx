@@ -40,7 +40,7 @@ export function ChatPanel() {
         <div className="flex flex-col h-full bg-gray-800 border-l border-gray-700">
             {/* Header */}
             <div className="flex items-center gap-3 p-4 border-b border-gray-700 bg-gray-900">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-blue-500 flex items-center justify-center">
                     <Sparkles className="w-5 h-5 text-white" />
                 </div>
                 <div>

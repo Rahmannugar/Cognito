@@ -129,12 +129,14 @@ export const MockAuthService = {
             setTimeout(() => {
                 // Extract user ID from token
                 const match = token.match(/mock_token_(\d+)/);
-                if (!match) {
+                const userIdStr = match?.[1];
+
+                if (!userIdStr) {
                     resolve(null);
                     return;
                 }
 
-                const userId = parseInt(match[1]);
+                const userId = parseInt(userIdStr, 10);
                 const user = mockUsers.find(u => u.id === userId);
 
                 if (user) {

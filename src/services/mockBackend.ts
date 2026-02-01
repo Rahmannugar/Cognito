@@ -165,11 +165,14 @@ export const MockBackend = {
     completeUnit: async (unitId: string): Promise<LessonUnit[]> => {
         return new Promise((resolve) => {
             const idx = activeUnits.findIndex(u => u.id === unitId);
-            if (idx !== -1) {
-                activeUnits[idx].unitStatus = 'COMPLETED';
-                if (idx + 1 < activeUnits.length) {
-                    activeUnits[idx + 1].unitStatus = 'IN_PROGRESS';
-                }
+            const unit = activeUnits[idx];
+            if (unit) {
+                unit.unitStatus = 'COMPLETED';
+
+                const nextUnit = activeUnits[idx + 1];
+                if (nextUnit) {
+                    nextUnit.unitStatus = 'IN_PROGRESS';
+    }
 
                 // Update class completion percentage
                 const completedCount = activeUnits.filter(u => u.unitStatus === 'COMPLETED').length;
@@ -191,13 +194,14 @@ export const MockBackend = {
         return new Promise((resolve) => {
             setTimeout(() => {
                 const quiz = mockQuizzes.find(q => q.lessonId === lessonId);
-                resolve(quiz || mockQuizzes[0]); // Default to first quiz if not found
+                const defaultQuiz = mockQuizzes[0] ?? null;
+                resolve(quiz ?? defaultQuiz); // Default to first quiz if not found
             }, 300);
         });
     },
 
     // 6. Get Lesson HTML Content (AI-generated)
-    getLessonContent: async (lessonId: string): Promise<string> => {
+    getLessonContent: async (_lessonId: string): Promise<string> => {
         return new Promise((resolve) => {
             setTimeout(() => {
                 // Mock HTML5 Canvas interactive lesson from Gemini AI
