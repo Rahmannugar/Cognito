@@ -60,7 +60,7 @@ export function RecentActivity({ sessions, className }: RecentActivityProps) {
                                         </>
                                     ) : (
                                         // Text placeholder - show full topic name truncated
-                                        <div className="w-full h-full bg-gradient-to-br from-primary/80 to-indigo-600/80 flex items-center justify-center p-2">
+                                        <div className="w-full h-full bg-linear-to-br from-primary/80 to-indigo-600/80 flex items-center justify-center p-2">
                                             <span className="text-white font-bold text-xs text-center leading-tight line-clamp-3">
                                                 {displayTitle || '?'}
                                             </span>

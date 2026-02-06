@@ -145,7 +145,7 @@ export default function Dashboard() {
                 <div className="xl:col-span-8 flex flex-col gap-8">
                     <motion.section
                         variants={itemVariants}
-                        className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary-dark to-primary p-8 md:p-10 text-white shadow-lg shadow-primary/20"
+                        className="relative overflow-hidden rounded-2xl bg-linear-to-r from-primary-dark to-primary p-8 md:p-10 text-white shadow-lg shadow-primary/20"
                     >
                         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
                         <div className="absolute bottom-0 left-20 w-40 h-40 bg-indigo-900/20 rounded-full blur-2xl pointer-events-none" />
@@ -162,7 +162,7 @@ export default function Dashboard() {
                                     Ready to continue your learning journey?
                                 </p>
                             </div>
-                            <div className="flex-shrink-0">
+                            <div className="shrink-0">
                                 <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 flex flex-col items-center justify-center min-w-[120px]">
                                     <span className="text-3xl font-bold">{goalProgress}%</span>
                                     <span className="text-xs text-indigo-100 uppercase tracking-wide">
@@ -191,11 +191,11 @@ export default function Dashboard() {
                                 )}
                             >
                                 <div className={cn(
-                                    'absolute top-0 right-0 w-32 h-32 bg-gradient-to-br rounded-full blur-2xl -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-500',
+                                    'absolute top-0 right-0 w-32 h-32 bg-linear-to-br rounded-full blur-2xl -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-500',
                                     mode.gradient
                                 )} />
                                 <div className={cn(
-                                    'mb-6 w-14 h-14 rounded-xl bg-gradient-to-br flex items-center justify-center',
+                                    'mb-6 w-14 h-14 rounded-xl bg-linear-to-br flex items-center justify-center',
                                     mode.iconBg,
                                     mode.iconColor
                                 )}>

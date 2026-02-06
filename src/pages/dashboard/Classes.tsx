@@ -35,7 +35,7 @@ export default function Classes() {
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
-                            className="mb-6 p-4 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-800 rounded-xl flex items-center justify-between shadow-sm"
+                            className="mb-6 p-4 bg-linear-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-800 rounded-xl flex items-center justify-between shadow-sm"
                         >
                             <div className="flex items-center gap-3">
                                 <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
@@ -143,8 +143,8 @@ export default function Classes() {
                                                         className={cn(
                                                             "h-full rounded-full",
                                                             progress === 100
-                                                                ? "bg-gradient-to-r from-green-500 to-emerald-500"
-                                                                : "bg-gradient-to-r from-primary to-indigo-500"
+                                                                ? "bg-linear-to-r from-green-500 to-emerald-500"
+                                                                : "bg-linear-to-r from-primary to-indigo-500"
                                                         )}
                                                         style={{ width: `${progress}%` }}
                                                     />
@@ -180,7 +180,7 @@ export default function Classes() {
                     >
                         <div className="relative w-24 h-24 mx-auto mb-6">
                             <div className="absolute inset-0 bg-primary/10 rounded-full blur-xl" />
-                            <div className="relative w-24 h-24 rounded-full bg-gradient-to-br from-primary/20 to-indigo-500/20 flex items-center justify-center border-2 border-primary/20">
+                            <div className="relative w-24 h-24 rounded-full bg-linear-to-br from-primary/20 to-indigo-500/20 flex items-center justify-center border-2 border-primary/20">
                                 <BookOpen className="w-12 h-12 text-primary" />
                             </div>
                         </div>

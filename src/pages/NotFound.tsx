@@ -40,7 +40,7 @@ export default function NotFound() {
                                 <BookOpen className="w-10 h-10 md:w-12 md:h-12 text-primary" strokeWidth={2} />
                             </motion.div>
                             
-                            <h1 className="text-[80px] md:text-[140px] font-black leading-none text-transparent bg-clip-text bg-gradient-to-br from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">
+                            <h1 className="text-[80px] md:text-[140px] font-black leading-none text-transparent bg-clip-text bg-linear-to-br from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">
                                 404
                             </h1>
                         </div>

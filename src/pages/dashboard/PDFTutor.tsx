@@ -48,7 +48,7 @@ export default function PDFTutor() {
                         <button className="p-2 text-gray-600 cursor-pointer dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-full transition-colors">
                             <ZoomOut className="w-5 h-5" />
                         </button>
-                        <span className="text-xs font-medium px-2 min-w-[3rem] text-center dark:text-white">100%</span>
+                        <span className="text-xs font-medium px-2 min-w-12 text-center dark:text-white">100%</span>
                         <button className="p-2 text-gray-600 cursor-pointer dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-full transition-colors">
                             <ZoomIn className="w-5 h-5" />
                         </button>

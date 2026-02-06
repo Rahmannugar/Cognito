@@ -59,7 +59,7 @@ export default function VerifyOtp({ type }: VerifyOtpProps) {
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 p-8 rounded-[32px] shadow-2xl relative overflow-hidden"
+                    className="bg-white dark:bg-white/2 border border-slate-200 dark:border-white/5 p-8 rounded-3xl shadow-2xl relative overflow-hidden"
                 >
                     <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 

@@ -22,12 +22,12 @@ export function TopicSelection() {
     ];
 
     return (
-        <div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 relative overflow-hidden">
+        <div className="min-h-screen w-full bg-linear-to-br from-slate-950 via-slate-900 to-indigo-950 relative overflow-hidden">
             {/* Background decorations */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-1/4 -left-32 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
                 <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-primary/5 to-indigo-500/5 rounded-full blur-3xl" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-linear-to-r from-primary/5 to-indigo-500/5 rounded-full blur-3xl" />
             </div>
 
             {/* Back button */}
@@ -46,7 +46,7 @@ export function TopicSelection() {
                 <div className="w-full max-w-2xl mx-auto">
                     {/* Header section */}
                     <div className="text-center mb-12 space-y-4">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary/20 to-indigo-500/20 border border-primary/30 backdrop-blur-sm">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-primary/20 to-indigo-500/20 border border-primary/30 backdrop-blur-sm">
                             <GraduationCap className="w-4 h-4 text-primary" />
                             <span className="text-sm font-semibold text-primary uppercase tracking-wide">
                                 AI-Powered Learning
@@ -55,7 +55,7 @@ export function TopicSelection() {
                         
                         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight">
                             What do you want to{' '}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-400">
+                            <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-indigo-400">
                                 learn?
                             </span>
                         </h1>
@@ -68,7 +68,7 @@ export function TopicSelection() {
                     {/* Input section */}
                     <form onSubmit={handleSubmit} className="mb-10">
                         <div className="relative group">
-                            <div className="absolute -inset-1 bg-gradient-to-r from-primary to-indigo-500 rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
+                            <div className="absolute -inset-1 bg-linear-to-r from-primary to-indigo-500 rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
                             <div className="relative flex flex-col sm:flex-row gap-3 p-2 bg-slate-900/90 rounded-2xl border border-white/10 backdrop-blur-xl">
                                 <input
                                     value={topic}
@@ -81,7 +81,7 @@ export function TopicSelection() {
                                     type="submit"
                                     disabled={!topic.trim()}
                                     size="lg"
-                                    className="h-14 px-8 rounded-xl bg-gradient-to-r from-primary to-indigo-500 hover:from-primary-dark hover:to-indigo-600 text-white font-bold shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all duration-300"
+                                    className="h-14 px-8 rounded-xl bg-linear-to-r from-primary to-indigo-500 hover:from-primary-dark hover:to-indigo-600 text-white font-bold shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all duration-300"
                                 >
                                     <>
                                         Teach Me

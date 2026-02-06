@@ -36,7 +36,7 @@ export default function Login() {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 p-8 md:p-10 rounded-[32px] shadow-2xl backdrop-blur-xl"
+                    className="bg-white dark:bg-white/2 border border-slate-200 dark:border-white/5 p-8 md:p-10 rounded-3xl shadow-2xl backdrop-blur-xl"
                 >
                     <div className="flex flex-col items-center mb-10">
                         <div className="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-600/30 mb-6 group transition-transform hover:scale-105">

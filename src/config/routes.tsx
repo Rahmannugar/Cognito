@@ -1,20 +1,18 @@
 import { lazy, ReactNode } from 'react';
-import { Navigate } from 'react-router-dom';
 
-// Lazy load pages for better performance
-const Landing = lazy(() => import('@/pages/Landing'));
-const Dashboard = lazy(() => import('@/pages/Dashboard'));
-const Signup = lazy(() => import('@/pages/Signup'));
-const Login = lazy(() => import('@/pages/Login'));
-const VerifyOtp = lazy(() => import('@/pages/VerifyOtp'));
-const ForgotPassword = lazy(() => import('@/pages/ForgotPassword'));
-const Classes = lazy(() => import('@/pages/Classes'));
-const Settings = lazy(() => import('@/pages/Settings'));
-const QuizMode = lazy(() => import('@/pages/QuizMode'));
-const TeachMe = lazy(() => import('@/pages/TeachMe'));
-const Community = lazy(() => import('@/pages/Community'));
-const Privacy = lazy(() => import('@/pages/Privacy'));
-const Terms = lazy(() => import('@/pages/Terms'));
+const Landing = lazy(() => import('@/pages/home/Landing'));
+const Dashboard = lazy(() => import('@/pages/dashboard/Dashboard'));
+const Signup = lazy(() => import('@/pages/auth/Signup'));
+const Login = lazy(() => import('@/pages/auth/Login'));
+const VerifyOtp = lazy(() => import('@/pages/auth/VerifyOtp'));
+const ForgotPassword = lazy(() => import('@/pages/auth/ForgotPassword'));
+const Classes = lazy(() => import('@/pages/dashboard/Classes'));
+const Settings = lazy(() => import('@/pages/dashboard/Settings'));
+const QuizMode = lazy(() => import('@/pages/dashboard/QuizMode'));
+const TeachMe = lazy(() => import('@/pages/dashboard/TeachMe'));
+const Community = lazy(() => import('@/pages/dashboard/Community'));
+const Privacy = lazy(() => import('@/pages/home/Privacy'));
+const Terms = lazy(() => import('@/pages/home/Terms'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
 
 

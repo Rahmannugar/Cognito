@@ -70,7 +70,7 @@ export default function YouTubeTutor() {
                                     </svg>
                                 </button>
                             </div>
-                            <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/80 to-transparent flex items-end px-4 pb-4 gap-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div className="absolute bottom-0 left-0 right-0 h-16 bg-linear-to-t from-black/80 to-transparent flex items-end px-4 pb-4 gap-4 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <svg className="w-6 h-6 text-white cursor-pointer" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M8 5v14l11-7z" />
                                 </svg>
