@@ -119,7 +119,7 @@ export function LessonUnitsList() {
                                             isCompleted ? "bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400" :
                                                 "bg-slate-100 dark:bg-slate-800 text-slate-500"
                                     )}>
-                                        {unit.unitOrder + 1}
+                                        {unit.unitOrder}
                                     </div>
                                     <div>
                                         <h3 className={cn(

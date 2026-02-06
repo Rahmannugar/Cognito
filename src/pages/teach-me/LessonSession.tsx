@@ -185,6 +185,7 @@ export function LessonSession() {
                 {/* Sandbox / Whiteboard Area - Full width on mobile, Left side on desktop */}
                 <div className="w-full lg:w-2/3 xl:w-3/4 h-[55vh] lg:h-full bg-slate-100 dark:bg-slate-900 relative order-1 lg:order-1 border-b lg:border-b-0 lg:border-r border-slate-200 dark:border-slate-800 transition-all duration-500 ease-in-out">
                     <iframe
+                        key={currentStep?.id}
                         ref={iframeRef}
                         title="Interactive Sandbox"
                         sandbox="allow-scripts allow-same-origin"

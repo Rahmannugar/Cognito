@@ -17,7 +17,7 @@ export function SessionSetup() {
             }
 
             const classId = parseInt(localStorage.getItem('currentClassId') || '0');
-            const unitIndex = state.unit.unitOrder;
+            const unitIndex = Math.max(0, state.unit.unitOrder - 1);
 
             if (unitIndex === undefined || !classId) {
                 navigate('/classes');
