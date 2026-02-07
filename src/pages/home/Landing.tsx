@@ -77,6 +77,9 @@ const WORKFLOW_STEPS = [
 export default function Landing() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [demoStatus, setDemoStatus] = useState<"extracting" | "active">(
+    "extracting",
+  );
   const heroRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -85,13 +88,20 @@ export default function Landing() {
   });
 
   const mockupY = useTransform(scrollYProgress, [0, 1], [0, -60]);
-  const innerMockupY = useTransform(scrollYProgress, [0, 1], [0, -10]);
-  const chatBubble1Y = useTransform(scrollYProgress, [0, 1], [0, -40]);
-  const chatBubble2Y = useTransform(scrollYProgress, [0, 1], [0, -20]);
-  const chatBubble3Y = useTransform(scrollYProgress, [0, 1], [0, -5]);
+  const innerMockupY = useTransform(scrollYProgress, [0, 1], [0, -5]);
 
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
+
+  const ecoRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: ecoScroll } = useScroll({
+    target: ecoRef,
+    offset: ["start end", "end start"],
+  });
+
+  const ecoY1 = useTransform(ecoScroll, [0, 1], [0, -20]);
+  const ecoY2 = useTransform(ecoScroll, [0, 1], [0, -10]);
+  const ecoY3 = useTransform(ecoScroll, [0, 1], [0, -30]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -103,14 +113,14 @@ export default function Landing() {
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute inset-0 bg-slate-50 dark:bg-[#02040c]" />
 
-        <div className="absolute inset-0 opacity-40 dark:opacity-40">
-          <div className="absolute top-[-20%] left-[-10%] w-[70%] h-[70%] bg-[radial-gradient(circle_at_center,rgba(37,99,235,0.12)_0%,transparent_70%)] blur-[140px]" />
-          <div className="absolute top-[10%] right-[-20%] w-[60%] h-[60%] bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1)_0%,transparent_70%)] blur-[120px]" />
-          <div className="absolute bottom-[-20%] left-[10%] w-[80%] h-[80%] bg-[radial-gradient(circle_at_center,rgba(29,78,216,0.08)_0%,transparent_70%)] blur-[160px]" />
+        <div className="absolute inset-0 opacity-10 dark:opacity-40">
+          <div className="absolute top-[-20%] left-[-10%] w-[70%] h-[70%] bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.08)_0%,transparent_70%)] dark:bg-[radial-gradient(circle_at_center,rgba(37,99,235,0.12)_0%,transparent_70%)] blur-[140px]" />
+          <div className="absolute top-[10%] right-[-20%] w-[60%] h-[60%] bg-[radial-gradient(circle_at_center,rgba(100,116,139,0.05)_0%,transparent_70%)] dark:bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1)_0%,transparent_70%)] blur-[120px]" />
+          <div className="absolute bottom-[-20%] left-[10%] w-[80%] h-[80%] bg-[radial-gradient(circle_at_center,rgba(148,163,184,0.04)_0%,transparent_70%)] dark:bg-[radial-gradient(circle_at_center,rgba(29,78,216,0.08)_0%,transparent_70%)] blur-[160px]" />
         </div>
 
-        <div className="absolute inset-0 bg-[radial-gradient(50%_45%_at_50%_0%,rgba(59,130,246,0.1)_0%,transparent_100%)] dark:bg-[radial-gradient(50%_45%_at_50%_0%,rgba(59,130,246,0.18)_0%,transparent_100%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_-15%,rgba(37,99,235,0.06)_0%,transparent_100%)] dark:bg-[radial-gradient(ellipse_70%_60%_at_50%_-15%,rgba(37,99,235,0.12)_0%,transparent_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(50%_45%_at_50%_0%,rgba(59,130,246,0.15)_0%,transparent_100%)] dark:bg-[radial-gradient(50%_45%_at_50%_0%,rgba(59,130,246,0.18)_0%,transparent_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_-15%,rgba(37,99,235,0.1)_0%,transparent_100%)] dark:bg-[radial-gradient(ellipse_70%_60%_at_50%_-15%,rgba(37,99,235,0.12)_0%,transparent_100%)]" />
 
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.01)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-size-[6rem_6rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
@@ -225,7 +235,7 @@ export default function Landing() {
       </AnimatePresence>
 
       <main className="relative z-10">
-        <section ref={heroRef} className="pt-32 pb-10 md:pt-48 md:pb-20 px-6">
+        <section ref={heroRef} className="pt-32 pb-20 md:pt-48 md:pb-40 px-6">
           <div className="max-w-7xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
@@ -233,7 +243,7 @@ export default function Landing() {
               className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-500/10 bg-blue-500/5 text-blue-600 dark:text-blue-400 text-[9px] font-black uppercase tracking-[0.4em] mb-8 md:mb-12 shadow-sm"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
-              Next-Generation Learning
+              Cognition Agent
             </motion.div>
 
             <motion.div style={{ opacity, scale }}>
@@ -315,11 +325,14 @@ export default function Landing() {
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            onViewportEnter={() => {
+              setTimeout(() => setDemoStatus("active"), 2000);
+            }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-20 md:mt-32 max-w-5xl mx-auto px-4 relative group"
+            className="mt-32 md:mt-20 max-w-5xl mx-auto px-4 relative group"
           >
             <div className="relative p-1 bg-linear-to-b from-slate-200 dark:from-white/10 to-transparent rounded-3xl md:rounded-[40px] border border-slate-100 dark:border-white/5">
-              <div className="bg-slate-50 dark:bg-[#05070a]/80 backdrop-blur-3xl rounded-[28px] md:rounded-[36px] overflow-hidden border border-slate-200 dark:border-white/5 shadow-2xl flex flex-col min-h-[500px] lg:aspect-16/10">
+              <div className="bg-slate-50 dark:bg-[#05070a]/80 backdrop-blur-3xl rounded-[28px] md:rounded-[36px] overflow-hidden border border-slate-200 dark:border-white/5 shadow-2xl flex flex-col min-h-[600px] lg:aspect-16/10">
                 {/* Mac Header Decorations */}
                 <div className="h-12 border-b border-slate-200 dark:border-white/5 flex items-center px-6 gap-2 shrink-0">
                   <div className="flex gap-2">
@@ -411,7 +424,7 @@ export default function Landing() {
                   <div className="flex-1 flex flex-col relative overflow-hidden bg-white/50 dark:bg-transparent">
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(37,99,235,0.05),transparent)] pointer-events-none" />
 
-                    <div className="flex-1 p-6 md:p-8 flex flex-col gap-6">
+                    <div className="flex-1 p-4 md:p-8 flex flex-col gap-6">
                       {/* Active Learning Component */}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-48 mb-4">
                         <div className="rounded-2xl overflow-hidden relative group border border-slate-200 dark:border-white/10 shadow-lg transition-transform hover:scale-[1.02]">
@@ -429,11 +442,27 @@ export default function Landing() {
                             Live Stream Synthesis
                           </div>
                         </div>
-                        <div className="rounded-2xl bg-slate-50 dark:bg-white/3 border border-slate-200 dark:border-white/10 p-5 flex flex-col gap-4 shadow-sm">
+                        <div className="rounded-2xl bg-slate-50 dark:bg-white/3 border border-slate-200 dark:border-white/10 p-4 md:p-5 flex flex-col gap-4 shadow-sm">
                           <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-                            <span className="text-[10px] font-black uppercase tracking-tight text-blue-500">
-                              Ajibade Extracting
+                            <div
+                              className={cn(
+                                "w-2 h-2 rounded-full animate-pulse",
+                                demoStatus === "active"
+                                  ? "bg-green-500"
+                                  : "bg-blue-500",
+                              )}
+                            />
+                            <span
+                              className={cn(
+                                "text-[10px] font-black uppercase tracking-tight transition-colors duration-500",
+                                demoStatus === "active"
+                                  ? "text-green-500"
+                                  : "text-blue-500",
+                              )}
+                            >
+                              {demoStatus === "active"
+                                ? "Session Active"
+                                : "Ajibade Extracting"}
                             </span>
                           </div>
                           <div className="flex flex-wrap gap-2">
@@ -455,12 +484,11 @@ export default function Landing() {
                       </div>
 
                       {/* Chat Thread */}
-                      <div className="space-y-8">
+                      <div className="space-y-4 md:space-y-6">
                         <motion.div
-                          style={{ y: chatBubble1Y }}
                           initial={{ opacity: 0, y: 10 }}
                           whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 1 }}
+                          transition={{ delay: 0.2 }}
                           className="flex gap-3 max-w-[85%]"
                         >
                           <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center shrink-0 shadow-lg shadow-blue-500/30">
@@ -476,10 +504,9 @@ export default function Landing() {
                         </motion.div>
 
                         <motion.div
-                          style={{ y: chatBubble2Y }}
                           initial={{ opacity: 0, y: 10 }}
                           whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 2.5 }}
+                          transition={{ delay: 1.0 }}
                           className="flex gap-3 max-w-[80%] ml-auto justify-end"
                         >
                           <div className="bg-blue-600 p-4 rounded-2xl rounded-tr-none shadow-2xl shadow-blue-500/40 border border-blue-500 ring-1 ring-white/20">
@@ -493,10 +520,9 @@ export default function Landing() {
                         </motion.div>
 
                         <motion.div
-                          style={{ y: chatBubble3Y }}
                           initial={{ opacity: 0, y: 10 }}
                           whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 4 }}
+                          transition={{ delay: 2.0 }}
                           className="flex gap-3 max-w-[85%]"
                         >
                           <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center shrink-0 shadow-lg shadow-blue-500/30">
@@ -509,16 +535,53 @@ export default function Landing() {
                               <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-bounce [animation-delay:0.4s]" />
                             </div>
                             <p className="text-[12px] font-bold leading-relaxed text-slate-700 dark:text-slate-200">
-                              Synthesizing the visual layer from page 12 of your
-                              PDF... done. What happens if the weight at node A
-                              drops to zero?
+                              Synthesizing the visual layer from page 12...
+                              done. What happens if the weight at node A drops
+                              to zero?
+                            </p>
+                          </div>
+                        </motion.div>
+
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 3.2 }}
+                          className="flex gap-3 max-w-[80%] ml-auto justify-end"
+                        >
+                          <div className="bg-blue-600 p-4 rounded-2xl rounded-tr-none shadow-2xl shadow-blue-500/40 border border-blue-500 ring-1 ring-white/20">
+                            <p className="text-[12px] font-bold text-white">
+                              The signal dies? So the network stops learning
+                              downstream?
+                            </p>
+                          </div>
+                          <div className="w-8 h-8 rounded-xl bg-slate-200 dark:bg-white/10 flex items-center justify-center shrink-0 border border-slate-300 dark:border-white/20">
+                            <div className="w-3 h-3 rounded-full bg-slate-400 dark:bg-white/40" />
+                          </div>
+                        </motion.div>
+
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 4.2 }}
+                          className="flex gap-3 max-w-[85%]"
+                        >
+                          <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center shrink-0 shadow-lg shadow-blue-500/30">
+                            <Sparkles className="w-4 h-4 text-white" />
+                          </div>
+                          <div className="bg-white dark:bg-slate-800/80 backdrop-blur-xl border border-slate-200 dark:border-white/10 p-4 rounded-2xl rounded-tl-none shadow-xl border-t border-r">
+                            <p className="text-[12px] font-bold leading-relaxed text-slate-700 dark:text-slate-200">
+                              <span className="text-blue-600 dark:text-blue-400">
+                                Correct.
+                              </span>{" "}
+                              That's the &quot;Vanishing Gradient&quot; problem.
+                              You just derived why we need ReLU functions.
                             </p>
                           </div>
                         </motion.div>
                       </div>
 
                       {/* Input Simulation */}
-                      <div className="mt-8 h-14 rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-white/5 backdrop-blur-xl flex items-center px-5 gap-4 shadow-sm border-t border-b">
+                      <div className="mt-6 md:mt-8 h-14 rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-white/5 backdrop-blur-xl flex items-center px-5 gap-4 shadow-sm border-t border-b">
                         <div className="flex-1 text-sm font-bold text-slate-400 dark:text-white/20">
                           Message Ajibade...
                         </div>
@@ -536,7 +599,8 @@ export default function Landing() {
 
         <section
           id="ecosystem"
-          className="py-32 md:py-56 px-6 relative bg-slate-50/50 dark:bg-[#05070a]/50 border-y border-slate-100 dark:border-white/5"
+          ref={ecoRef}
+          className="pt-24 pb-32 md:pt-32 md:pb-56 px-6 relative bg-slate-50/50 dark:bg-[#05070a]/50 border-b border-slate-100 dark:border-white/5"
         >
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-24">
@@ -551,7 +615,7 @@ export default function Landing() {
               </motion.div>
               <h2 className="text-4xl md:text-8xl font-black mb-8 leading-[0.9] tracking-tighter">
                 Cognitive Learning <br />
-                <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-sky-500">
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 via-blue-500 to-sky-400 animate-gradient-x">
                   Ecosystem.
                 </span>
               </h2>
@@ -561,14 +625,16 @@ export default function Landing() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-8 lg:gap-10 auto-rows-[280px]">
+            <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-5 md:gap-8 lg:gap-10">
               {/* Feature 1: Topic Tutor - Large Square */}
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -8 }}
-                className="md:col-span-3 lg:col-span-4 cursor-pointer row-span-2 group relative overflow-hidden rounded-[3rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-12 flex flex-col justify-between shadow-sm hover:shadow-2xl transition-all"
+                style={{ y: ecoY1 }}
+                initial={{ opacity: 0, scale: 0.9, y: 50, rotateX: 10 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="md:col-span-3 lg:col-span-4 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-6 md:p-10 flex flex-col justify-between shadow-sm hover:shadow-2xl transition-all min-h-[300px] md:min-h-[350px]"
               >
                 <div className="relative z-10">
                   <div className="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center mb-10 shadow-lg shadow-blue-500/20">
@@ -589,12 +655,17 @@ export default function Landing() {
 
               {/* Feature 2: YouTube Tutor - Wide */}
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                whileHover={{ y: -8 }}
-                className="md:col-span-3 lg:col-span-8 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-[#f8fafc] dark:bg-blue-900/10 border border-slate-200 dark:border-blue-500/10 p-12 flex flex-col md:flex-row gap-10 items-center shadow-sm hover:shadow-2xl transition-all"
+                style={{ y: ecoY2 }}
+                initial={{ opacity: 0, scale: 0.9, y: 50, rotateX: 10 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{
+                  duration: 1,
+                  delay: 0.1,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="md:col-span-3 lg:col-span-8 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-[#f8fafc] dark:bg-blue-900/10 border border-slate-200 dark:border-white/10 p-6 md:p-12 flex flex-col md:flex-row gap-8 md:gap-10 items-center shadow-sm hover:shadow-2xl transition-all min-h-[300px] md:min-h-[350px]"
               >
                 <div className="flex-1 relative z-10">
                   <div className="w-14 h-14 rounded-xl bg-red-500 flex items-center justify-center mb-8 shadow-lg shadow-red-500/20">
@@ -617,12 +688,17 @@ export default function Landing() {
 
               {/* Feature 3: PDF Tutor - Small */}
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                whileHover={{ y: -8 }}
-                className="md:col-span-3 lg:col-span-4 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-12 flex flex-col justify-between shadow-sm hover:shadow-2xl transition-all"
+                style={{ y: ecoY3 }}
+                initial={{ opacity: 0, scale: 0.9, y: 50, rotateX: 10 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{
+                  duration: 1,
+                  delay: 0.2,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="md:col-span-3 lg:col-span-4 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-6 md:p-12 flex flex-col justify-between shadow-sm hover:shadow-2xl transition-all min-h-[300px] md:min-h-[280px]"
               >
                 <div className="w-14 h-14 rounded-xl bg-sky-500 flex items-center justify-center mb-8">
                   <FileText className="w-7 h-7 text-white" />
@@ -640,12 +716,16 @@ export default function Landing() {
 
               {/* Feature 4: Ajibade - Wide/Medium */}
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                whileHover={{ y: -8 }}
-                className="md:col-span-3 lg:col-span-4 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-blue-600 p-12 flex flex-col justify-between shadow-xl shadow-blue-500/20 transition-all"
+                initial={{ opacity: 0, scale: 0.9, y: 50, rotateX: 10 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{
+                  duration: 1,
+                  delay: 0.3,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="md:col-span-3 lg:col-span-8 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-blue-600 p-6 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-10 shadow-xl shadow-blue-500/20 transition-all min-h-[300px] md:min-h-[280px]"
               >
                 <div className="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-xl flex items-center justify-center mb-8">
                   <Sparkles className="w-7 h-7 text-white" />
@@ -666,14 +746,22 @@ export default function Landing() {
 
               {/* Feature 5: Quizzes - Vertical */}
               <motion.div
-                whileHover={{ y: -5 }}
-                className="md:col-span-3 lg:col-span-4 cursor-pointer group relative overflow-hidden rounded-[2.5rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-10 flex flex-col justify-between shadow-sm hover:shadow-2xl transition-all"
+                initial={{ opacity: 0, scale: 0.9, y: 50, rotateX: 10 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{
+                  duration: 1,
+                  delay: 0.1,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="md:col-span-3 lg:col-span-4 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-6 md:p-12 flex flex-col justify-between shadow-sm hover:shadow-2xl transition-all min-h-[300px]"
               >
-                <div className="w-12 h-12 rounded-xl bg-green-500 flex items-center justify-center mb-6">
-                  <Target className="w-6 h-6 text-white" />
+                <div className="w-14 h-14 rounded-xl bg-green-500 flex items-center justify-center mb-8">
+                  <Target className="w-7 h-7 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-black mb-2 uppercase tracking-tight">
+                  <h3 className="text-2xl font-black mb-3 uppercase tracking-tight">
                     Adaptive Quizzes
                   </h3>
                   <p className="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
@@ -683,33 +771,40 @@ export default function Landing() {
                 </div>
               </motion.div>
 
-              {/* Feature 6: Analytics - Wide */}
+              {/* Feature 6: Analytics - Small Square */}
               <motion.div
-                whileHover={{ y: -5 }}
-                className="md:col-span-6 lg:col-span-8 cursor-pointer group relative overflow-hidden rounded-[2.5rem] bg-slate-900 dark:bg-slate-900 border border-slate-800 p-10 flex flex-col md:flex-row gap-8 items-center shadow-2xl transition-all"
+                initial={{ opacity: 0, scale: 0.9, y: 50, rotateX: 10 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{
+                  duration: 1,
+                  delay: 0.2,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="md:col-span-3 lg:col-span-4 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-slate-900 border border-slate-800 p-6 md:p-12 flex flex-col justify-between shadow-2xl transition-all min-h-[300px]"
               >
                 <div className="flex-1">
-                  <div className="w-12 h-12 rounded-xl bg-purple-500 flex items-center justify-center mb-6">
-                    <Activity className="w-6 h-6 text-white" />
+                  <div className="w-14 h-14 rounded-xl bg-purple-500 flex items-center justify-center mb-8">
+                    <Activity className="w-7 h-7 text-white" />
                   </div>
-                  <h3 className="text-2xl font-black mb-2 uppercase text-white tracking-tight">
-                    Progress Analytics
+                  <h3 className="text-2xl font-black mb-4 uppercase text-white tracking-tight">
+                    Analytics
                   </h3>
-                  <p className="text-sm text-slate-400 font-medium leading-relaxed">
-                    Monitor learning streaks, total minutes spent learning, and
-                    your global ranking in real-time.
+                  <p className="text-sm text-slate-400 font-medium leading-relaxed mb-6">
+                    Monitor streaks and global ranking.
                   </p>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-4 items-end">
                   {[1, 2, 3].map((i) => (
                     <div
                       key={i}
-                      className="w-16 h-32 rounded-2xl bg-white/5 border border-white/10 flex flex-col justify-end p-2 gap-2"
+                      className="w-12 h-24 rounded-xl bg-white/5 border border-white/10 flex flex-col justify-end p-1.5 gap-2"
                     >
                       <motion.div
                         initial={{ height: 0 }}
                         whileInView={{ height: `${20 + i * 20}%` }}
-                        className="w-full bg-blue-500 rounded-lg"
+                        className="w-full bg-blue-500 rounded-md"
                       />
                     </div>
                   ))}
@@ -718,15 +813,23 @@ export default function Landing() {
 
               {/* Feature 7: Real-time - Small */}
               <motion.div
-                whileHover={{ y: -5 }}
-                className="md:col-span-6 lg:col-span-4 group cursor-pointer relative overflow-hidden rounded-[2.5rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-10 flex flex-col justify-between shadow-sm hover:shadow-2xl transition-all"
+                initial={{ opacity: 0, scale: 0.9, y: 50, rotateX: 10 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{
+                  duration: 1,
+                  delay: 0.3,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="md:col-span-6 lg:col-span-4 group cursor-pointer relative overflow-hidden rounded-[3rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-6 md:p-12 flex flex-col justify-between shadow-sm hover:shadow-2xl transition-all min-h-[300px]"
               >
-                <div className="w-12 h-12 rounded-xl bg-yellow-500 flex items-center justify-center mb-6">
-                  <Zap className="w-6 h-6 text-white" />
+                <div className="w-14 h-14 rounded-xl bg-yellow-500 flex items-center justify-center mb-8">
+                  <Zap className="w-7 h-7 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-black mb-2 uppercase tracking-tight">
-                    Real-time Updates
+                  <h3 className="text-2xl font-black mb-3 uppercase tracking-tight">
+                    Real-time Protocol
                   </h3>
                   <p className="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
                     WebSocket-powered live lesson sessions for seamless
@@ -752,10 +855,6 @@ export default function Landing() {
                   Specialized modules designed to bridge the gap between
                   information and understanding.
                 </p>
-              </div>
-              <div className="h-px flex-1 bg-slate-100 dark:bg-white/5 mx-12 hidden lg:block" />
-              <div className="text-[10px] font-bold uppercase tracking-[0.4em] text-blue-600 dark:text-blue-500">
-                Features
               </div>
             </div>
 
