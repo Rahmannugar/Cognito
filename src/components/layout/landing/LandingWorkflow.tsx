@@ -16,7 +16,7 @@ export const LandingWorkflow = () => {
           whileInView={{ opacity: 1 }}
           className="text-[10px] font-black uppercase tracking-[0.6em] text-blue-600 mb-6"
         >
-          The Study Method
+          Cognito Workflow
         </motion.div>
 
         <h2 className="text-5xl md:text-8xl font-black mb-24 leading-[0.85] tracking-tight">

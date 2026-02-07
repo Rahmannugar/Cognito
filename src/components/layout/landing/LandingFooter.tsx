@@ -68,11 +68,8 @@ export const LandingFooter = () => (
       </div>
       <div className="mt-20 md:mt-24 pt-10 border-t border-slate-100 dark:border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6">
         <p className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-400 dark:text-slate-500">
-          © {new Date().getFullYear()} Cognito Inc.
+          © {new Date().getFullYear()} Cognito
         </p>
-        <div className="flex items-center gap-6">
-          {/* Socials or extra links could go here */}
-        </div>
       </div>
     </div>
   </footer>

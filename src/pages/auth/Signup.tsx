@@ -5,6 +5,12 @@ import { GraduationCap, Mail, Lock, User, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useAuth } from "@/lib/hooks/useAuth";
+import { useToastStore } from "@/lib/store/toastStore";
+import {
+  validateEmail,
+  validatePassword,
+  validateFullName,
+} from "@/lib/utils/validation";
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -12,13 +18,49 @@ export default function Signup() {
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState<{
+    fullName?: string;
+    email?: string;
+    password?: string;
+  }>({});
   const { signup } = useAuth();
   const navigate = useNavigate();
+  const { addToast } = useToastStore();
+
+  const validate = () => {
+    const newErrors: typeof errors = {};
+    if (!validateFullName(formData.fullName)) {
+      newErrors.fullName = "Full name must be at least 2 characters";
+      addToast(newErrors.fullName, "error");
+    }
+    if (!validateEmail(formData.email)) {
+      newErrors.email = "Please enter a valid email address";
+      addToast(newErrors.email, "error");
+    }
+    if (!validatePassword(formData.password)) {
+      newErrors.password =
+        "Password must be at least 8 characters, include uppercase, lowercase, a number, and a special character";
+      addToast(newErrors.password, "error");
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    signup.mutate(formData);
+    if (validate()) {
+      signup.mutate(formData);
+    }
   };
+
+  const handleChange =
+    (field: keyof typeof formData) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFormData({ ...formData, [field]: e.target.value });
+      if (errors[field]) {
+        setErrors({ ...errors, [field]: "" });
+      }
+    };
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#02040a] text-slate-900 dark:text-white flex items-center justify-center p-4 relative overflow-hidden font-['Outfit']">
@@ -57,31 +99,25 @@ export default function Signup() {
             <Input
               label="Full Name"
               value={formData.fullName}
-              onChange={(e) =>
-                setFormData({ ...formData, fullName: e.target.value })
-              }
+              onChange={handleChange("fullName")}
               icon={<User className="w-5 h-5 text-slate-400" />}
-              required
+              error={errors.fullName}
             />
             <Input
               label="Email Address"
               type="email"
               value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
+              onChange={handleChange("email")}
               icon={<Mail className="w-5 h-5 text-slate-400" />}
-              required
+              error={errors.email}
             />
             <Input
               label="Password"
               type="password"
               value={formData.password}
-              onChange={(e) =>
-                setFormData({ ...formData, password: e.target.value })
-              }
+              onChange={handleChange("password")}
               icon={<Lock className="w-5 h-5 text-slate-400" />}
-              required
+              error={errors.password}
             />
 
             <div className="text-xs text-slate-500 leading-relaxed px-2">
@@ -100,6 +136,7 @@ export default function Signup() {
               type="submit"
               className="w-full h-14 bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 text-white dark:text-slate-900 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl"
               disabled={signup.isPending}
+              loading={signup.isPending}
             >
               {signup.isPending ? "Creating Account..." : "Get Started"}
             </Button>

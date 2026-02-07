@@ -32,22 +32,22 @@ const ToastItem = ({
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, y: 50, scale: 0.3 }}
+      initial={{ opacity: 0, y: -20, scale: 0.9 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
+      exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
       className={cn(
-        "flex items-center gap-3 px-4 py-3 rounded-xl border backdrop-blur-md shadow-lg min-w-[300px] pointer-events-auto",
+        "flex items-center gap-3 px-4 py-3 rounded-2xl border backdrop-blur-md shadow-2xl min-w-[300px] max-w-[450px] pointer-events-auto",
         colors[type],
-        "bg-white/80 dark:bg-black/80",
+        "bg-white/90 dark:bg-black/90",
       )}
     >
       <Icon className="w-5 h-5 shrink-0" />
-      <p className="text-sm font-medium flex-1 text-slate-900 dark:text-slate-100">
+      <p className="text-sm font-bold flex-1 text-slate-900 dark:text-slate-100 leading-tight">
         {message}
       </p>
       <button
         onClick={() => removeToast(id)}
-        className="p-1 hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer rounded-full transition-colors"
+        className="p-1 hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer rounded-full transition-colors ml-1"
       >
         <X className="w-4 h-4 opacity-50" />
       </button>
@@ -59,7 +59,7 @@ export const ToastContainer = () => {
   const { toasts } = useToastStore();
 
   return (
-    <div className="fixed bottom-4 right-4 z-100 flex flex-col gap-2 pointer-events-none">
+    <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] flex flex-col gap-3 pointer-events-none w-full max-w-md px-4 items-center">
       <AnimatePresence mode="popLayout">
         {toasts.map((toast) => (
           <ToastItem key={toast.id} {...toast} />

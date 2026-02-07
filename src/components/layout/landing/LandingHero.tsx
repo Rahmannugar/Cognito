@@ -121,7 +121,7 @@ export const LandingHero = ({
         className="mt-32 md:mt-20 max-w-5xl mx-auto px-4 relative group"
       >
         <div className="relative p-1 bg-linear-to-b from-slate-200 dark:from-white/10 to-transparent rounded-3xl md:rounded-[40px] border border-slate-100 dark:border-white/5">
-          <div className="bg-slate-50 dark:bg-[#05070a]/80 backdrop-blur-3xl rounded-[28px] md:rounded-[36px] overflow-hidden border border-slate-200 dark:border-white/5 shadow-2xl flex flex-col min-h-[500px] lg:aspect-16/10">
+          <div className="bg-slate-50 dark:bg-[#05070a]/80 backdrop-blur-3xl rounded-[28px] md:rounded-[36px] overflow-hidden border border-slate-200 dark:border-white/5 shadow-2xl flex flex-col min-h-[500px] lg:aspect-16/10 lg:max-h-[80vh]">
             {/* Mac Header Decorations */}
             <div className="h-12 border-b border-slate-200 dark:border-white/5 flex items-center px-6 gap-2 shrink-0">
               <div className="flex gap-2">
@@ -137,7 +137,7 @@ export const LandingHero = ({
               </div>
             </div>
 
-            <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
+            <div className="flex-1 flex flex-col md:flex-row overflow-hidden min-h-0">
               {/* Left Navigation Context */}
               <motion.div
                 style={{ y: innerMockupY }}
@@ -210,10 +210,10 @@ export const LandingHero = ({
               </motion.div>
 
               {/* Dynamic Chat & Workspace Area */}
-              <div className="flex-1 flex flex-col relative overflow-hidden bg-white/50 dark:bg-transparent">
+              <div className="flex-1 flex flex-col relative overflow-hidden bg-white/50 dark:bg-transparent min-h-0">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(37,99,235,0.05),transparent)] pointer-events-none" />
 
-                <div className="flex-1 p-3 md:p-8 flex flex-col gap-3 md:gap-6">
+                <div className="flex-1 p-3 md:p-8 flex flex-col gap-3 md:gap-6 min-h-0">
                   {/* Active Learning Component */}
                   <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-4 h-48 mb-4">
                     <div className="rounded-2xl overflow-hidden relative group border border-slate-200 dark:border-white/10 shadow-lg transition-transform hover:scale-[1.02]">
