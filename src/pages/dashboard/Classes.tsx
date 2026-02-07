@@ -81,29 +81,22 @@ export default function Classes() {
             </div>
           </button>
 
-          <div className="relative">
-            <div className="absolute inset-0 bg-slate-50/50 dark:bg-slate-900/50 backdrop-blur-[1px] rounded-xl z-10 flex items-center justify-center">
-              <span className="bg-slate-200 dark:bg-slate-800 text-slate-500 text-xs font-bold px-2 py-1 rounded-md">
-                Coming Soon
-              </span>
+          <button
+            onClick={() => navigate("/teach-me/pdf-setup")}
+            className="group flex items-center gap-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-emerald-500/50 hover:bg-emerald-50 dark:hover:bg-emerald-900/10 transition-all text-left"
+          >
+            <div className="w-12 h-12 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform">
+              <FileText className="w-6 h-6" />
             </div>
-            <button
-              disabled
-              className="w-full flex items-center gap-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 opacity-60 text-left"
-            >
-              <div className="w-12 h-12 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
-                <FileText className="w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="font-bold text-slate-900 dark:text-white">
-                  From PDF
-                </h3>
-                <p className="text-sm text-slate-500">
-                  Upload a document to get summaries and quizzes.
-                </p>
-              </div>
-            </button>
-          </div>
+            <div>
+              <h3 className="font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 transition-colors">
+                From PDF
+              </h3>
+              <p className="text-sm text-slate-500">
+                Upload a document to get summaries and quizzes.
+              </p>
+            </div>
+          </button>
         </div>
       </motion.div>
     </div>

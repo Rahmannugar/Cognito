@@ -47,14 +47,14 @@ const LEARNING_MODES = [
     description:
       "Upload readings and documents to get instant summaries and key takeaways.",
     icon: Upload,
-    href: null,
-    buttonText: "Coming Soon",
+    href: "/teach-me/pdf-setup",
+    buttonText: "Start Learning",
     gradient: "from-blue-500/10 to-blue-600/10",
     hoverBorder: "hover:border-blue-200",
     iconBg:
       "from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-600/20",
     iconColor: "text-blue-600",
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     id: "teach-me",
