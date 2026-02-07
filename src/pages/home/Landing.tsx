@@ -29,25 +29,25 @@ import { cn } from "@/lib/utils/utils";
 const FEATURES = [
   {
     icon: Play,
-    title: "Video Intelligence",
+    title: "Video Decoder",
     description:
-      "Transform passive viewing into active learning. Cognito breaks down complex videos into manageable concepts with interactive dialogue.",
+      "Decode any video data stream into navigable knowledge structures. Cognito enables real-time dialogue with content that moves at your speed.",
     gradient: "from-blue-600 to-blue-700",
     className: "",
   },
   {
     icon: FileText,
-    title: "Document Analysis",
+    title: "Neural Parsing",
     description:
-      "Process hundreds of pages in seconds. Extract insights and clarify complex segments instantly.",
+      "Synthesize thousands of pages in seconds. Extract hidden insights and reconstruct complex segments into intuitive mental models.",
     gradient: "from-blue-600 to-blue-700",
     className: "",
   },
   {
     icon: Target,
-    title: "Adaptive Learning",
+    title: "Adaptive Mastery",
     description:
-      "Master any subject. Cognito architects a progressive learning path tailored to your current knowledge for maximum efficiency.",
+      "Architect your own expertise. Cognito maps your current skill landscape and designs a precision-targeted path to complete subject mastery.",
     gradient: "from-blue-600 to-blue-700",
     className: "",
   },
@@ -56,20 +56,20 @@ const FEATURES = [
 const WORKFLOW_STEPS = [
   {
     n: "01",
-    t: "Ingestion",
-    d: "Paste links or upload documents. Cognito analyzes the structure and creates a localized knowledge base.",
+    t: "Acquisition",
+    d: "Paste raw links or upload research. Cognito's neural engine builds a contextual knowledge landscape instantly.",
     icon: Activity,
   },
   {
     n: "02",
     t: "Synthesis",
-    d: "Interact with your material. Ask questions and bridge knowledge gaps through natural dialogue.",
+    d: "Engage with your intelligence layer. Bridge comprehension gaps through structured, responsive dialogue with any material.",
     icon: Brain,
   },
   {
     n: "03",
-    t: "Mastery",
-    d: "Track progress through validated assessments and automated reviews to ensure long-term retention.",
+    t: "Retention",
+    d: "Validate and crystalize understanding through adaptive assessments designed for long-term neural retention.",
     icon: BookOpen,
   },
 ];
@@ -84,7 +84,12 @@ export default function Landing() {
     offset: ["start start", "end start"],
   });
 
-  const mockupY = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const mockupY = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const innerMockupY = useTransform(scrollYProgress, [0, 1], [0, -10]);
+  const chatBubble1Y = useTransform(scrollYProgress, [0, 1], [0, -40]);
+  const chatBubble2Y = useTransform(scrollYProgress, [0, 1], [0, -20]);
+  const chatBubble3Y = useTransform(scrollYProgress, [0, 1], [0, -5]);
+
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
 
@@ -314,131 +319,212 @@ export default function Landing() {
             className="mt-20 md:mt-32 max-w-5xl mx-auto px-4 relative group"
           >
             <div className="relative p-1 bg-linear-to-b from-slate-200 dark:from-white/10 to-transparent rounded-3xl md:rounded-[40px] border border-slate-100 dark:border-white/5">
-              <div className="bg-slate-50 dark:bg-[#05070a]/80 backdrop-blur-3xl rounded-[28px] md:rounded-[36px] overflow-hidden border border-slate-200 dark:border-white/5 shadow-2xl flex flex-col min-h-[400px] lg:aspect-16/10">
-                <div className="h-10 border-b border-slate-200 dark:border-white/5 flex items-center px-4 md:px-6 gap-2 shrink-0">
-                  <div className="flex gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-white/10" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-slate-200 dark:bg-white/10" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-slate-200 dark:bg-white/10" />
+              <div className="bg-slate-50 dark:bg-[#05070a]/80 backdrop-blur-3xl rounded-[28px] md:rounded-[36px] overflow-hidden border border-slate-200 dark:border-white/5 shadow-2xl flex flex-col min-h-[500px] lg:aspect-16/10">
+                {/* Mac Header Decorations */}
+                <div className="h-12 border-b border-slate-200 dark:border-white/5 flex items-center px-6 gap-2 shrink-0">
+                  <div className="flex gap-2">
+                    <div className="w-3 h-3 rounded-full bg-[#FF5F56] shadow-inner" />
+                    <div className="w-3 h-3 rounded-full bg-[#FFBD2E] shadow-inner" />
+                    <div className="w-3 h-3 rounded-full bg-[#27C93F] shadow-inner" />
                   </div>
-                  <div className="ml-4 h-5 w-48 rounded-full bg-slate-200/50 dark:bg-white/5 flex items-center px-3 gap-2">
-                    <Lock className="w-2 h-2 text-slate-400" />
-                    <div className="w-20 h-1 rounded-full bg-slate-300/50 dark:bg-white/10" />
+                  <div className="ml-10 h-6 w-64 rounded-xl bg-slate-200/50 dark:bg-white/5 flex items-center px-3 gap-2 border border-slate-300 dark:border-white/10">
+                    <Lock className="w-2.5 h-2.5 text-slate-400" />
+                    <div className="text-[9px] font-bold text-slate-400/80 tracking-tight">
+                      app.cognito.ai/tutor/active
+                    </div>
                   </div>
                 </div>
+
                 <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
-                  <div className="w-full md:w-64 border-b md:border-b-0 md:border-r border-slate-200 dark:border-white/5 p-4 flex flex-col gap-4">
-                    <div className="p-3 rounded-xl bg-blue-600/5 border border-blue-500/10">
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="w-10 h-10 rounded-lg bg-blue-600/10 flex items-center justify-center">
-                          <Activity className="w-5 h-5 text-blue-600" />
-                        </div>
-                        <div className="space-y-1">
-                          <div className="w-16 h-2 bg-blue-600/20 rounded-full" />
-                          <div className="w-10 h-1 bg-blue-600/10 rounded-full" />
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <div className="w-full h-1 bg-slate-200 dark:bg-white/5 rounded-full" />
-                        <div className="w-3/4 h-1 bg-slate-200 dark:bg-white/5 rounded-full" />
-                      </div>
-                    </div>
-                    <div className="space-y-3 px-1">
-                      {[1, 2, 3].map((i) => (
-                        <div key={i} className="flex items-center gap-3">
-                          <div className="w-4 h-4 rounded bg-slate-200 dark:bg-white/5" />
-                          <div className="w-24 h-1.5 bg-slate-200 dark:bg-white/5 rounded-full" />
+                  {/* Left Navigation Context */}
+                  <motion.div
+                    style={{ y: innerMockupY }}
+                    className="w-full md:w-64 border-b md:border-b-0 md:border-r border-slate-200 dark:border-white/5 p-6 flex flex-col gap-6 bg-slate-100/30 dark:bg-white/2"
+                  >
+                    <div className="space-y-4">
+                      <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                        Resources
+                      </p>
+                      {[
+                        {
+                          icon: Play,
+                          label: "Neural Networks 101",
+                          color: "text-red-500",
+                          active: true,
+                        },
+                        {
+                          icon: FileText,
+                          label: "Backprop_Paper.pdf",
+                          color: "text-blue-500",
+                        },
+                        {
+                          icon: Brain,
+                          label: "Vector Math Notes",
+                          color: "text-purple-500",
+                        },
+                      ].map((item, i) => (
+                        <div
+                          key={i}
+                          className={cn(
+                            "flex items-center gap-3 p-2.5 rounded-xl transition-all",
+                            item.active
+                              ? "bg-white dark:bg-white/10 shadow-sm border border-slate-200 dark:border-white/10"
+                              : "opacity-60 hover:opacity-100",
+                          )}
+                        >
+                          <div
+                            className={cn(
+                              "w-7 h-7 rounded-lg bg-current/10 flex items-center justify-center",
+                              item.color,
+                            )}
+                          >
+                            <item.icon className="w-3.5 h-3.5" />
+                          </div>
+                          <span className="text-[11px] font-bold truncate">
+                            {item.label}
+                          </span>
                         </div>
                       ))}
                     </div>
-                  </div>
-                  <div className="flex-1 p-6 md:p-10 flex flex-col gap-8 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(37,99,235,0.03),transparent)]" />
 
-                    <div className="relative z-20 space-y-3 pointer-events-none">
-                      <motion.div
-                        initial={{ opacity: 0, x: -10, y: 10 }}
-                        animate={{ opacity: 1, x: 0, y: 0 }}
-                        transition={{ delay: 1, duration: 0.5 }}
-                        className="flex gap-2 max-w-[240px]"
-                      >
-                        <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center shrink-0 shadow-lg">
-                          <Sparkles className="w-3 h-3 text-white" />
+                    <div className="mt-auto p-4 rounded-2xl bg-blue-600 shadow-xl shadow-blue-500/20">
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
+                          <Zap className="w-3 h-3 text-white" />
                         </div>
-                        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/10 p-3 rounded-2xl rounded-bl-none shadow-xl">
-                          <p className="text-[9px] font-bold leading-relaxed opacity-90">
-                            I've analyzed the PDF. Ready to start the synthesis?
-                          </p>
-                        </div>
-                      </motion.div>
-
-                      <motion.div
-                        initial={{ opacity: 0, x: 10, y: 10 }}
-                        animate={{ opacity: 1, x: 0, y: 0 }}
-                        transition={{ delay: 2.5, duration: 0.5 }}
-                        className="flex gap-2 max-w-[200px] ml-auto"
-                      >
-                        <div className="bg-blue-600 p-3 rounded-2xl rounded-br-none shadow-xl border border-blue-500">
-                          <p className="text-[9px] font-bold text-white">
-                            Yes, focus on the summary first.
-                          </p>
-                        </div>
-                        <div className="w-6 h-6 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center shrink-0 border border-slate-300 dark:border-white/20">
-                          <div className="w-2.5 h-2.5 rounded-full bg-slate-400 dark:bg-white/40" />
-                        </div>
-                      </motion.div>
-
-                      <motion.div
-                        initial={{ opacity: 0, x: -10, y: 10 }}
-                        animate={{ opacity: 1, x: 0, y: 0 }}
-                        transition={{ delay: 4.5, duration: 0.5 }}
-                        className="flex gap-2 max-w-[260px]"
-                      >
-                        <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center shrink-0 shadow-lg">
-                          <Sparkles className="w-3 h-3 text-white" />
-                        </div>
-                        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/10 p-3 rounded-2xl rounded-bl-none shadow-xl">
-                          <div className="flex gap-1 mb-1">
-                            <span className="w-1 h-1 rounded-full bg-blue-600 animate-bounce" />
-                            <span className="w-1 h-1 rounded-full bg-blue-600 animate-bounce [animation-delay:0.2s]" />
-                            <span className="w-1 h-1 rounded-full bg-blue-600 animate-bounce [animation-delay:0.4s]" />
-                          </div>
-                          <p className="text-[9px] font-bold leading-relaxed opacity-90">
-                            Perfect. Generating cross-modal links from YouTube
-                            now...
-                          </p>
-                        </div>
-                      </motion.div>
-                    </div>
-
-                    <div className="relative z-10 space-y-6 opacity-40">
-                      <div className="space-y-3">
-                        <div className="w-32 h-2 bg-blue-600/40 rounded-full" />
-                        <div className="w-full h-4 bg-slate-900 dark:bg-white rounded-full opacity-10" />
-                        <div className="w-2/3 h-4 bg-slate-900 dark:bg-white rounded-full opacity-10" />
+                        <span className="text-[10px] font-black text-white uppercase tracking-tight">
+                          Level 12
+                        </span>
                       </div>
+                      <div className="w-full h-1.5 bg-white/20 rounded-full overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: "70%" }}
+                          transition={{ duration: 1, delay: 0.5 }}
+                          className="h-full bg-white"
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
 
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="aspect-4/3 rounded-2xl bg-slate-200 dark:bg-white/5 border border-slate-200 dark:border-white/5 flex items-center justify-center">
-                          <Play className="w-8 h-8 text-blue-600/20" />
-                        </div>
-                        <div className="flex flex-col gap-3">
-                          <div className="flex-1 rounded-2xl bg-blue-600/5 border border-blue-500/10 p-4">
-                            <Brain className="w-4 h-4 text-blue-600 mb-2" />
-                            <div className="space-y-1">
-                              <div className="w-full h-1.5 bg-blue-600/20 rounded-full" />
-                              <div className="w-5/6 h-1.5 bg-blue-600/20 rounded-full" />
+                  {/* Dynamic Chat & Workspace Area */}
+                  <div className="flex-1 flex flex-col relative overflow-hidden bg-white/50 dark:bg-transparent">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(37,99,235,0.05),transparent)] pointer-events-none" />
+
+                    <div className="flex-1 p-6 md:p-8 flex flex-col gap-6">
+                      {/* Active Learning Component */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-48 mb-4">
+                        <div className="rounded-2xl overflow-hidden relative group border border-slate-200 dark:border-white/10 shadow-lg transition-transform hover:scale-[1.02]">
+                          <img
+                            src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800"
+                            className="w-full h-full object-cover opacity-80"
+                            alt="AI Visualization"
+                          />
+                          <div className="absolute inset-0 bg-blue-900/40 flex items-center justify-center">
+                            <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-xl border border-white/40 flex items-center justify-center group-hover:scale-110 transition-transform">
+                              <Play className="w-5 h-5 text-white fill-current" />
                             </div>
                           </div>
-                          <div className="flex-1 rounded-2xl bg-slate-50 dark:bg-white/2 border border-slate-200 dark:border-white/5" />
+                          <div className="absolute bottom-3 left-3 px-2 py-1 bg-black/50 backdrop-blur-md rounded text-[9px] font-bold text-white uppercase tracking-widest">
+                            Live Stream Synthesis
+                          </div>
+                        </div>
+                        <div className="rounded-2xl bg-slate-50 dark:bg-white/3 border border-slate-200 dark:border-white/10 p-5 flex flex-col gap-4 shadow-sm">
+                          <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                            <span className="text-[10px] font-black uppercase tracking-tight text-blue-500">
+                              Ajibade Extracting
+                            </span>
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            {[
+                              "Chain Rule",
+                              "Backprop",
+                              "Neurons",
+                              "Weights",
+                            ].map((tag, i) => (
+                              <div
+                                key={i}
+                                className="px-2 py-1 rounded-md bg-blue-600/10 border border-blue-500/20 text-[8px] font-black text-blue-600 dark:text-blue-400 uppercase tracking-tighter"
+                              >
+                                {tag}
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div className="mt-auto h-12 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/3 flex items-center px-4 gap-3 shadow-sm relative z-20">
-                      <div className="w-48 h-2 bg-slate-200 dark:bg-white/5 rounded-full" />
-                      <div className="ml-auto w-10 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
-                        <Zap className="w-4 h-4 text-white" />
+                      {/* Chat Thread */}
+                      <div className="space-y-8">
+                        <motion.div
+                          style={{ y: chatBubble1Y }}
+                          initial={{ opacity: 0, y: 10 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 1 }}
+                          className="flex gap-3 max-w-[85%]"
+                        >
+                          <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center shrink-0 shadow-lg shadow-blue-500/30">
+                            <Sparkles className="w-4 h-4 text-white" />
+                          </div>
+                          <div className="bg-white dark:bg-slate-800/80 backdrop-blur-xl border border-slate-200 dark:border-white/10 p-4 rounded-2xl rounded-tl-none shadow-xl border-t border-r">
+                            <p className="text-[12px] font-bold leading-relaxed text-slate-700 dark:text-slate-200">
+                              Based on the video at 04:22, backpropagation is
+                              the core engine here. Ready to test your intuition
+                              on the chain rule?
+                            </p>
+                          </div>
+                        </motion.div>
+
+                        <motion.div
+                          style={{ y: chatBubble2Y }}
+                          initial={{ opacity: 0, y: 10 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 2.5 }}
+                          className="flex gap-3 max-w-[80%] ml-auto justify-end"
+                        >
+                          <div className="bg-blue-600 p-4 rounded-2xl rounded-tr-none shadow-2xl shadow-blue-500/40 border border-blue-500 ring-1 ring-white/20">
+                            <p className="text-[12px] font-bold text-white">
+                              Yes, I'm ready. Use the diagram from the PDF!
+                            </p>
+                          </div>
+                          <div className="w-8 h-8 rounded-xl bg-slate-200 dark:bg-white/10 flex items-center justify-center shrink-0 border border-slate-300 dark:border-white/20">
+                            <div className="w-3 h-3 rounded-full bg-slate-400 dark:bg-white/40" />
+                          </div>
+                        </motion.div>
+
+                        <motion.div
+                          style={{ y: chatBubble3Y }}
+                          initial={{ opacity: 0, y: 10 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 4 }}
+                          className="flex gap-3 max-w-[85%]"
+                        >
+                          <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center shrink-0 shadow-lg shadow-blue-500/30">
+                            <Sparkles className="w-4 h-4 text-white" />
+                          </div>
+                          <div className="bg-white dark:bg-slate-800/80 backdrop-blur-xl border border-slate-200 dark:border-white/10 p-4 rounded-2xl rounded-tl-none shadow-xl border-t border-r">
+                            <div className="flex gap-1.5 mb-2">
+                              <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-bounce" />
+                              <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-bounce [animation-delay:0.2s]" />
+                              <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-bounce [animation-delay:0.4s]" />
+                            </div>
+                            <p className="text-[12px] font-bold leading-relaxed text-slate-700 dark:text-slate-200">
+                              Synthesizing the visual layer from page 12 of your
+                              PDF... done. What happens if the weight at node A
+                              drops to zero?
+                            </p>
+                          </div>
+                        </motion.div>
+                      </div>
+
+                      {/* Input Simulation */}
+                      <div className="mt-8 h-14 rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-white/5 backdrop-blur-xl flex items-center px-5 gap-4 shadow-sm border-t border-b">
+                        <div className="flex-1 text-sm font-bold text-slate-400 dark:text-white/20">
+                          Message Ajibade...
+                        </div>
+                        <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/20 cursor-pointer hover:scale-105 transition-transform active:scale-95">
+                          <Zap className="w-4 h-4 text-white" />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -450,7 +536,7 @@ export default function Landing() {
 
         <section
           id="ecosystem"
-          className="py-24 md:py-40 px-6 relative bg-slate-50/50 dark:bg-[#05070a]/50 border-y border-slate-100 dark:border-white/5"
+          className="py-32 md:py-56 px-6 relative bg-slate-50/50 dark:bg-[#05070a]/50 border-y border-slate-100 dark:border-white/5"
         >
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-24">
@@ -469,97 +555,112 @@ export default function Landing() {
                   Ecosystem.
                 </span>
               </h2>
-              <p className="text-xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto font-medium">
-                Autonomous AI modules that convert passive information into
-                living, interactive knowledge.
+              <p className="text-xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto font-medium leading-relaxed">
+                Autonomous modules designed to reconstruct passive data streams
+                into living, interactive expertise.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-4 lg:gap-6 auto-rows-[240px]">
+            <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-8 lg:gap-10 auto-rows-[280px]">
               {/* Feature 1: Topic Tutor - Large Square */}
               <motion.div
-                whileHover={{ y: -5 }}
-                className="md:col-span-3 lg:col-span-4 cursor-pointer row-span-2 group relative overflow-hidden rounded-[2.5rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-10 flex flex-col justify-between shadow-sm hover:shadow-2xl transition-all"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -8 }}
+                className="md:col-span-3 lg:col-span-4 cursor-pointer row-span-2 group relative overflow-hidden rounded-[3rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-12 flex flex-col justify-between shadow-sm hover:shadow-2xl transition-all"
               >
                 <div className="relative z-10">
-                  <div className="w-14 h-14 rounded-2xl bg-blue-600 flex items-center justify-center mb-8 shadow-lg shadow-blue-500/20">
-                    <GraduationCap className="w-7 h-7 text-white" />
+                  <div className="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center mb-10 shadow-lg shadow-blue-500/20">
+                    <GraduationCap className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-3xl font-black mb-4 uppercase leading-none tracking-tight">
+                  <h3 className="text-3xl font-black mb-6 uppercase leading-none tracking-tight">
                     Topic
                     <br />
-                    Tutor
+                    Architect
                   </h3>
                   <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
-                    AI generates personalized lessons on any topic you want to
-                    learn, architecting custom curriculum instantly.
+                    Generate personalized, hierarchical lessons on any subject,
+                    tailored specifically to your existing mental models.
                   </p>
                 </div>
-                <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-blue-600/5 rounded-full blur-3xl group-hover:bg-blue-600/10 transition-colors" />
+                <div className="absolute -bottom-16 -right-16 w-64 h-64 bg-blue-600/5 rounded-full blur-3xl group-hover:bg-blue-600/10 transition-colors" />
               </motion.div>
 
               {/* Feature 2: YouTube Tutor - Wide */}
               <motion.div
-                whileHover={{ y: -5 }}
-                className="md:col-span-3 lg:col-span-8 cursor-pointer group relative overflow-hidden rounded-[2.5rem] bg-[#f8fafc] dark:bg-blue-900/10 border border-slate-200 dark:border-blue-500/10 p-10 flex flex-col md:flex-row gap-8 items-center shadow-sm hover:shadow-2xl transition-all"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                whileHover={{ y: -8 }}
+                className="md:col-span-3 lg:col-span-8 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-[#f8fafc] dark:bg-blue-900/10 border border-slate-200 dark:border-blue-500/10 p-12 flex flex-col md:flex-row gap-10 items-center shadow-sm hover:shadow-2xl transition-all"
               >
                 <div className="flex-1 relative z-10">
-                  <div className="w-12 h-12 rounded-xl bg-red-500 flex items-center justify-center mb-6 shadow-lg shadow-red-500/20">
-                    <Play className="w-6 h-6 text-white" />
+                  <div className="w-14 h-14 rounded-xl bg-red-500 flex items-center justify-center mb-8 shadow-lg shadow-red-500/20">
+                    <Play className="w-7 h-7 text-white" />
                   </div>
-                  <h3 className="text-2xl font-black mb-3 uppercase tracking-tight">
-                    YouTube Intelligence
+                  <h3 className="text-2xl font-black mb-4 uppercase tracking-tight">
+                    Video Intelligence
                   </h3>
                   <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
-                    Transform any video into an interactive learning experience
-                    with AI-guided explanations and real-time breakdowns.
+                    Cognito decodes video data streams into navigable knowledge
+                    structures, enabling real-time dialogue with any content.
                   </p>
                 </div>
-                <div className="w-full md:w-1/3 aspect-video rounded-2xl bg-slate-200 dark:bg-white/5 border border-slate-300 dark:border-white/10 flex items-center justify-center">
-                  <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
-                    <Play className="w-4 h-4 text-slate-500 fill-current" />
+                <div className="w-full md:w-1/2 aspect-video rounded-3xl bg-slate-200 dark:bg-white/5 border border-slate-300 dark:border-white/10 flex items-center justify-center overflow-hidden">
+                  <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
+                    <Play className="w-5 h-5 text-slate-500 fill-current" />
                   </div>
                 </div>
               </motion.div>
 
               {/* Feature 3: PDF Tutor - Small */}
               <motion.div
-                whileHover={{ y: -5 }}
-                className="md:col-span-3 lg:col-span-4 cursor-pointer group relative overflow-hidden rounded-[2.5rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-10 flex flex-col justify-between shadow-sm hover:shadow-2xl transition-all"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                whileHover={{ y: -8 }}
+                className="md:col-span-3 lg:col-span-4 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-12 flex flex-col justify-between shadow-sm hover:shadow-2xl transition-all"
               >
-                <div className="w-12 h-12 rounded-xl bg-sky-500 flex items-center justify-center mb-6">
-                  <FileText className="w-6 h-6 text-white" />
+                <div className="w-14 h-14 rounded-xl bg-sky-500 flex items-center justify-center mb-8">
+                  <FileText className="w-7 h-7 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-black mb-2 uppercase tracking-tight">
-                    PDF Tutor
+                  <h3 className="text-2xl font-black mb-3 uppercase tracking-tight">
+                    Neural Synthesis
                   </h3>
                   <p className="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
-                    Upload documents and get AI-powered summaries, explanations,
-                    and interactive lessons.
+                    Upload complex research or textbooks and watch as they are
+                    reconstructed into interactive tutored sessions.
                   </p>
                 </div>
               </motion.div>
 
               {/* Feature 4: Ajibade - Wide/Medium */}
               <motion.div
-                whileHover={{ y: -5 }}
-                className="md:col-span-3 lg:col-span-4 cursor-pointer group relative overflow-hidden rounded-[2.5rem] bg-blue-600 p-10 flex flex-col justify-between shadow-xl shadow-blue-500/20 transition-all"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                whileHover={{ y: -8 }}
+                className="md:col-span-3 lg:col-span-4 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-blue-600 p-12 flex flex-col justify-between shadow-xl shadow-blue-500/20 transition-all"
               >
-                <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-xl flex items-center justify-center mb-6">
-                  <Sparkles className="w-6 h-6 text-white" />
+                <div className="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-xl flex items-center justify-center mb-8">
+                  <Sparkles className="w-7 h-7 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-black mb-2 uppercase text-white tracking-tight">
-                    Ajibade AI
+                  <h3 className="text-2xl font-black mb-3 uppercase text-white tracking-tight">
+                    Ajibade Co-Pilot
                   </h3>
                   <p className="text-sm text-blue-50/80 font-medium leading-relaxed">
-                    Your personal AI tutor available during lessons for
-                    real-time clarifications and natural dialogue.
+                    Your cognitive co-pilot. Ajibade doesn't just answer; it
+                    mentors, challenging assumptions and bridging skill gaps.
                   </p>
                 </div>
-                <div className="absolute top-0 right-0 p-8">
-                  <ArrowUpRight className="w-6 h-6 text-white/40 group-hover:text-white transition-colors" />
+                <div className="absolute top-0 right-0 p-10">
+                  <ArrowUpRight className="w-7 h-7 text-white/40 group-hover:text-white transition-colors" />
                 </div>
               </motion.div>
 
@@ -639,7 +740,7 @@ export default function Landing() {
 
         <section
           id="features"
-          className="py-10 md:py-20 px-6 border-t border-slate-100 dark:border-white/5"
+          className="py-32 md:py-56 px-6 relative border-t border-slate-100 dark:border-white/5"
         >
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row items-end justify-between mb-16 md:mb-24 gap-8">
