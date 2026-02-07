@@ -29,25 +29,49 @@ import { cn } from "@/lib/utils/utils";
 const FEATURES = [
   {
     icon: Play,
-    title: "Video Decoder",
+    title: "Semantic Video Intelligence",
     description:
-      "Decode any video data stream into navigable knowledge structures. Cognito enables real-time dialogue with content that moves at your speed.",
+      "Transmute passive consumption into active dialogue. Query moments, extract visual models, and synthesize hours of footage into seconds of insight.",
     gradient: "from-blue-600 to-blue-700",
     className: "",
   },
   {
     icon: FileText,
-    title: "Neural Parsing",
+    title: "Contextual Fabric",
     description:
-      "Synthesize thousands of pages in seconds. Extract hidden insights and reconstruct complex segments into intuitive mental models.",
+      "Weave disparate data sources—PDFs, papers, lectures—into a unified knowledge graph. Identify latent connections and architect a holistic understanding.",
     gradient: "from-blue-600 to-blue-700",
     className: "",
   },
   {
     icon: Target,
-    title: "Adaptive Mastery",
+    title: "Precision Curricula",
     description:
-      "Architect your own expertise. Cognito maps your current skill landscape and designs a precision-targeted path to complete subject mastery.",
+      "Dynamic paths that evolve in real-time. Our engine maps your neural proficiency, targeting knowledge gaps with surgical precision to ensure retention.",
+    gradient: "from-blue-600 to-blue-700",
+    className: "",
+  },
+  {
+    icon: Brain,
+    title: "Socratic Core",
+    description:
+      "Interact with an AI that challenges you. Strengthen mental models through recursive challenge-response cycles designed to fortify understanding.",
+    gradient: "from-blue-600 to-blue-700",
+    className: "",
+  },
+  {
+    icon: Activity,
+    title: "Swarm Analytics",
+    description:
+      "Benchmark against a global neural network of learners. Visualize your trajectory relative to the cohort and identify vectors for accelerated mastery.",
+    gradient: "from-blue-600 to-blue-700",
+    className: "",
+  },
+  {
+    icon: BookOpen,
+    title: "Deep Retention",
+    description:
+      "Algorithmic reinforcement that predicts memory decay. We reinject key concepts at the precise moment of forgetting to crystalize long-term knowledge.",
     gradient: "from-blue-600 to-blue-700",
     className: "",
   },
@@ -899,7 +923,7 @@ export default function Landing() {
           </div>
         </section>
 
-        <section className="py-20 md:py-40 px-6 bg-slate-50/50 dark:bg-white/1 border-y border-slate-100 dark:border-white/5 text-center">
+        <section className="py-20 md:py-40 px-6 bg-slate-50/50 dark:bg-white/1 text-center">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -951,7 +975,7 @@ export default function Landing() {
 
             <div className="relative space-y-40">
               {/* The Signal Stream (Vertical Line) */}
-              <div className="absolute left-1/2 top-0 bottom-0 w-px bg-linear-to-b from-transparent via-blue-500/50 to-transparent -translate-x-1/2 hidden md:block" />
+              <div className="absolute left-1/2 top-0 bottom-0 w-px bg-linear-to-b from-transparent via-blue-500/50 to-transparent -translate-x-1/2" />
 
               {WORKFLOW_STEPS.map((step, i) => (
                 <motion.div
