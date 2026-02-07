@@ -1,72 +1,90 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Suspense, useEffect } from 'react';
-import { ThemeProvider } from '@/components/providers/ThemeProvider';
-import { useAuthStore } from '@/lib/store/authStore';
-import { publicRoutes, protectedRoutes, notFoundRoute } from '@/config/routes';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Suspense, useEffect } from "react";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { useAuthStore } from "@/lib/store/authStore";
+import { publicRoutes, protectedRoutes, notFoundRoute } from "@/config/routes";
 
 /**
  * Loading fallback component
  */
 function LoadingFallback() {
-    return (
-        <div className="flex items-center justify-center min-h-screen bg-slate-50 dark:bg-slate-950">
-            <div className="text-center">
-                <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                <p className="text-slate-600 dark:text-slate-400 font-medium">Loading...</p>
-            </div>
-        </div>
-    );
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-slate-50 dark:bg-slate-950">
+      <div className="text-center">
+        <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+        <p className="text-slate-600 dark:text-slate-400 font-medium">
+          Loading...
+        </p>
+      </div>
+    </div>
+  );
 }
 
 /**
  * Private route wrapper component
  */
 function PrivateRoute({ children }: { children: React.ReactNode }) {
-    const { isAuthenticated, isLoading, checkAuth } = useAuthStore();
-    
-    useEffect(() => {
-        checkAuth();
-    }, [checkAuth]);
+  const { isAuthenticated, isLoading, checkAuth } = useAuthStore();
 
-    if (isLoading) {
-        return <LoadingFallback />;
-    }
-    
-    return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />;
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  if (isLoading) {
+    return <LoadingFallback />;
+  }
+
+  return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />;
 }
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+      retry: 1,
+    },
+  },
+});
 
 /**
  * Main App component
  */
 export default function App() {
-    return (
-        <ThemeProvider>
-            <BrowserRouter>
-                <Suspense fallback={<LoadingFallback />}>
-                    <Routes>
-                        {/* Public routes */}
-                        {publicRoutes.map((route) => (
-                            <Route
-                                key={route.path}
-                                path={route.path}
-                                element={route.element}
-                            />
-                        ))}
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider>
+        <BrowserRouter>
+          <Suspense fallback={<LoadingFallback />}>
+            <Routes>
+              {/* Public routes */}
+              {publicRoutes.map((route) => (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  element={route.element}
+                />
+              ))}
 
-                        {/* Protected routes */}
-                        {protectedRoutes.map((route) => (
-                            <Route
-                                key={route.path}
-                                path={route.path}
-                                element={<PrivateRoute>{route.element}</PrivateRoute>}
-                            />
-                        ))}
+              {/* Protected routes */}
+              {protectedRoutes.map((route) => (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  element={<PrivateRoute>{route.element}</PrivateRoute>}
+                />
+              ))}
 
-                        {/* 404 Not Found */}
-                        <Route path={notFoundRoute.path} element={notFoundRoute.element} />
-                    </Routes>
-                </Suspense>
-            </BrowserRouter>
-        </ThemeProvider>
-    );
+              {/* 404 Not Found */}
+              <Route
+                path={notFoundRoute.path}
+                element={notFoundRoute.element}
+              />
+            </Routes>
+          </Suspense>
+        </BrowserRouter>
+      </ThemeProvider>
+    </QueryClientProvider>
+  );
 }

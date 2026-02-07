@@ -83,7 +83,7 @@ export function Header() {
               />
               <button
                 onClick={logout}
-                className="p-2 text-gray-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-lg transition-all cursor-pointer"
+                className="p-2 text-red-500 dark:text-red-400 bg-red-50 dark:bg-red-900/10 hover:bg-red-100 dark:hover:bg-red-900/20 rounded-lg transition-all cursor-pointer"
                 title="Logout"
               >
                 <LogOut className="w-5 h-5" />

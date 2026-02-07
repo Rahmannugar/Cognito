@@ -1,62 +1,46 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { classService } from "@/lib/services/classService";
 import { Lock, PlayCircle, CheckCircle, ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils/utils";
 import { LessonUnit } from "@/lib/types";
 
+import { useClassById } from "@/lib/hooks/useClasses";
+
 export function LessonUnitsList() {
   const navigate = useNavigate();
-  const [units, setUnits] = useState<LessonUnit[]>([]);
-  const [classTitle, setClassTitle] = useState("");
-  const [loading, setLoading] = useState(true);
+  const storedClassId = localStorage.getItem("currentClassId");
+  const classId = storedClassId ? parseInt(storedClassId) : null;
 
-  useEffect(() => {
-    const storedClassId = localStorage.getItem("currentClassId");
+  const { data: cls, isLoading: loading } = useClassById(classId);
 
-    if (!storedClassId) {
-      navigate("/classes");
-      return;
+  if (!classId && !loading) {
+    navigate("/classes");
+    return null;
+  }
+
+  let units: LessonUnit[] = [];
+  let classTitle = "";
+
+  if (cls) {
+    if (cls.learningMode === "YOUTUBE_TUTOR" && cls.youtubeLessonUnits) {
+      units = cls.youtubeLessonUnits;
+    } else if (cls.learningMode === "PDF_TUTOR" && cls.pdfLessonUnits) {
+      units = cls.pdfLessonUnits;
+    } else {
+      units = cls.lessonUnits || [];
     }
+    units = [...units].sort((a, b) => a.unitOrder - b.unitOrder);
 
-    const id = parseInt(storedClassId);
-
-    classService
-      .getClassById(id)
-      .then((cls) => {
-        if (cls) {
-          let extractedUnits: LessonUnit[] = [];
-          if (cls.learningMode === "YOUTUBE_TUTOR" && cls.youtubeLessonUnits) {
-            extractedUnits = cls.youtubeLessonUnits;
-          } else if (cls.learningMode === "PDF_TUTOR" && cls.pdfLessonUnits) {
-            extractedUnits = cls.pdfLessonUnits;
-          } else {
-            extractedUnits = cls.lessonUnits || [];
-          }
-
-          extractedUnits.sort((a, b) => a.unitOrder - b.unitOrder);
-
-          setUnits(extractedUnits);
-
-          try {
-            if (cls.title.startsWith("{")) {
-              const parsed = JSON.parse(cls.title);
-              setClassTitle(parsed.topicText || cls.title);
-            } else {
-              setClassTitle(cls.title);
-            }
-          } catch {
-            setClassTitle(cls.title);
-          }
-        }
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Failed to load class:", error);
-        setLoading(false);
-        navigate("/classes");
-      });
-  }, [navigate]);
+    try {
+      if (cls.title.startsWith("{")) {
+        const parsed = JSON.parse(cls.title);
+        classTitle = parsed.topicText || cls.title;
+      } else {
+        classTitle = cls.title;
+      }
+    } catch {
+      classTitle = cls.title;
+    }
+  }
 
   const handleUnitClick = (unit: LessonUnit) => {
     if (unit.unitStatus === "NOT_STARTED" && unit.unitOrder > 0) {
@@ -140,13 +124,6 @@ export function LessonUnitsList() {
                         {unit.title}
                       </h3>
                       <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
-                        <span
-                          className={
-                            isCurrent ? "text-primary/70" : "text-slate-400"
-                          }
-                        >
-                          {unit.unitType || "Lesson"}
-                        </span>
                         {isCompleted && (
                           <span className="text-emerald-500 italic lowercase font-medium">
                             — completed

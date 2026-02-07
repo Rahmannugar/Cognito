@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -13,29 +13,18 @@ import {
 import { AppLayout } from "@/components/layout/AppLayout";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import { classService } from "@/lib/services/classService";
 import { Class } from "@/lib/types";
 import { cn } from "@/lib/utils/utils";
 
+import { useClasses } from "@/lib/hooks/useClasses";
+
 export default function Classes() {
-  const [classes, setClasses] = useState<Class[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data: classes = [], isLoading: loading } = useClasses();
   const { state } = useLocation();
   const navigate = useNavigate();
   const [showBanner, setShowBanner] = useState(!!state?.message);
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const newClassId = state?.newClassId;
-
-  useEffect(() => {
-    classService
-      .getClasses()
-      .then(setClasses)
-      .catch((err) => {
-        console.error(err);
-        setClasses([]);
-      })
-      .finally(() => setLoading(false));
-  }, []);
 
   const CreationDialog = () => (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">

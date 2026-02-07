@@ -17,7 +17,6 @@ import { StatsCard, RecentActivity } from "@/components/shared";
 import { ConfirmDialog } from "@/components/dialog/ConfirmDialog";
 import { cn, formatDate } from "@/lib/utils/utils";
 import { authService } from "@/lib/services/authService";
-import { classService } from "@/lib/services/classService";
 import { useAuthStore } from "@/lib/store/authStore";
 
 const formatTime = (minutes: number) => {
@@ -84,43 +83,30 @@ const itemVariants = {
   visible: { opacity: 1, y: 0 },
 };
 
+import { useRecentClasses } from "@/lib/hooks/useClasses";
+
 export default function Dashboard() {
   const { user, checkAuth } = useAuthStore();
   const navigate = useNavigate();
-  const [recentActivity, setRecentActivity] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
   const [showGoalPrompt, setShowGoalPrompt] = useState(false);
   const [goalInput, setGoalInput] = useState("");
   const [showComingSoon, setShowComingSoon] = useState(false);
   const [comingSoonFeature, setComingSoonFeature] = useState("");
 
-  useEffect(() => {
-    loadData();
-  }, []);
+  const { data: classes = [], isLoading: loading } = useRecentClasses();
 
-  const loadData = async () => {
-    try {
-      const classes = await classService.getRecentClasses().catch(() => []);
-      const activity = classes.map((cls: any) => ({
-        id: cls.id.toString(),
-        title: cls.title,
-        type:
-          cls.learningMode === "YOUTUBE_TUTOR"
-            ? "Video"
-            : cls.learningMode === "PDF_TUTOR"
-              ? "PDF"
-              : "Quiz",
-        thumbnail: "",
-        progress: cls.classCompletionPercentage || 0,
-        timeAgo: formatDate(new Date(cls.updatedAt)),
-      }));
-      setRecentActivity(activity);
-    } catch (e) {
-      console.error("Failed to load data", e);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const recentActivity = classes.map((cls: any) => ({
+    id: cls.id.toString(),
+    title: cls.title,
+    type: (cls.learningMode === "YOUTUBE_TUTOR"
+      ? "Video"
+      : cls.learningMode === "PDF_TUTOR"
+        ? "PDF"
+        : "Quiz") as "Video" | "PDF" | "Quiz",
+    thumbnail: "",
+    progress: cls.classCompletionPercentage || 0,
+    timeAgo: formatDate(new Date(cls.updatedAt)),
+  }));
 
   useEffect(() => {
     if (!user) return;
@@ -137,8 +123,7 @@ export default function Dashboard() {
       await authService.updateProfile({ weeklyGoalHours: parseInt(goalInput) });
       setShowGoalPrompt(false);
       localStorage.setItem("weeklyGoalPrompted", "true");
-      await checkAuth(); // Refresh user profile updates
-      loadData(); // Refresh to update UI
+      await checkAuth();
     } catch (e) {
       console.error("Failed to save goal", e);
     }

@@ -134,7 +134,7 @@ export default function Signup() {
 
             <Button
               type="submit"
-              className="w-full h-14 bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 text-white dark:text-slate-900 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl"
+              className="w-full h-14 bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 text-black dark:text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl"
               disabled={signup.isPending}
               loading={signup.isPending}
             >

@@ -30,7 +30,6 @@ interface AjibadePanelProps {
 
 const INITIAL_MESSAGES: Message[] = [];
 
-// Waveform visualization component
 const Waveform = ({ isPlaying }: { isPlaying: boolean }) => (
   <div className="flex items-center gap-1 h-8">
     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
@@ -78,25 +77,21 @@ export function AjibadePanel({
     onPlaybackEndedRef.current = onPlaybackEnded;
   }, [onPlaybackEnded]);
 
-  // --- Web Audio API Refs ---
   const audioContextRef = useRef<AudioContext | null>(null);
   const nextStartTimeRef = useRef<number>(0);
   const isPlayingRef = useRef(false);
   const activeSourcesRef = useRef<AudioBufferSourceNode[]>([]);
   const playbackTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Initialize Audio Context
   useEffect(() => {
     const initAudioContext = () => {
       if (!audioContextRef.current) {
-        // Backend sends 24kHz audio
         const AudioContextClass =
           window.AudioContext || (window as any).webkitAudioContext;
         audioContextRef.current = new AudioContextClass({ sampleRate: 24000 });
       }
     };
 
-    // Initialize on interaction or load if allowed
     initAudioContext();
 
     return () => {
@@ -136,7 +131,6 @@ export function AjibadePanel({
     if (!ctx) return;
 
     try {
-      // 1. Base64 -> Float32Array (PCM)
       const binaryString = window.atob(base64Audio);
       const len = binaryString.length;
       const bytes = new Uint8Array(len);
@@ -144,42 +138,31 @@ export function AjibadePanel({
         bytes[i] = binaryString.charCodeAt(i);
       }
 
-      // Convert 16-bit PCM bytes to Float32 [-1.0, 1.0]
-      // 16-bit = 2 bytes per sample. Little endian.
       const samples = new Int16Array(bytes.buffer);
       const float32Data = new Float32Array(samples.length);
       for (let i = 0; i < samples.length; i++) {
-        // Normalize -32768..32767 to -1.0..1.0
-        float32Data[i] = samples[i] / 32768.0;
+        const sample = samples[i];
+        if (sample !== undefined) {
+          float32Data[i] = sample / 32768.0;
+        }
       }
 
-      // 2. Create AudioBuffer
-      const buffer = ctx.createBuffer(
-        1, // channels
-        float32Data.length,
-        24000, // sample rate
-      );
+      const buffer = ctx.createBuffer(1, float32Data.length, 24000);
       buffer.getChannelData(0).set(float32Data);
 
-      // 3. Schedule Playback
       const source = ctx.createBufferSource();
       source.buffer = buffer;
       source.connect(ctx.destination);
 
       const currentTime = ctx.currentTime;
-      // Ideally schedule right after the previous one finishes
-      // Add a tiny buffer (0.05s) if starting fresh to avoid "cutting off" the start
       const scheduleTime = Math.max(
         currentTime + 0.05,
         nextStartTimeRef.current,
       );
 
       source.start(scheduleTime);
-
-      // Update timeline pointer
       nextStartTimeRef.current = scheduleTime + buffer.duration;
 
-      // Track active source
       activeSourcesRef.current.push(source);
       source.onended = () => {
         activeSourcesRef.current = activeSourcesRef.current.filter(
@@ -187,21 +170,16 @@ export function AjibadePanel({
         );
       };
 
-      // Update UI state
       isPlayingRef.current = true;
       setIsPlayingAudio(true);
 
-      // Handle "Playback Ended" detection
-      // We set a timeout for when the *last* scheduled sound finishes
       if (playbackTimeoutRef.current) {
         clearTimeout(playbackTimeoutRef.current);
       }
 
-      // Calculate when this specific chunk (and thus the whole stream so far) ends
       const timeUntilEnd = (nextStartTimeRef.current - currentTime) * 1000;
 
       playbackTimeoutRef.current = setTimeout(() => {
-        // Only trigger if no new chunks have pushed nextStartTimeRef further
         if (
           audioContextRef.current &&
           audioContextRef.current.currentTime >= nextStartTimeRef.current - 0.1
@@ -210,7 +188,7 @@ export function AjibadePanel({
           setIsPlayingAudio(false);
           onPlaybackEndedRef.current?.();
         }
-      }, timeUntilEnd + 100); // Small buffer for safety
+      }, timeUntilEnd + 100);
     } catch (e) {
       console.error("Error processing audio chunk:", e);
     }
@@ -221,7 +199,6 @@ export function AjibadePanel({
       const base64Audio = event.detail;
       if (!base64Audio) return;
 
-      // Ensure context is running (browsers suspend it until user gesture)
       if (audioContextRef.current?.state === "suspended") {
         audioContextRef.current.resume();
       }
@@ -241,11 +218,6 @@ export function AjibadePanel({
       );
     };
   }, []);
-
-  // Reset audio when stepping (changing text)
-  useEffect(() => {
-    // Option to clear/reset state if text changes abruptly
-  }, [currentStepText]);
 
   useEffect(() => {
     if (currentStepText) {
@@ -288,37 +260,29 @@ export function AjibadePanel({
       };
       setMessages((prev) => [...prev, aiMessage]);
 
-      // Audio Pipeline Reset for new answer
-      // 1. Reset timeline to current time to avoid scheduling lag/future bug
       if (audioContextRef.current) {
-        // Determine 'safe' start time: now + slight buffer
         nextStartTimeRef.current = audioContextRef.current.currentTime + 0.1;
 
-        // 2. Force resume to ensure browser didn't suspend it
         if (audioContextRef.current.state === "suspended") {
           audioContextRef.current
             .resume()
             .catch((e) => console.error("Auto-resume failed:", e));
         }
       } else {
-        // If not initialized yet (unlikely), reset ref
         nextStartTimeRef.current = 0;
       }
     }
   }, [clarificationResponse]);
 
-  // Recording Refs
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
 
   const handleSubmit = (e: FormEvent, audioData?: string) => {
     e.preventDefault();
-    // Allow empty input if audio is present
     if (!input.trim() && !audioData) return;
 
     let audioUrl: string | undefined;
     if (audioData && audioChunksRef.current.length > 0) {
-      // Create a blob URL from the chunks for playback
       const blob = new Blob(audioChunksRef.current, { type: "audio/webm" });
       audioUrl = URL.createObjectURL(blob);
     }
@@ -337,9 +301,6 @@ export function AjibadePanel({
     setMessages((prev) => [...prev, userMessage]);
     onSendMessage(input.trim(), audioData);
     setInput("");
-
-    // Don't clear chunks here immediately if re-using, but we are done.
-    // audioChunksRef.current = []; // Wait, startRecording clears this. It's safe.
   };
 
   const startRecording = async () => {
