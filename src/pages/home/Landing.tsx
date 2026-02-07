@@ -332,7 +332,7 @@ export default function Landing() {
             className="mt-32 md:mt-20 max-w-5xl mx-auto px-4 relative group"
           >
             <div className="relative p-1 bg-linear-to-b from-slate-200 dark:from-white/10 to-transparent rounded-3xl md:rounded-[40px] border border-slate-100 dark:border-white/5">
-              <div className="bg-slate-50 dark:bg-[#05070a]/80 backdrop-blur-3xl rounded-[28px] md:rounded-[36px] overflow-hidden border border-slate-200 dark:border-white/5 shadow-2xl flex flex-col min-h-[600px] lg:aspect-16/10">
+              <div className="bg-slate-50 dark:bg-[#05070a]/80 backdrop-blur-3xl rounded-[28px] md:rounded-[36px] overflow-hidden border border-slate-200 dark:border-white/5 shadow-2xl flex flex-col min-h-[500px] lg:aspect-16/10">
                 {/* Mac Header Decorations */}
                 <div className="h-12 border-b border-slate-200 dark:border-white/5 flex items-center px-6 gap-2 shrink-0">
                   <div className="flex gap-2">
@@ -343,7 +343,7 @@ export default function Landing() {
                   <div className="ml-10 h-6 w-64 rounded-xl bg-slate-200/50 dark:bg-white/5 flex items-center px-3 gap-2 border border-slate-300 dark:border-white/10">
                     <Lock className="w-2.5 h-2.5 text-slate-400" />
                     <div className="text-[9px] font-bold text-slate-400/80 tracking-tight">
-                      app.cognito.ai/tutor/active
+                      cognition-agent.ai
                     </div>
                   </div>
                 </div>
@@ -352,7 +352,7 @@ export default function Landing() {
                   {/* Left Navigation Context */}
                   <motion.div
                     style={{ y: innerMockupY }}
-                    className="w-full md:w-64 border-b md:border-b-0 md:border-r border-slate-200 dark:border-white/5 p-6 flex flex-col gap-6 bg-slate-100/30 dark:bg-white/2"
+                    className="hidden md:flex w-full md:w-64 border-b md:border-b-0 md:border-r border-slate-200 dark:border-white/5 p-6 flex-col gap-6 bg-slate-100/30 dark:bg-white/2"
                   >
                     <div className="space-y-4">
                       <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
@@ -424,9 +424,9 @@ export default function Landing() {
                   <div className="flex-1 flex flex-col relative overflow-hidden bg-white/50 dark:bg-transparent">
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(37,99,235,0.05),transparent)] pointer-events-none" />
 
-                    <div className="flex-1 p-4 md:p-8 flex flex-col gap-6">
+                    <div className="flex-1 p-3 md:p-8 flex flex-col gap-3 md:gap-6">
                       {/* Active Learning Component */}
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-48 mb-4">
+                      <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-4 h-48 mb-4">
                         <div className="rounded-2xl overflow-hidden relative group border border-slate-200 dark:border-white/10 shadow-lg transition-transform hover:scale-[1.02]">
                           <img
                             src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800"
@@ -484,7 +484,7 @@ export default function Landing() {
                       </div>
 
                       {/* Chat Thread */}
-                      <div className="space-y-4 md:space-y-6">
+                      <div className="space-y-4 md:space-y-6 flex-1 flex flex-col overflow-y-auto pb-2 min-h-0 relative scrollbar-hide">
                         <motion.div
                           initial={{ opacity: 0, y: 10 }}
                           whileInView={{ opacity: 1, y: 0 }}
@@ -581,7 +581,7 @@ export default function Landing() {
                       </div>
 
                       {/* Input Simulation */}
-                      <div className="mt-6 md:mt-8 h-14 rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-white/5 backdrop-blur-xl flex items-center px-5 gap-4 shadow-sm border-t border-b">
+                      <div className="mt-auto h-14 rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-white/5 backdrop-blur-xl flex items-center px-5 gap-4 shadow-sm border-t border-b shrink-0 z-20 relative">
                         <div className="flex-1 text-sm font-bold text-slate-400 dark:text-white/20">
                           Message Ajibade...
                         </div>
@@ -912,10 +912,7 @@ export default function Landing() {
             </h2>
             <div className="flex items-center justify-center gap-4">
               <div className="w-10 h-10 rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-1 overflow-hidden">
-                <img
-                  src="https://api.dicebear.com/7.x/shapes/svg?seed=ajibade"
-                  alt="Ajibade"
-                />
+                <img src="./vite.svg" alt="Ajibade" />
               </div>
               <div className="text-left">
                 <p className="text-xs font-black uppercase tracking-widest leading-none">
