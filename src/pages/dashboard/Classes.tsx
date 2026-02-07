@@ -141,7 +141,7 @@ export default function Classes() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center justify-between mb-8"
+          className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8"
         >
           <div>
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
@@ -153,7 +153,7 @@ export default function Classes() {
           </div>
           <Button
             onClick={() => setShowCreateDialog(true)}
-            className="shadow-lg shadow-primary/20"
+            className="shadow-lg shadow-primary/20 w-full sm:w-auto"
           >
             <Plus className="w-4 h-4 mr-2" /> Create New Class
           </Button>

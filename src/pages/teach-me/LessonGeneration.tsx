@@ -2,12 +2,14 @@ import { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { classService } from "@/lib/services/classService";
 import { LoadingScreen } from "@/components/lesson/LoadingScreen";
+import { useToastStore } from "@/lib/store/toastStore";
 
 export function LessonGeneration() {
   const { state } = useLocation();
   const navigate = useNavigate();
   const [status, setStatus] = useState("Analyzing topic...");
   const [progress, setProgress] = useState(5);
+  const { addToast } = useToastStore();
   const hasInitialized = useRef(false);
 
   useEffect(() => {
@@ -67,6 +69,7 @@ export function LessonGeneration() {
           });
         }, 300);
       } catch (error) {
+        addToast("Failed to generate syllabus. Please try again.", "error");
         setStatus("Failed to generate syllabus. Please try again.");
         setProgress(0);
         setTimeout(() => navigate("/teach-me/topic"), 3000);

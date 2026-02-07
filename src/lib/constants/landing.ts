@@ -5,7 +5,6 @@ import {
   Brain,
   Activity,
   BookOpen,
-  LucideIcon,
 } from "lucide-react";
 import { Feature, WorkflowStep } from "@/lib/types/landing";
 

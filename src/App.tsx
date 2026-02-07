@@ -12,8 +12,8 @@ function LoadingFallback() {
     <div className="flex items-center justify-center min-h-screen bg-slate-50 dark:bg-slate-950">
       <div className="text-center">
         <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-        <p className="text-slate-600 dark:text-slate-400 font-medium">
-          Loading...
+        <p className="text-slate-600 font-bold dark:text-slate-400 text-xl">
+          LOADING...
         </p>
       </div>
     </div>

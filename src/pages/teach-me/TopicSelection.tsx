@@ -41,7 +41,7 @@ export function TopicSelection() {
       {/* Back button */}
       <div className="absolute top-6 left-6 z-50">
         <button
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/dashboard")}
           className="group flex items-center cursor-pointer gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white/70 hover:text-white transition-all duration-300 backdrop-blur-sm"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
@@ -77,19 +77,19 @@ export function TopicSelection() {
           <form onSubmit={handleSubmit} className="mb-10">
             <div className="relative group">
               <div className="absolute -inset-1 bg-linear-to-r from-primary to-blue-600 rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
-              <div className="relative flex flex-col sm:flex-row gap-3 p-2 bg-slate-900/90 rounded-2xl border border-white/10 backdrop-blur-xl">
+              <div className="relative flex flex-col sm:flex-row gap-2 sm:gap-3 p-2 bg-slate-900/90 rounded-2xl border border-white/10 backdrop-blur-xl">
                 <input
                   value={topic}
                   onChange={(e) => setTopic(e.target.value)}
                   placeholder="e.g. Introduction to Astrophysics..."
-                  className="flex-1 h-14 px-6 bg-transparent text-white text-lg placeholder-slate-500 focus:outline-none"
+                  className="w-full sm:flex-1 h-14 px-6 bg-transparent text-white text-lg placeholder-slate-500 focus:outline-none min-w-0"
                   autoFocus
                 />
                 <Button
                   type="submit"
                   disabled={!topic.trim()}
                   size="lg"
-                  className="h-14 px-8 rounded-xl bg-linear-to-r from-primary to-blue-600 hover:from-primary-dark hover:to-blue-700 text-white font-bold shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all duration-300"
+                  className="w-full sm:w-auto h-14 px-8 rounded-xl bg-linear-to-r from-primary to-blue-600 hover:from-primary-dark hover:to-blue-700 text-white font-bold shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all duration-300 shrink-0"
                 >
                   <>
                     Teach Me
@@ -121,9 +121,7 @@ export function TopicSelection() {
 
           {/* Bottom info */}
           <div className="mt-16 text-center">
-            <p className="text-sm text-slate-500">
-              ✨ Powered by advanced AI to create structured learning paths
-            </p>
+            <p className="text-sm text-slate-500">Powered by Cognito.</p>
           </div>
         </div>
       </div>
