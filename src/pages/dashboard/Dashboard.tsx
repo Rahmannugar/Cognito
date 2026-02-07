@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { StatsCard, RecentActivity } from "@/components/shared";
 import { ConfirmDialog } from "@/components/dialog/ConfirmDialog";
-import { cn, formatDate } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils/utils";
 import { authService } from "@/lib/services/authService";
 import { classService } from "@/lib/services/classService";
 import { useAuthStore } from "@/lib/store/authStore";

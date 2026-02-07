@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { classService } from "@/lib/services/classService";
 import { Class } from "@/lib/types";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { ConfirmDialog } from "@/components/dialog/ConfirmDialog";
 
 export default function Classes() {
