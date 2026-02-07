@@ -176,6 +176,7 @@ export function useLessonWebSocket(sessionId: string | null, isYouTubeMode: bool
     };
 
     const sendMessage = useCallback((type: string, data: any) => {
+        console.log(`📤 WS Sending: ${type}`, data);
         socketRef.current?.send(JSON.stringify({ type, data }));
     }, []);
 

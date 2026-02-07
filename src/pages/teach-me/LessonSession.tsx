@@ -26,6 +26,8 @@ export function LessonSession() {
     const [manualChatEnabled, setManualChatEnabled] = useState(false);
     const [hasStarted, setHasStarted] = useState(false);
     const [isAudioFinished, setIsAudioFinished] = useState(false);
+    const [ttsRequestedForStep, setTtsRequestedForStep] = useState<string | null>(null);
+    const [isPlayerReady, setIsPlayerReady] = useState(false);
 
     const {
         steps,
@@ -65,6 +67,7 @@ export function LessonSession() {
             setIsQuizActive(false);
             setManualChatEnabled(false);
         }
+        setTtsRequestedForStep(null);
     }, [currentStep]);
 
     useEffect(() => {
@@ -117,7 +120,8 @@ export function LessonSession() {
                 },
                 events: {
                     'onReady': (event: any) => {
-                        // Ready
+                        console.log("YouTube Player Ready");
+                        setIsPlayerReady(true);
                     }
                 }
             });
@@ -130,25 +134,24 @@ export function LessonSession() {
 
     }, [isYouTubeMode, videoId]);
 
-    // Monitoring loop
     useEffect(() => {
-        if (!playerRef.current || !currentStep?.stepPayload?.pauseAtSeconds) return;
+        if (!isPlayerReady || typeof currentStep?.stepPayload?.pauseAtSeconds !== 'number') return;
 
         const interval = setInterval(() => {
             if (playerRef.current && playerRef.current.getCurrentTime) {
                 const currentTime = playerRef.current.getCurrentTime();
                 const pauseTime = currentStep.stepPayload.pauseAtSeconds;
+                const canGetTime = typeof playerRef.current.getCurrentTime === 'function';
 
-                // If within 0.5 second of pause time (and we are playing)
-                // Just checking >= might be safer if interval is slow
-                if (pauseTime && currentTime >= pauseTime && currentTime < pauseTime + 2) {
+                if (canGetTime && typeof pauseTime === 'number' && currentTime >= pauseTime) {
                     const state = playerRef.current.getPlayerState();
-                    if (state === 1) { // Playing
+                    if (state === 1 || (pauseTime === 0 && (state === 5 || state === -1))) { // Playing, or 0s step and Cued/Unstarted
                         console.log("Reached pause point. Pausing...");
                         playerRef.current.pauseVideo();
                         // Request TTS
-                        if (currentStep.stepPayload.textToSpeak) {
+                        if (currentStep.stepPayload.textToSpeak && ttsRequestedForStep !== currentStep.id) {
                             requestTTS(currentStep.stepPayload.textToSpeak);
+                            setTtsRequestedForStep(currentStep.id);
                         }
                     }
                 }
@@ -156,7 +159,16 @@ export function LessonSession() {
         }, 500);
 
         return () => clearInterval(interval);
-    }, [currentStep, requestTTS]);
+    }, [currentStep, requestTTS, isPlayerReady, ttsRequestedForStep]);
+
+    // Dedicated effect for 0s step (Internal intro) to ensure it triggers immediately
+    useEffect(() => {
+        if (isYouTubeMode && currentStep?.stepPayload?.pauseAtSeconds === 0 && ttsRequestedForStep !== currentStep.id) {
+            console.log("🚀 [YouTubeMode] Intro step detected (0s). Requesting TTS immediately.");
+            requestTTS(currentStep.stepPayload.textToSpeak);
+            setTtsRequestedForStep(currentStep.id);
+        }
+    }, [currentStep, requestTTS, ttsRequestedForStep, isYouTubeMode]);
 
     // Resume video when step changes (except first load? No, step change implies next segment)
     useEffect(() => {
@@ -258,7 +270,17 @@ export function LessonSession() {
                             Join the interactive lesson with Ajibade. Make sure your audio is on.
                         </p>
                         <button
-                            onClick={() => setHasStarted(true)}
+                            onClick={() => {
+                                setHasStarted(true);
+                                // Prime the player if available (satisfy autoplay policy)
+                                if (isYouTubeMode && playerRef.current && typeof playerRef.current.playVideo === 'function') {
+                                    console.log("Priming YouTube player on user gesture...");
+                                    playerRef.current.playVideo();
+                                    setTimeout(() => {
+                                        playerRef.current.pauseVideo();
+                                    }, 100);
+                                }
+                            }}
                             className="w-full py-3.5 px-6 bg-primary hover:bg-primary/90 text-white rounded-xl font-semibold shadow-lg shadow-primary/25 transition-all transform hover:scale-[1.02] active:scale-[0.98]"
                         >
                             Start Lesson
@@ -441,7 +463,7 @@ export function LessonSession() {
 
 
                     {/* Optional: Add a subtle loading indicator if needed, but not the full blocking screen */}
-                    {!currentStep?.stepPayload?.canvasHtmlContent && (
+                    {!isYouTubeMode && !currentStep?.stepPayload?.canvasHtmlContent && (
                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-50">
                             <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
                         </div>
