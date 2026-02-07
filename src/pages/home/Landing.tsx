@@ -29,49 +29,49 @@ import { cn } from "@/lib/utils/utils";
 const FEATURES = [
   {
     icon: Play,
-    title: "Semantic Video Intelligence",
+    title: "Video Learning",
     description:
-      "Transmute passive consumption into active dialogue. Query moments, extract visual models, and synthesize hours of footage into seconds of insight.",
+      "Transform passive watching into active understanding. Turn YouTube videos into interactive lessons with summaries and Q&A.",
     gradient: "from-blue-600 to-blue-700",
     className: "",
   },
   {
     icon: FileText,
-    title: "Contextual Fabric",
+    title: "Smart Study Materials",
     description:
-      "Weave disparate data sources—PDFs, papers, lectures—into a unified knowledge graph. Identify latent connections and architect a holistic understanding.",
+      "Upload PDFs, notes, or slides. We organize everything into a clear, searchable knowledge base for your studies.",
     gradient: "from-blue-600 to-blue-700",
     className: "",
   },
   {
     icon: Target,
-    title: "Precision Curricula",
+    title: "Personalized Path",
     description:
-      "Dynamic paths that evolve in real-time. Our engine maps your neural proficiency, targeting knowledge gaps with surgical precision to ensure retention.",
+      "Stop wasting time on what you already know. Build a custom learning path that targets exactly what you need to master.",
     gradient: "from-blue-600 to-blue-700",
     className: "",
   },
   {
     icon: Brain,
-    title: "Socratic Core",
+    title: "AI Tutor",
     description:
-      "Interact with an AI that challenges you. Strengthen mental models through recursive challenge-response cycles designed to fortify understanding.",
+      "Meet Ajibade, your personal tutor. It doesn't just give answers—it guides you to the solution through thoughtful questions.",
     gradient: "from-blue-600 to-blue-700",
     className: "",
   },
   {
     icon: Activity,
-    title: "Swarm Analytics",
+    title: "Progress Insights",
     description:
-      "Benchmark against a global neural network of learners. Visualize your trajectory relative to the cohort and identify vectors for accelerated mastery.",
+      "Visualize your growth. Track your study streaks, quiz performance, and mastery levels to stay motivated.",
     gradient: "from-blue-600 to-blue-700",
     className: "",
   },
   {
     icon: BookOpen,
-    title: "Deep Retention",
+    title: "Smart Review",
     description:
-      "Algorithmic reinforcement that predicts memory decay. We reinject key concepts at the precise moment of forgetting to crystalize long-term knowledge.",
+      "Never forget what you've learned. Our spaced repetition system reminds you to review key concepts at the perfect time.",
     gradient: "from-blue-600 to-blue-700",
     className: "",
   },
@@ -80,20 +80,20 @@ const FEATURES = [
 const WORKFLOW_STEPS = [
   {
     n: "01",
-    t: "Acquisition",
-    d: "Paste raw links or upload research. Cognito's neural engine builds a contextual knowledge landscape instantly.",
+    t: "Import",
+    d: "Paste a YouTube link or upload your PDF notes. We instantly organize everything for you.",
     icon: Activity,
   },
   {
     n: "02",
-    t: "Synthesis",
-    d: "Engage with your intelligence layer. Bridge comprehension gaps through structured, responsive dialogue with any material.",
+    t: "Learn",
+    d: "Chat with your content. Ask questions, get summaries, and clarify difficult concepts.",
     icon: Brain,
   },
   {
     n: "03",
-    t: "Retention",
-    d: "Validate and crystalize understanding through adaptive assessments designed for long-term neural retention.",
+    t: "Master",
+    d: "Take adaptive quizzes to test your knowledge and ensure you never forget what you learned.",
     icon: BookOpen,
   },
 ];
@@ -638,14 +638,14 @@ export default function Landing() {
                 The Intelligence Layer
               </motion.div>
               <h2 className="text-4xl md:text-8xl font-black mb-8 leading-[0.9] tracking-tighter">
-                Cognitive Learning <br />
+                Everything needed to <br />
                 <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 via-blue-500 to-sky-400 animate-gradient-x">
-                  Ecosystem.
+                  learn anything.
                 </span>
               </h2>
               <p className="text-xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto font-medium leading-relaxed">
-                Autonomous modules designed to reconstruct passive data streams
-                into living, interactive expertise.
+                A complete suite of tools designed to turn any content into an
+                interactive learning experience.
               </p>
             </div>
 
@@ -661,17 +661,17 @@ export default function Landing() {
                 className="md:col-span-3 lg:col-span-4 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-6 md:p-10 flex flex-col justify-between shadow-sm hover:shadow-2xl transition-all min-h-[300px] md:min-h-[350px]"
               >
                 <div className="relative z-10">
-                  <div className="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center mb-10 shadow-lg shadow-blue-500/20">
-                    <GraduationCap className="w-8 h-8 text-white" />
+                  <div className="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center mb-10 shadow-lg shadow-blue-500/20">
+                    <GraduationCap className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="text-3xl font-black mb-6 uppercase leading-none tracking-tight">
                     Topic
                     <br />
-                    Architect
+                    Guide
                   </h3>
                   <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
-                    Generate personalized, hierarchical lessons on any subject,
-                    tailored specifically to your existing mental models.
+                    Generate clear, step-by-step lessons on any subject,
+                    tailored to what you already know.
                   </p>
                 </div>
                 <div className="absolute -bottom-16 -right-16 w-64 h-64 bg-blue-600/5 rounded-full blur-3xl group-hover:bg-blue-600/10 transition-colors" />
@@ -689,18 +689,18 @@ export default function Landing() {
                   ease: [0.16, 1, 0.3, 1],
                 }}
                 whileHover={{ y: -8, scale: 1.02 }}
-                className="md:col-span-3 lg:col-span-8 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-[#f8fafc] dark:bg-blue-900/10 border border-slate-200 dark:border-white/10 p-6 md:p-12 flex flex-col md:flex-row gap-8 md:gap-10 items-center shadow-sm hover:shadow-2xl transition-all min-h-[300px] md:min-h-[350px]"
+                className="md:col-span-3 lg:col-span-8 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-[#f8fafc] dark:bg-blue-900/10 border border-slate-200 dark:border-white/10 p-6 md:p-12 flex flex-col lg:flex-row gap-8 md:gap-10 items-center shadow-sm hover:shadow-2xl transition-all min-h-[300px] md:min-h-[350px]"
               >
                 <div className="flex-1 relative z-10">
-                  <div className="w-14 h-14 rounded-xl bg-red-500 flex items-center justify-center mb-8 shadow-lg shadow-red-500/20">
-                    <Play className="w-7 h-7 text-white" />
+                  <div className="w-12 h-12 rounded-xl bg-red-500 flex items-center justify-center mb-8 shadow-lg shadow-red-500/20">
+                    <Play className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="text-2xl font-black mb-4 uppercase tracking-tight">
-                    Video Intelligence
+                    Video Lessons
                   </h3>
                   <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
-                    Cognito decodes video data streams into navigable knowledge
-                    structures, enabling real-time dialogue with any content.
+                    Turn messy YouTube playlists into structured courses. Chat
+                    with videos to get answers instantly.
                   </p>
                 </div>
                 <div className="w-full md:w-1/2 aspect-video rounded-3xl bg-slate-200 dark:bg-white/5 border border-slate-300 dark:border-white/10 flex items-center justify-center overflow-hidden">
@@ -724,16 +724,16 @@ export default function Landing() {
                 whileHover={{ y: -8, scale: 1.02 }}
                 className="md:col-span-3 lg:col-span-4 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-6 md:p-12 flex flex-col justify-between shadow-sm hover:shadow-2xl transition-all min-h-[300px] md:min-h-[280px]"
               >
-                <div className="w-14 h-14 rounded-xl bg-sky-500 flex items-center justify-center mb-8">
-                  <FileText className="w-7 h-7 text-white" />
+                <div className="w-12 h-12 rounded-xl bg-sky-500 flex items-center justify-center mb-8">
+                  <FileText className="w-6 h-6 text-white" />
                 </div>
                 <div>
                   <h3 className="text-2xl font-black mb-3 uppercase tracking-tight">
-                    Neural Synthesis
+                    Smart Notes
                   </h3>
                   <p className="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
-                    Upload complex research or textbooks and watch as they are
-                    reconstructed into interactive tutored sessions.
+                    Upload textbooks or research papers and turn them into
+                    interactive study sessions.
                   </p>
                 </div>
               </motion.div>
@@ -749,18 +749,18 @@ export default function Landing() {
                   ease: [0.16, 1, 0.3, 1],
                 }}
                 whileHover={{ y: -8, scale: 1.02 }}
-                className="md:col-span-3 lg:col-span-8 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-blue-600 p-6 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-10 shadow-xl shadow-blue-500/20 transition-all min-h-[300px] md:min-h-[280px]"
+                className="md:col-span-3 lg:col-span-8 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-blue-600 p-6 md:p-12 flex flex-col lg:flex-row items-start gap-8 md:gap-10 shadow-xl shadow-blue-500/20 transition-all min-h-[300px] md:min-h-[280px]"
               >
-                <div className="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-xl flex items-center justify-center mb-8">
-                  <Sparkles className="w-7 h-7 text-white" />
+                <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-xl flex items-center justify-center mb-8 md:mb-0">
+                  <Sparkles className="w-6 h-6 text-white" />
                 </div>
                 <div>
                   <h3 className="text-2xl font-black mb-3 uppercase text-white tracking-tight">
-                    Ajibade Co-Pilot
+                    Ajibade AI Tutor
                   </h3>
                   <p className="text-sm text-blue-50/80 font-medium leading-relaxed">
-                    Your cognitive co-pilot. Ajibade doesn't just answer; it
-                    mentors, challenging assumptions and bridging skill gaps.
+                    Your personal study companion. Ajibade helps you understand
+                    concepts, checks your work, and keeps you motivated.
                   </p>
                 </div>
                 <div className="absolute top-0 right-0 p-10">
@@ -781,16 +781,16 @@ export default function Landing() {
                 whileHover={{ y: -8, scale: 1.02 }}
                 className="md:col-span-3 lg:col-span-4 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-6 md:p-12 flex flex-col justify-between shadow-sm hover:shadow-2xl transition-all min-h-[300px]"
               >
-                <div className="w-14 h-14 rounded-xl bg-green-500 flex items-center justify-center mb-8">
-                  <Target className="w-7 h-7 text-white" />
+                <div className="w-12 h-12 rounded-xl bg-green-500 flex items-center justify-center mb-8">
+                  <Target className="w-6 h-6 text-white" />
                 </div>
                 <div>
                   <h3 className="text-2xl font-black mb-3 uppercase tracking-tight">
-                    Adaptive Quizzes
+                    Smart Quizzes
                   </h3>
                   <p className="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
-                    AI-generated quizzes tailored to your learning progress to
-                    ensure validated mastery.
+                    Quizzes that adapt to your progress to ensure you truly
+                    master the material.
                   </p>
                 </div>
               </motion.div>
@@ -809,8 +809,8 @@ export default function Landing() {
                 className="md:col-span-3 lg:col-span-4 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-slate-900 border border-slate-800 p-6 md:p-12 flex flex-col justify-between shadow-2xl transition-all min-h-[300px]"
               >
                 <div className="flex-1">
-                  <div className="w-14 h-14 rounded-xl bg-purple-500 flex items-center justify-center mb-8">
-                    <Activity className="w-7 h-7 text-white" />
+                  <div className="w-12 h-12 rounded-xl bg-purple-500 flex items-center justify-center mb-8">
+                    <Activity className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="text-2xl font-black mb-4 uppercase text-white tracking-tight">
                     Analytics
@@ -848,16 +848,16 @@ export default function Landing() {
                 whileHover={{ y: -8, scale: 1.02 }}
                 className="md:col-span-6 lg:col-span-4 group cursor-pointer relative overflow-hidden rounded-[3rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-6 md:p-12 flex flex-col justify-between shadow-sm hover:shadow-2xl transition-all min-h-[300px]"
               >
-                <div className="w-14 h-14 rounded-xl bg-yellow-500 flex items-center justify-center mb-8">
-                  <Zap className="w-7 h-7 text-white" />
+                <div className="w-12 h-12 rounded-xl bg-yellow-500 flex items-center justify-center mb-8">
+                  <Zap className="w-6 h-6 text-white" />
                 </div>
                 <div>
                   <h3 className="text-2xl font-black mb-3 uppercase tracking-tight">
-                    Real-time Protocol
+                    Live Sessions
                   </h3>
                   <p className="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
-                    WebSocket-powered live lesson sessions for seamless
-                    bidirectional communication.
+                    Join interactive live lessons for real-time practice and
+                    feedback.
                   </p>
                 </div>
               </motion.div>
@@ -867,7 +867,7 @@ export default function Landing() {
 
         <section
           id="features"
-          className="py-32 md:py-56 px-6 relative border-t border-slate-100 dark:border-white/5"
+          className="py-32 md:py-56 px-6 relative dark:border-white/5"
         >
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row items-end justify-between mb-16 md:mb-24 gap-8">
@@ -900,11 +900,11 @@ export default function Landing() {
                   </div>
 
                   <div className="relative z-10">
-                    <div className="w-16 h-16 flex items-center justify-center mb-10 relative">
+                    <div className="w-12 h-12 flex items-center justify-center mb-10 relative">
                       {/* Premium Glassy Icon Design */}
                       <div className="absolute inset-0 bg-blue-500/5 dark:bg-white/5 backdrop-blur-xl rounded-2xl border border-white/20 dark:border-white/10 shadow-inner" />
                       <div className="absolute -inset-1 bg-blue-600/10 rounded-[20px] blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
-                      <feature.icon className="w-7 h-7 text-blue-600 relative z-10 group-hover:scale-110 transition-transform duration-500" />
+                      <feature.icon className="w-6 h-6 text-blue-600 relative z-10 group-hover:scale-110 transition-transform duration-500" />
                     </div>
 
                     <h3 className="text-2xl font-black mb-4 tracking-[-0.02em] leading-none">
@@ -963,13 +963,13 @@ export default function Landing() {
               whileInView={{ opacity: 1 }}
               className="text-[10px] font-black uppercase tracking-[0.6em] text-blue-600 mb-6"
             >
-              The Synthesis Protocol
+              The Study Method
             </motion.div>
 
             <h2 className="text-5xl md:text-8xl font-black mb-24 leading-[0.85] tracking-tight">
-              Information <br />
+              Learning <br />
               <span className="text-transparent bg-clip-text bg-linear-to-b from-slate-400 to-slate-900 dark:from-white dark:to-white/20">
-                Refined.
+                Simplified.
               </span>
             </h2>
 
