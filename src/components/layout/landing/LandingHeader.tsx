@@ -49,24 +49,24 @@ export const LandingHeader = ({
           </div>
 
           <nav className="hidden md:flex items-center gap-6 lg:gap-10 text-[8px] lg:text-[10px] font-black uppercase tracking-[0.25em] text-slate-500 dark:text-slate-400">
-            <Link
-              to={location.pathname === "/" ? "#ecosystem" : "/#ecosystem"}
+            <a
+              href={location.pathname === "/" ? "#ecosystem" : "/#ecosystem"}
               className="hover:text-blue-600 transition-colors"
             >
               Ecosystem
-            </Link>
-            <Link
-              to={location.pathname === "/" ? "#features" : "/#features"}
+            </a>
+            <a
+              href={location.pathname === "/" ? "#features" : "/#features"}
               className="hover:text-blue-600 transition-colors"
             >
               Features
-            </Link>
-            <Link
-              to={location.pathname === "/" ? "#workflow" : "/#workflow"}
+            </a>
+            <a
+              href={location.pathname === "/" ? "#workflow" : "/#workflow"}
               className="hover:text-blue-600 transition-colors"
             >
               Workflow
-            </Link>
+            </a>
           </nav>
 
           <div className="flex-1 flex items-center justify-end gap-1 md:gap-4">
