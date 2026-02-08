@@ -87,7 +87,7 @@ export const LandingHero = ({ heroRef, opacity, scale }: LandingHeroProps) => {
             </button>
           </Link>
           <Link to="/login" className="w-full sm:w-auto">
-            <button className="w-full h-14 px-10 rounded-2xl cursor-pointer border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 transition-all active:scale-95 font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
+            <button className="w-full h-14 px-10 rounded-2xl cursor-pointer border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/5 hover:bg-slate-200 hover:border-stone-700 dark:hover:bg-white/10 transition-all active:scale-95 font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
               <Play className="w-3 h-3 fill-current" />
               Watch Overview
             </button>
