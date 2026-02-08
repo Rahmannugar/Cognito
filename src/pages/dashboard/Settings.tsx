@@ -52,7 +52,6 @@ export default function Settings() {
     setLoading(true);
     try {
       await authService.updateProfile({ base64Image: selectedImage });
-      // Refresh user context
       await checkAuth();
       setSelectedImage(null);
       alert("Profile updated successfully!");

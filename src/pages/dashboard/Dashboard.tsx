@@ -129,7 +129,7 @@ export default function Dashboard() {
     }
   };
 
-  if (loading) return <div className="p-10 text-center">Loading...</div>;
+  if (loading) return <div className="p-10 text-center uppercase">Loading...</div>;
 
   const stats = user?.stats;
   const weeklyGoalHours = stats?.weeklyGoalHours || 1;

@@ -8,6 +8,7 @@ interface LessonVideoPlayerProps {
   clarificationResponse?: any;
   isPlaying: boolean;
   togglePlayback: (e?: React.MouseEvent) => void;
+  timeUntilNextStep: number | null;
 }
 
 export function LessonVideoPlayer({

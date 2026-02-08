@@ -29,6 +29,7 @@ export function LessonSession() {
     completionStats,
     introStatus,
     isCurrentlyPausing,
+    timeUntilNextStep,
 
     // Actions
     setHasStarted,
@@ -198,6 +199,28 @@ export function LessonSession() {
           <ChevronLeft className="w-5 h-5" />
           <span className="font-medium text-sm hidden sm:inline">Back</span>
         </button>
+
+        {isYouTubeMode &&
+          timeUntilNextStep !== null &&
+          timeUntilNextStep >= 0 && (
+            <div className="flex items-center gap-3 px-4 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700 animate-in fade-in zoom-in duration-300">
+              <div className="flex items-center gap-2">
+                <div className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                </div>
+                <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
+                  Next Activity
+                </span>
+              </div>
+              <div className="h-3 w-px bg-slate-200 dark:bg-slate-700" />
+              <span className="text-sm font-mono font-bold text-slate-900 dark:text-white">
+                {Math.floor(timeUntilNextStep / 60)}:
+                {String(Math.floor(timeUntilNextStep % 60)).padStart(2, "0")}
+              </span>
+            </div>
+          )}
+
         <div className="flex items-center gap-2">
           <span
             className={`w-2 h-2 rounded-full ${isConnected ? "bg-emerald-500" : "bg-red-500 animate-pulse"}`}
@@ -231,6 +254,7 @@ export function LessonSession() {
           handleQuizOptionClick={handleQuizOptionClick}
           handlePostQuizResponse={handlePostQuizResponse}
           setIsQuizActive={setIsQuizActive}
+          timeUntilNextStep={timeUntilNextStep}
         />
 
         <AjibadePanel
@@ -247,6 +271,7 @@ export function LessonSession() {
               : clarificationResponse?.stepPayload?.textToSpeak ||
                 (isYouTubeMode &&
                 !isCurrentlyPausing &&
+                isPlaying &&
                 introStatus === "FINISHED"
                   ? ""
                   : currentStep?.stepPayload?.textToSpeak)

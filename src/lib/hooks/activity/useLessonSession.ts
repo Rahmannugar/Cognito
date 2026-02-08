@@ -36,6 +36,10 @@ export function useLessonSession() {
     "NONE" | "REQUESTED" | "FINISHED"
   >("NONE");
   const [isCurrentlyPausing, setIsCurrentlyPausing] = useState(false);
+  const [isAjibadeSpeaking, setIsAjibadeSpeaking] = useState(false);
+  const [timeUntilNextStep, setTimeUntilNextStep] = useState<number | null>(
+    null,
+  );
 
   const {
     steps,
@@ -79,13 +83,8 @@ export function useLessonSession() {
       ) {
         playerRef.current.playVideo();
       }
-      return;
-    }
 
-    if (currentStep?.stepType === "CONCLUSION") {
-      console.log(
-        "CONCLUSION step audio ended. Waiting for SESSION_COMPLETED signal...",
-      );
+      sendStepCompleted();
       return;
     }
 
@@ -96,7 +95,7 @@ export function useLessonSession() {
   };
 
   useEffect(() => {
-    setIsAudioFinished(false);
+    setIsAudioFinished(!currentStep?.stepPayload?.textToSpeak);
     setIsCurrentlyPausing(false);
     if (
       currentStep?.stepPayload?.quizzesJson &&
@@ -142,11 +141,25 @@ export function useLessonSession() {
     isQuizActive,
     manualChatEnabled,
     currentStep,
+    isAudioFinished,
+    ttsRequestedForStep,
   });
 
   useEffect(() => {
-    stateRef.current = { isQuizActive, manualChatEnabled, currentStep };
-  }, [isQuizActive, manualChatEnabled, currentStep]);
+    stateRef.current = {
+      isQuizActive,
+      manualChatEnabled,
+      currentStep,
+      isAudioFinished,
+      ttsRequestedForStep,
+    };
+  }, [
+    isQuizActive,
+    manualChatEnabled,
+    currentStep,
+    isAudioFinished,
+    ttsRequestedForStep,
+  ]);
 
   const onPlayerReady = useCallback(() => {
     console.log("YouTube Player Ready");
@@ -158,9 +171,31 @@ export function useLessonSession() {
       setIsPlaying(event.data === 1);
       // Auto-advance if video finishes naturally (State 0 = Ended)
       if (event.data === 0) {
-        const { isQuizActive, manualChatEnabled, currentStep } =
-          stateRef.current;
+        const {
+          isQuizActive,
+          manualChatEnabled,
+          currentStep,
+          isAudioFinished,
+          ttsRequestedForStep,
+        } = stateRef.current;
+
+        // If video ended but we have a quiz or explanation that hasn't finished yet,
+        // we must show it now.
         if (
+          isQuizActive ||
+          (currentStep?.stepPayload?.textToSpeak && !isAudioFinished)
+        ) {
+          console.log("Video ended with pending content. Triggering pause...");
+          setIsCurrentlyPausing(true);
+
+          if (
+            currentStep?.stepPayload?.textToSpeak &&
+            ttsRequestedForStep !== currentStep.id
+          ) {
+            requestTTS(currentStep.stepPayload.textToSpeak);
+            setTtsRequestedForStep(currentStep.id);
+          }
+        } else if (
           !isQuizActive &&
           !manualChatEnabled &&
           currentStep?.stepType !== "CONCLUSION"
@@ -170,7 +205,7 @@ export function useLessonSession() {
         }
       }
     },
-    [sendStepCompleted],
+    [sendStepCompleted, requestTTS],
   );
 
   useEffect(() => {
@@ -194,26 +229,30 @@ export function useLessonSession() {
         const currentTime = playerRef.current.getCurrentTime();
         const pauseTime = currentStep?.stepPayload?.pauseAtSeconds;
 
-        if (
-          typeof pauseTime === "number" &&
-          currentTime >= pauseTime &&
-          currentTime < pauseTime + 1.5
-        ) {
-          const state = playerRef.current.getPlayerState();
-          // State 1 = Playing
-          if (state === 1 && !isCurrentlyPausing) {
-            console.log(`🎯 Target reached: ${pauseTime}s. Pausing video...`);
-            setIsCurrentlyPausing(true);
-            playerRef.current.pauseVideo();
+        if (typeof pauseTime === "number" && pauseTime > currentTime) {
+          const remaining = pauseTime - currentTime;
+          setTimeUntilNextStep(remaining);
 
-            if (
-              currentStep.stepPayload.textToSpeak &&
-              ttsRequestedForStep !== currentStep.id
-            ) {
-              requestTTS(currentStep.stepPayload.textToSpeak);
-              setTtsRequestedForStep(currentStep.id);
+          if (remaining < 1.5) {
+            const state = playerRef.current.getPlayerState();
+            // State 1 = Playing
+            if (state === 1 && !isCurrentlyPausing) {
+              console.log(`🎯 Target reached: ${pauseTime}s. Pausing video...`);
+              setIsCurrentlyPausing(true);
+              playerRef.current.pauseVideo();
+              setTimeUntilNextStep(0);
+
+              if (
+                currentStep.stepPayload.textToSpeak &&
+                ttsRequestedForStep !== currentStep.id
+              ) {
+                requestTTS(currentStep.stepPayload.textToSpeak);
+                setTtsRequestedForStep(currentStep.id);
+              }
             }
           }
+        } else {
+          setTimeUntilNextStep(null);
         }
       }
     }, 200);
@@ -231,7 +270,8 @@ export function useLessonSession() {
   useEffect(() => {
     if (
       playerRef.current &&
-      typeof playerRef.current.playVideo === "function"
+      typeof playerRef.current.playVideo === "function" &&
+      !isAjibadeSpeaking
     ) {
       const state = playerRef.current.getPlayerState();
       if (state === 2 || state === 5) {
@@ -277,6 +317,8 @@ export function useLessonSession() {
 
   const handleAudioStatusChange = useCallback(
     (isPlayingAudio: boolean) => {
+      setIsAjibadeSpeaking(isPlayingAudio);
+
       if (
         !isYouTubeMode ||
         !playerRef.current ||
@@ -301,6 +343,13 @@ export function useLessonSession() {
     },
     [isYouTubeMode, isCurrentlyPausing, introStatus, isQuizActive],
   );
+
+  useEffect(() => {
+    if (isAjibadeSpeaking && isYouTubeMode && isPlaying && playerRef.current) {
+      console.log("🛑 Force pausing video because Ajibade is still speaking");
+      playerRef.current.pauseVideo();
+    }
+  }, [isAjibadeSpeaking, isPlaying, isYouTubeMode]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -366,6 +415,8 @@ export function useLessonSession() {
     completionStats,
     introStatus,
     isCurrentlyPausing,
+    isAjibadeSpeaking,
+    timeUntilNextStep,
 
     // Actions
     setHasStarted,

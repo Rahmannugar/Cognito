@@ -181,7 +181,22 @@ export default function Classes() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {classes.map((cls: Class, i: number) => {
               const isNew = newClassId === cls.id;
-              const progress = cls.classCompletionPercentage || 0;
+              const units =
+                cls.learningMode === "YOUTUBE_TUTOR"
+                  ? cls.youtubeLessonUnits
+                  : cls.learningMode === "PDF_TUTOR"
+                    ? cls.pdfLessonUnits
+                    : cls.lessonUnits;
+
+              const completedUnits =
+                units?.filter((u) => u.unitStatus === "COMPLETED").length || 0;
+              const totalUnits = units?.length || cls.lessons || 0;
+
+              const progress =
+                totalUnits > 0
+                  ? (completedUnits / totalUnits) * 100
+                  : cls.classCompletionPercentage || 0;
+
               const hasProgress = progress > 0;
 
               const ModeIcon =

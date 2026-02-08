@@ -22,6 +22,7 @@ interface LessonContentAreaProps {
   handleQuizOptionClick: (option: string, index: number) => void;
   handlePostQuizResponse: (hasQuestion: boolean) => void;
   setIsQuizActive: (active: boolean) => void;
+  timeUntilNextStep: number | null;
 }
 
 export function LessonContentArea({
@@ -46,6 +47,7 @@ export function LessonContentArea({
   handleQuizOptionClick,
   handlePostQuizResponse,
   setIsQuizActive,
+  timeUntilNextStep,
 }: LessonContentAreaProps) {
   return (
     <div className="w-full lg:w-2/3 xl:w-3/4 h-[55vh] lg:h-full bg-slate-100 dark:bg-slate-900 relative order-1 lg:order-1 border-b lg:border-b-0 lg:border-r border-slate-200 dark:border-slate-800 transition-all duration-500 ease-in-out">
@@ -58,6 +60,7 @@ export function LessonContentArea({
           clarificationResponse={clarificationResponse}
           isPlaying={isPlaying}
           togglePlayback={togglePlayback}
+          timeUntilNextStep={timeUntilNextStep}
         />
       )}
 

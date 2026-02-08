@@ -5,6 +5,7 @@ export const useClasses = () => {
   return useQuery({
     queryKey: ["classes"],
     queryFn: classService.getClasses,
+    
   });
 };
 

@@ -55,7 +55,7 @@ export function LessonUnitsList() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-[#1a1b26] text-gray-900 dark:text-white">
+      <div className="min-h-screen uppercase text-blue-600 font-bold flex items-center justify-center bg-gray-50 dark:bg-[#1a1b26] dark:text-white">
         Loading units...
       </div>
     );
