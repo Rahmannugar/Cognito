@@ -30,6 +30,8 @@ export function LessonSession() {
   // Latest Fix States
   const [ttsRequestedForStep, setTtsRequestedForStep] = useState<string | null>(null);
   const [isPlayerReady, setIsPlayerReady] = useState(false);
+  const [introStatus, setIntroStatus] = useState<'NONE' | 'REQUESTED' | 'FINISHED'>('NONE');
+  const [isCurrentlyPausing, setIsCurrentlyPausing] = useState(false);
 
   const {
     steps,
@@ -48,6 +50,24 @@ export function LessonSession() {
   const handleAudioEnded = () => {
     setIsAudioFinished(true);
 
+    // YouTube: Resume video if we were pausing for an explanation
+    if (isYouTubeMode && isCurrentlyPausing) {
+      console.log("Explanation finished. Resuming video...");
+      setIsCurrentlyPausing(false);
+      if (playerRef.current && typeof playerRef.current.playVideo === 'function') {
+        playerRef.current.playVideo();
+      }
+    }
+
+    // Handle intro finishing on frontend
+    if (isYouTubeMode && introStatus === 'REQUESTED') {
+      console.log("Intro finished. Starting video...");
+      setIntroStatus('FINISHED');
+      if (playerRef.current && typeof playerRef.current.playVideo === 'function') {
+        playerRef.current.playVideo();
+      }
+    }
+
     // Safety: Do NOT auto-advance if this is a CONCLUSION step
     if (currentStep?.stepType === 'CONCLUSION') {
       console.log("CONCLUSION step audio ended. Waiting for SESSION_COMPLETED signal...");
@@ -63,6 +83,7 @@ export function LessonSession() {
   useEffect(() => {
     // Detect if current step is a quiz and reset states
     setIsAudioFinished(false);
+    setIsCurrentlyPausing(false); // Reset pause state for new steps
     if (currentStep?.stepPayload?.quizzesJson && currentStep.stepPayload.quizzesJson.length > 0) {
       setIsQuizActive(true);
       setIsQuizFinished(false);
@@ -135,7 +156,7 @@ export function LessonSession() {
           'rel': 0,
         },
         events: {
-          'onReady': (event: any) => {
+          'onReady': () => {
             console.log("YouTube Player Ready");
             setIsPlayerReady(true);
           }
@@ -148,21 +169,34 @@ export function LessonSession() {
     }
   }, [isYouTubeMode, videoId]);
 
-  // Combined Monitoring loop
+  // YouTube Intro Trigger (Frontend Side)
   useEffect(() => {
-    if (!isPlayerReady || typeof currentStep?.stepPayload?.pauseAtSeconds !== 'number') return;
+    if (isYouTubeMode && hasStarted && isConnected && introStatus === 'NONE') {
+      const introText = `I am Ajibade, your AI tutor. We will be watching this lesson on ${unit?.title || 'the topic'}. Just watch, and I will pause the video if I need to explain something or ask a question. Let's get started!`;
+      console.log("Triggering frontend intro...");
+      requestTTS(introText);
+      setIntroStatus('REQUESTED');
+    }
+  }, [isYouTubeMode, hasStarted, isConnected, introStatus, unit, requestTTS]);
+
+  // Monitoring loop for pausing video at specific timestamps
+  useEffect(() => {
+    if (!isPlayerReady || isQuizActive || !currentStep?.id) return;
 
     const interval = setInterval(() => {
-      if (playerRef.current && playerRef.current.getCurrentTime) {
+      if (playerRef.current && typeof playerRef.current.getCurrentTime === 'function') {
         const currentTime = playerRef.current.getCurrentTime();
-        const pauseTime = currentStep.stepPayload.pauseAtSeconds;
-        const canGetTime = typeof playerRef.current.getCurrentTime === 'function';
+        const pauseTime = currentStep?.stepPayload?.pauseAtSeconds;
 
-        if (canGetTime && typeof pauseTime === 'number' && currentTime >= pauseTime) {
+        // Use a small buffer (0.8s) to ensure we catch the frame but don't re-pause if user resumes
+        if (typeof pauseTime === 'number' && currentTime >= pauseTime && currentTime < pauseTime + 1.5) {
           const state = playerRef.current.getPlayerState();
-          if (state === 1 || (pauseTime === 0 && (state === 5 || state === -1))) {
-            console.log("Reached pause point. Pausing...");
+          // State 1 = Playing
+          if (state === 1 && !isCurrentlyPausing) {
+            console.log(`🎯 Target reached: ${pauseTime}s. Pausing video...`);
+            setIsCurrentlyPausing(true);
             playerRef.current.pauseVideo();
+
             if (currentStep.stepPayload.textToSpeak && ttsRequestedForStep !== currentStep.id) {
               requestTTS(currentStep.stepPayload.textToSpeak);
               setTtsRequestedForStep(currentStep.id);
@@ -170,29 +204,23 @@ export function LessonSession() {
           }
         }
       }
-    }, 500);
+    }, 200); // Higher frequency check for precision
 
     return () => clearInterval(interval);
-  }, [currentStep, requestTTS, isPlayerReady, ttsRequestedForStep]);
+  }, [currentStep, requestTTS, isPlayerReady, ttsRequestedForStep, isQuizActive, isCurrentlyPausing]);
 
-  // Dedicated effect for 0s step
-  useEffect(() => {
-    if (isYouTubeMode && currentStep?.stepPayload?.pauseAtSeconds === 0 && ttsRequestedForStep !== currentStep.id) {
-      console.log("🚀 [YouTubeMode] Intro step detected (0s). Requesting TTS immediately.");
-      requestTTS(currentStep.stepPayload.textToSpeak);
-      setTtsRequestedForStep(currentStep.id);
-    }
-  }, [currentStep, requestTTS, ttsRequestedForStep, isYouTubeMode]);
-
+  // Resume video playback when moving to a new step
   useEffect(() => {
     if (playerRef.current && typeof playerRef.current.playVideo === "function") {
       const state = playerRef.current.getPlayerState();
+      // Only resume if we are paused AND it's a new step being processed
       if (state === 2 || state === 5) {
-        console.log("New step arrived. Resuming video...");
+        console.log("Resuming video for next segment...");
+        setIsCurrentlyPausing(false);
         playerRef.current.playVideo();
       }
     }
-  }, [currentStep]);
+  }, [currentStep?.id]);
 
   const handleBackClick = () => setShowExitDialog(true);
   const handleConfirmExit = () => {
@@ -205,7 +233,7 @@ export function LessonSession() {
     }, 100);
   };
 
-  const handleQuizOptionClick = (option: string, index: number) => {
+  const handleQuizOptionClick = (_option: string, index: number) => {
     if (isShowingFeedback) return;
     const quizzes = currentStep?.stepPayload?.quizzesJson;
     if (!quizzes) return;
@@ -431,7 +459,15 @@ export function LessonSession() {
           clarificationResponse={clarificationResponse}
           isLoadingClarification={isLoadingClarification}
           disabled={isChatDisabled}
-          currentStepText={currentStep?.stepPayload?.textToSpeak}
+          currentStepText={
+            // Show intro text OR clarify response OR current step text (unless video is playing)
+            (isYouTubeMode && introStatus === "REQUESTED")
+              ? `I am Ajibade, your AI tutor. We will be watching this lesson on ${unit?.title || 'the topic'}. Just watch, and I will pause the video if I need to explain something or ask a question. Let's get started!`
+              : clarificationResponse?.stepPayload?.textToSpeak ||
+              ((isYouTubeMode && !isCurrentlyPausing && introStatus === 'FINISHED')
+                ? ""
+                : currentStep?.stepPayload?.textToSpeak)
+          }
           onPlaybackEnded={handleAudioEnded}
         />
       </div>
