@@ -2,11 +2,14 @@ import { useNavigate } from "react-router-dom";
 import { Lock, PlayCircle, CheckCircle, ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils/utils";
 import { LessonUnit } from "@/lib/types";
+import { useState } from "react";
 
 import { useClassById } from "@/lib/hooks/useClasses";
 
 export function LessonUnitsList() {
   const navigate = useNavigate();
+  const [isNavigating, setIsNavigating] = useState(false);
+
   const storedClassId = localStorage.getItem("currentClassId");
   const classId = storedClassId ? parseInt(storedClassId) : null;
 
@@ -43,8 +46,10 @@ export function LessonUnitsList() {
   }
 
   const handleUnitClick = (unit: LessonUnit) => {
-    if (unit.unitStatus === "NOT_STARTED" && unit.unitOrder > 0) {
+    if (isNavigating || (unit.unitStatus === "NOT_STARTED" && unit.unitOrder > 0)) {
+      // Validation check for locked units already happens in render, but good to double check
     }
+    setIsNavigating(true);
     navigate("/teach-me/session/setup", { state: { unit }, replace: true });
   };
 
@@ -84,7 +89,7 @@ export function LessonUnitsList() {
               return (
                 <button
                   key={unit.unitOrder}
-                  disabled={isLocked}
+                  disabled={isLocked || isNavigating}
                   onClick={() => handleUnitClick(unit)}
                   className={cn(
                     "group w-full p-5 rounded-2xl border-2 flex items-center justify-between text-left transition-all duration-300",
@@ -92,7 +97,7 @@ export function LessonUnitsList() {
                       ? "bg-primary/5 dark:bg-primary/10 border-primary shadow-lg ring-1 ring-primary/20 scale-[1.02]"
                       : isCompleted
                         ? "bg-white dark:bg-slate-900 border-emerald-100 dark:border-emerald-900/30 hover:border-emerald-200 dark:hover:border-emerald-800"
-                        : isLocked
+                        : (isLocked || isNavigating)
                           ? "bg-slate-50 dark:bg-slate-900/50 border-slate-100 dark:border-slate-800 opacity-60 cursor-not-allowed"
                           : "bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 hover:border-primary/50 hover:shadow-md",
                   )}
@@ -126,7 +131,7 @@ export function LessonUnitsList() {
                       <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
                         {isCompleted && (
                           <span className="text-emerald-500 lowercase font-medium">
-                          completed
+                            completed
                           </span>
                         )}
                       </div>
