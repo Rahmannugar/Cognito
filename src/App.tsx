@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { Suspense, useEffect } from "react";
+import { Suspense } from "react";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { useAuthStore } from "@/lib/store/authStore";
 import { publicRoutes, protectedRoutes, notFoundRoute } from "@/config/routes";
@@ -24,11 +24,7 @@ function LoadingFallback() {
  * Private route wrapper component
  */
 function PrivateRoute({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, isLoading, checkAuth } = useAuthStore();
-
-  useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
+  const { isAuthenticated, isLoading } = useAuthStore();
 
   if (isLoading) {
     return <LoadingFallback />;

@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { useAuthStore } from "@/lib/store/authStore";
-import { useLocation, useNavigate } from "react-router-dom";
 
 /**
  * Auth Middleware Component
@@ -10,8 +9,6 @@ import { useLocation, useNavigate } from "react-router-dom";
  */
 export function AuthMiddleware({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, logout, checkAuth } = useAuthStore();
-  const location = useLocation();
-  const navigate = useNavigate();
 
   // Check auth on mount, location change, and window focus
   useEffect(() => {
@@ -30,8 +27,10 @@ export function AuthMiddleware({ children }: { children: React.ReactNode }) {
       }
     };
 
-    // Run verification on mount/update
-    verifyAuth();
+    // Run verification on mount/update (only if not already authenticated but token exists)
+    if (!isAuthenticated && Cookies.get("auth_token")) {
+      verifyAuth();
+    }
 
     // Run verification on window focus (user comes back to tab)
     window.addEventListener("focus", verifyAuth);
@@ -43,7 +42,7 @@ export function AuthMiddleware({ children }: { children: React.ReactNode }) {
       window.removeEventListener("focus", verifyAuth);
       window.removeEventListener("storage", verifyAuth);
     };
-  }, [isAuthenticated, location.pathname, logout, checkAuth, navigate]);
+  }, [isAuthenticated, logout, checkAuth]);
 
   return <>{children}</>;
 }
