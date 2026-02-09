@@ -49,7 +49,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({
             className="absolute -inset-2 border border-primary/20 rounded-full border-dashed"
           />
 
-          <div className="relative w-32 h-32 rounded-full p-1 bg-linear-to-br from-primary to-blue-500 shadow-2xl shadow-primary/20">
+          <div className="relative w-20 h-20 rounded-full p-1 bg-linear-to-br from-primary to-blue-500 shadow-2xl shadow-primary/20">
             <div className="w-full h-full rounded-full bg-white dark:bg-slate-900 p-1">
               <img
                 src={AJIBADE_AVATAR}

@@ -282,7 +282,7 @@ export function LessonSession() {
         />
 
         <AjibadePanel
-          className="w-full lg:w-1/3 xl:w-1/4 h-[45vh] lg:h-auto order-2 lg:order-2 z-20 shadow-[-4px_0_24px_rgba(0,0,0,0.1)] transition-all duration-500 ease-in-out"
+          className="w-full order-2 lg:order-2 z-20 shadow-[-4px_0_24px_rgba(0,0,0,0.1)]"
           onSendMessage={(msg, audioData) => {
             sendMessage("USER_QUESTION", { questionText: msg, audioData });
           }}

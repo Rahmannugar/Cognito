@@ -120,7 +120,17 @@ export function useLessonSession() {
       const doc = iframe.contentDocument || iframe.contentWindow?.document;
       if (doc) {
         doc.open();
-        doc.write(targetStep.stepPayload.canvasHtmlContent);
+        const content = targetStep.stepPayload.canvasHtmlContent;
+        const responsivePatch = `
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+          <style>
+            body { margin: 0; padding: 0; overflow-x: hidden; }
+            * { max-width: 100vw; box-sizing: border-box; }
+          </style>
+        `;
+        doc.write(
+          content.includes("<meta") ? content : responsivePatch + content,
+        );
         doc.close();
       }
     }

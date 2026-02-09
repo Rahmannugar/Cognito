@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils/utils";
 import { motion } from "framer-motion";
 import { AJIBADE_AVATAR } from "@/lib/types/constants";
 import { useToastStore } from "@/lib/store/toastStore";
+import { useMediaQuery } from "@/lib/hooks/activity/useMediaQuery";
 
 interface Message {
   id: string;
@@ -72,6 +73,9 @@ export function AjibadePanel({
   const [isRecording, setIsRecording] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+  const [mobileHeight, setMobileHeight] = useState(45);
+  const [desktopWidth, setDesktopWidth] = useState(350); // initial width in px
+  const isMobile = useMediaQuery("(max-width: 1023px)");
   const { addToast } = useToastStore();
   const chatRef = useRef<HTMLDivElement>(null);
   const onPlaybackEndedRef = useRef(onPlaybackEnded);
@@ -255,7 +259,7 @@ export function AjibadePanel({
     if (chatRef.current) {
       chatRef.current.scrollTop = chatRef.current.scrollHeight;
     }
-  }, [messages, isMobileOpen]);
+  }, [messages, isMobileOpen, mobileHeight]);
 
   useEffect(() => {
     if (clarificationResponse) {
@@ -378,19 +382,55 @@ export function AjibadePanel({
 
   return (
     <>
-      <div
+      <motion.div
+        style={{
+          height: isMobile ? `${mobileHeight}vh` : undefined,
+          minHeight: isMobile ? "20vh" : undefined,
+          maxHeight: isMobile ? "95vh" : undefined,
+          width: !isMobile ? `${desktopWidth}px` : undefined,
+          minWidth: !isMobile ? "280px" : undefined,
+          maxWidth: !isMobile ? "600px" : undefined,
+        }}
         className={cn(
-          "flex flex-col bg-slate-900/95 backdrop-blur-xl border-l border-white/10 relative transition-transform duration-300",
-          "lg:relative lg:translate-y-0",
+          "flex flex-col bg-slate-900/95 backdrop-blur-xl border-l border-white/10 relative",
+          "lg:relative lg:translate-y-0 shrink-0",
           className,
         )}
       >
-        <div
-          className="lg:hidden absolute -top-8 left-0 right-0 h-8 bg-slate-900/95 rounded-t-xl flex items-center justify-center border-t border-x border-white/10 cursor-pointer"
-          onClick={() => setIsMobileOpen(!isMobileOpen)}
+        {/* Desktop Resize Handle */}
+        <motion.div
+          className="hidden lg:flex absolute left-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-primary/30 transition-colors z-30 items-center justify-center group"
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0}
+          onDrag={(_, info) => {
+            setDesktopWidth((prev) =>
+              Math.max(280, Math.min(600, prev - info.delta.x)),
+            );
+          }}
+        >
+          <div className="w-0.5 h-8 bg-slate-700 group-hover:bg-primary/50 rounded-full transition-colors" />
+        </motion.div>
+
+        {/* Mobile Drag Handle */}
+        <motion.div
+          className="lg:hidden absolute -top-8 left-0 right-0 h-8 bg-slate-900/95 rounded-t-xl flex items-center justify-center border-t border-x border-white/10 cursor-ns-resize touch-none"
+          drag="y"
+          dragConstraints={{ top: 0, bottom: 0 }}
+          dragElastic={0}
+          onDrag={(_, info) => {
+            const deltaVh = (info.delta.y / window.innerHeight) * 100;
+            setMobileHeight((prev) =>
+              Math.max(20, Math.min(95, prev - deltaVh)),
+            );
+          }}
+          onClick={() => {
+            setMobileHeight((prev) => (prev > 60 ? 45 : 85));
+            setIsMobileOpen(!isMobileOpen);
+          }}
         >
           <div className="w-12 h-1.5 bg-slate-600 rounded-full" />
-        </div>
+        </motion.div>
 
         <div className="p-4 border-b border-white/10 bg-slate-900/80 backdrop-blur-xl shrink-0 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -398,7 +438,7 @@ export function AjibadePanel({
               <Avatar
                 src={AJIBADE_AVATAR}
                 alt="Ajibade"
-                size="lg"
+               
                 ring
                 className="relative"
               />
@@ -509,7 +549,7 @@ export function AjibadePanel({
             </div>
           </form>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }
