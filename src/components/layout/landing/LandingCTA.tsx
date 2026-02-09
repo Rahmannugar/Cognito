@@ -15,7 +15,7 @@ export const LandingCTA = () => (
           their learning potential.
         </p>
         <Link to="/signup" className="inline-block w-full sm:w-auto">
-          <Button className="w-full sm:w-auto h-14 md:h-16 px-10 md:px-12 rounded-2xl bg-blue-600 text-white font-black text-lg md:text-xl shadow-2xl hover:bg-blue-700 hover:scale-105 transition-all active:scale-95 active:bg-blue-700 border-none">
+          <Button className="w-full sm:w-auto h-14 md:h-16 px-10 md:px-12 rounded-2xl bg-blue-600 text-white font-black text-lg md:text-xl shadow-2xl hover:bg-blue-700 md:hover:scale-105 transition-all md:active:scale-95 active:bg-blue-700 border-none">
             Get Started
             <ChevronRight className="ml-2 w-5 h-5" />
           </Button>
