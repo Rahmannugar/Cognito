@@ -61,7 +61,7 @@ const MacHeader = () => (
     <div className="ml-4 md:ml-10 h-6 flex-1 max-w-[200px] md:max-w-72 rounded-xl bg-slate-200/50 dark:bg-white/5 flex items-center px-3 gap-2 border border-slate-300 dark:border-white/10 shadow-inner">
       <Lock className="w-2.5 h-2.5 text-slate-400 shrink-0" />
       <div className="text-[9px] font-bold text-slate-400/80 tracking-tight truncate">
-        cognition-agent.ai
+        cognito.software
       </div>
     </div>
   </div>
