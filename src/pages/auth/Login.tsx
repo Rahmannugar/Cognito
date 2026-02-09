@@ -73,10 +73,10 @@ export default function Login() {
             <div className="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-600/30 mb-6 group transition-transform hover:scale-105">
               <GraduationCap className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-3xl font-black tracking-tight mb-2">
+            <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-2">
               Welcome Back.
             </h1>
-            <p className="text-slate-500 dark:text-slate-400 font-medium">
+            <p className="text-slate-500 dark:text-slate-400 font-medium text-sm md:text-base">
               Continue your learning journey.
             </p>
           </div>

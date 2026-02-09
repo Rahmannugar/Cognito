@@ -18,7 +18,7 @@ export const LandingHero = ({ heroRef, opacity, scale }: LandingHeroProps) => {
         <motion.div
           initial={{ opacity: 0, scale: isMobile ? 1 : 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-500/10 bg-blue-500/5 text-blue-600 dark:text-blue-400 text-[9px] font-black uppercase tracking-[0.4em] mb-8 md:mb-12 shadow-sm"
+          className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-500/10 bg-blue-500/5 text-blue-600 dark:text-blue-400 text-xs font-black uppercase tracking-[0.4em] mb-8 md:mb-12 shadow-sm"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
           Cognition Agent
@@ -77,7 +77,7 @@ export const LandingHero = ({ heroRef, opacity, scale }: LandingHeroProps) => {
             </button>
           </Link>
           <Link to="/login" className="w-full sm:w-auto">
-            <button className="w-full h-14 px-10 rounded-2xl cursor-pointer border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/5 hover:bg-slate-200 hover:border-stone-700 dark:hover:bg-white/10 transition-all md:active:scale-95 font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3 active:bg-slate-200 dark:active:bg-white/10">
+            <button className="w-full h-14 px-10 rounded-2xl cursor-pointer border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/5 hover:bg-slate-200 hover:border-stone-700 dark:hover:bg-white/10 transition-all md:active:scale-95 font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3 active:bg-slate-200 dark:active:bg-white/10">
               <Play className="w-3 h-3 fill-current" />
               Watch Overview
             </button>

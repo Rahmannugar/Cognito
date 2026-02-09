@@ -129,16 +129,13 @@ export default function Dashboard() {
     }
   };
 
-  if (loading) return <div className="p-10 text-center uppercase">Loading...</div>;
+  if (loading) return;
 
   const stats = user?.stats;
   const weeklyGoalHours = stats?.weeklyGoalHours || 1;
   const totalGoalMinutes = weeklyGoalHours * 60;
   const minutesSpent = stats?.totalMinutesSpent || 0;
- const goalProgress = Math.min(
-   100,
-   ((minutesSpent / totalGoalMinutes) * 100),
- );
+  const goalProgress = Math.min(100, (minutesSpent / totalGoalMinutes) * 100);
 
   return (
     <AppLayout>
@@ -170,7 +167,9 @@ export default function Dashboard() {
               </div>
               <div className="shrink-0">
                 <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 flex flex-col items-center justify-center min-w-[120px]">
-                  <span className="text-3xl font-bold">{Number(goalProgress.toFixed(2))}</span>
+                  <span className="text-3xl font-bold">
+                    {Number(goalProgress.toFixed(2))}
+                  </span>
                   <span className="text-xs text-blue-100 uppercase tracking-wide">
                     Weekly Goal ({stats?.weeklyGoalHours || "?"}h)
                   </span>
@@ -183,7 +182,7 @@ export default function Dashboard() {
             variants={itemVariants}
             className="flex items-center justify-between"
           >
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">
               Choose Learning Mode
             </h2>
           </motion.div>
@@ -217,7 +216,7 @@ export default function Dashboard() {
                 >
                   <mode.icon className="w-7 h-7" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white mb-2">
                   {mode.title}
                 </h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 flex-1 leading-relaxed">

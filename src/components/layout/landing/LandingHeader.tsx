@@ -50,7 +50,7 @@ export const LandingHeader = ({
             </Link>
           </div>
 
-          <nav className="hidden md:flex items-center gap-6 lg:gap-10 text-[8px] lg:text-[10px] font-black uppercase tracking-[0.25em] text-slate-500 dark:text-slate-400">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-10 text-xs font-black uppercase tracking-[0.25em] text-slate-500 dark:text-slate-400">
             <a
               href={location.pathname === "/" ? "#ecosystem" : "/#ecosystem"}
               className="hover:text-blue-600 active:text-blue-600 transition-colors"
@@ -75,7 +75,7 @@ export const LandingHeader = ({
             <ThemeToggle />
             <div className="hidden md:flex items-center">
               <Link to={isAuthenticated ? "/dashboard" : "/signup"}>
-                <Button className="h-10 px-6 rounded-full bg-blue-600 dark:bg-white text-white dark:text-white font-black text-[10px] uppercase tracking-wider md:hover:scale-105 transition-all border-none md:active:scale-95">
+                <Button className="h-10 px-6 rounded-full bg-blue-600 dark:bg-white text-white dark:text-white font-black text-xs uppercase tracking-wider md:hover:scale-105 transition-all border-none md:active:scale-95">
                   {isAuthenticated ? "Dashboard" : "Get Started"}
                 </Button>
               </Link>

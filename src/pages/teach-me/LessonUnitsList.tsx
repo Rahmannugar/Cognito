@@ -46,7 +46,10 @@ export function LessonUnitsList() {
   }
 
   const handleUnitClick = (unit: LessonUnit) => {
-    if (isNavigating || (unit.unitStatus === "NOT_STARTED" && unit.unitOrder > 0)) {
+    if (
+      isNavigating ||
+      (unit.unitStatus === "NOT_STARTED" && unit.unitOrder > 0)
+    ) {
       // Validation check for locked units already happens in render, but good to double check
     }
     setIsNavigating(true);
@@ -71,12 +74,12 @@ export function LessonUnitsList() {
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
-        <h2 className="font-bold text-lg tracking-tight text-gray-900 dark:text-white truncate">
+        <h2 className="font-bold text-xl md:text-2xl tracking-tight text-gray-900 dark:text-white truncate">
           {classTitle || "Class Curriculum"}
         </h2>
       </div>
 
-      <div className="flex-1 overflow-y-auto custom-scrollbar p-6 max-w-4xl mx-auto w-full">
+      <div className="flex-1 overflow-y-auto custom-scrollbar p-4 md:p-6 max-w-4xl mx-auto w-full">
         <div className="flex flex-col gap-3 pb-6">
           {units.length > 0 ? (
             units.map((unit, idx) => {
@@ -92,12 +95,12 @@ export function LessonUnitsList() {
                   disabled={isLocked || isNavigating}
                   onClick={() => handleUnitClick(unit)}
                   className={cn(
-                    "group w-full p-5 rounded-2xl border-2 flex items-center justify-between text-left transition-all duration-300",
+                    "group w-full p-4 md:p-5 rounded-2xl border-2 flex items-center justify-between text-left transition-all duration-300",
                     isCurrent
                       ? "bg-primary/5 dark:bg-primary/10 border-primary shadow-lg ring-1 ring-primary/20 scale-[1.02]"
                       : isCompleted
                         ? "bg-white dark:bg-slate-900 border-emerald-100 dark:border-emerald-900/30 hover:border-emerald-200 dark:hover:border-emerald-800"
-                        : (isLocked || isNavigating)
+                        : isLocked || isNavigating
                           ? "bg-slate-50 dark:bg-slate-900/50 border-slate-100 dark:border-slate-800 opacity-60 cursor-not-allowed"
                           : "bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 hover:border-primary/50 hover:shadow-md",
                   )}
@@ -105,7 +108,7 @@ export function LessonUnitsList() {
                   <div className="flex items-center gap-4">
                     <div
                       className={cn(
-                        "w-12 h-12 rounded-2xl flex items-center justify-center font-bold text-lg transition-transform group-hover:scale-110",
+                        "w-8 h-8 md:w-12 md:h-12 shrink-0 rounded-full flex items-center justify-center font-bold text-lg md:text-xl transition-transform group-hover:scale-110",
                         isCurrent
                           ? "bg-primary text-white"
                           : isCompleted
@@ -115,10 +118,10 @@ export function LessonUnitsList() {
                     >
                       {unit.unitOrder}
                     </div>
-                    <div>
+                    <div className="min-w-0">
                       <h3
                         className={cn(
-                          "font-bold text-lg mb-1 transition-colors",
+                          "font-bold md:text-xl mb-1 transition-colors",
                           isCurrent
                             ? "text-primary"
                             : isLocked
@@ -138,7 +141,7 @@ export function LessonUnitsList() {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-center min-w-[40px]">
+                  <div className="flex items-center justify-center min-w-[40px] shrink-0">
                     {isLocked && (
                       <div className="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg text-slate-400">
                         <Lock className="w-5 h-5" />

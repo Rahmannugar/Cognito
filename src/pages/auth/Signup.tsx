@@ -87,10 +87,10 @@ export default function Signup() {
             <div className="w-16 h-16 rounded-2xl bg-slate-900 dark:bg-white flex items-center justify-center shadow-lg mb-6">
               <GraduationCap className="w-8 h-8 text-white dark:text-slate-900" />
             </div>
-            <h1 className="text-3xl font-black tracking-tight mb-2">
+            <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-2">
               Join Cognito.
             </h1>
-            <p className="text-slate-500 dark:text-slate-400 font-medium text-center">
+            <p className="text-slate-500 dark:text-slate-400 font-medium text-center text-sm md:text-base">
               Unlock your full learning potential today.
             </p>
           </div>

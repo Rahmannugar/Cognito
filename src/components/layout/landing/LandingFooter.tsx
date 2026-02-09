@@ -21,7 +21,7 @@ export const LandingFooter = () => (
         </div>
         <div className="grid grid-cols-2 gap-12 md:gap-20">
           <div className="space-y-6">
-            <p className="text-[10px] font-black uppercase tracking-[0.5em] text-blue-600">
+            <p className="text-xs font-black uppercase tracking-[0.5em] text-blue-600">
               Platform
             </p>
             <div className="flex flex-col gap-4 text-sm font-bold tracking-tight text-slate-500 dark:text-slate-400">
@@ -67,7 +67,7 @@ export const LandingFooter = () => (
         </div>
       </div>
       <div className="mt-20 md:mt-24 pt-10 border-t border-slate-100 dark:border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6">
-        <p className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-400 dark:text-slate-500">
+        <p className="text-xs font-black uppercase tracking-[0.5em] text-slate-400 dark:text-slate-500">
           © {new Date().getFullYear()} Cognito
         </p>
       </div>

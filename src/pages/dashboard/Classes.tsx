@@ -247,7 +247,7 @@ export default function Classes() {
                           })()}
                         </h3>
                         {isNew && (
-                          <span className="text-[10px] font-bold px-2 py-1 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 shrink-0">
+                          <span className="text-xs font-bold px-2 py-1 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 shrink-0">
                             NEW
                           </span>
                         )}
@@ -261,7 +261,7 @@ export default function Classes() {
                         <span>•</span>
                         <span>{cls.lessons || 0} units</span>
                         <span>•</span>
-                        <span className="uppercase font-bold tracking-wider text-[10px]">
+                        <span className="uppercase font-bold tracking-wider text-xs">
                           {cls.learningMode?.replace("_TUTOR", "") || "TOPIC"}
                         </span>
                       </div>

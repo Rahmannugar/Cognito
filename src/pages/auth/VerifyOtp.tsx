@@ -88,8 +88,10 @@ export default function VerifyOtp({ type }: VerifyOtpProps) {
                 <CheckCircle2 className="w-8 h-8 text-blue-600" />
               )}
             </div>
-            <h1 className="text-3xl font-black tracking-tight mb-2">{title}</h1>
-            <p className="text-slate-500 dark:text-slate-400 font-medium">
+            <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-2">
+              {title}
+            </h1>
+            <p className="text-slate-500 dark:text-slate-400 font-medium text-sm md:text-base">
               {subTitle}
             </p>
             <div className="mt-2 px-3 py-1 bg-blue-500/10 rounded-full text-blue-600 dark:text-blue-400 text-xs font-bold font-mono">

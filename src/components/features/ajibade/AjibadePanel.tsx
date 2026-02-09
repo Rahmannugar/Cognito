@@ -420,7 +420,7 @@ export function AjibadePanel({
           className="flex-1 overflow-y-auto p-4 space-y-6 bg-slate-900/50"
         >
           <div className="flex justify-center">
-            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest bg-slate-800/50 px-3 py-1 rounded-full border border-white/5">
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-widest bg-slate-800/50 px-3 py-1 rounded-full border border-white/5">
               Today
             </span>
           </div>

@@ -104,10 +104,10 @@ export default function PDFSelection() {
 
   return (
     <div className="min-h-screen w-full bg-slate-50 dark:bg-slate-950 flex flex-col">
-      <div className="p-6">
+      <div className="p-4 md:p-6">
         <button
           onClick={() => navigate("/classes")}
-          className="flex items-center gap-2 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
+          className="flex items-center gap-2 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors text-sm md:text-base"
         >
           <ArrowLeft className="w-5 h-5" />
           <span className="font-medium">Back to Classes</span>
@@ -120,10 +120,10 @@ export default function PDFSelection() {
             <div className="w-16 h-16 bg-emerald-100 dark:bg-emerald-900/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <FileText className="w-8 h-8 text-emerald-600" />
             </div>
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
+            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-2">
               New PDF Class
             </h1>
-            <p className="text-slate-500 dark:text-slate-400">
+            <p className="text-sm md:text-base text-slate-500 dark:text-slate-400">
               Upload a PDF document to generate an interactive lesson.
             </p>
           </div>

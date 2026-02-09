@@ -103,7 +103,6 @@ export default function YouTubeSelection() {
 
     // Initialize player
     if ((window as any).YT && (window as any).YT.Player) {
-
       if (!playerRef.current) {
         playerRef.current = new (window as any).YT.Player("hidden-player", {
           height: "0",
@@ -173,10 +172,10 @@ export default function YouTubeSelection() {
         className="absolute top-0 left-0 w-0 h-0 opacity-0 pointer-events-none"
       />
 
-      <div className="p-6">
+      <div className="p-4 md:p-6">
         <button
           onClick={() => navigate("/classes")}
-          className="flex items-center cursor-pointer gap-2 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
+          className="flex items-center cursor-pointer gap-2 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors text-sm md:text-base"
         >
           <ArrowLeft className="w-5 h-5" />
           <span className="font-medium">Back to Classes</span>
@@ -189,10 +188,10 @@ export default function YouTubeSelection() {
             <div className="w-16 h-16 bg-red-100 dark:bg-red-900/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <Youtube className="w-8 h-8 text-red-600" />
             </div>
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
+            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-2">
               New YouTube Class
             </h1>
-            <p className="text-slate-500 dark:text-slate-400">
+            <p className="text-sm md:text-base text-slate-500 dark:text-slate-400">
               Paste a YouTube URL to generate an interactive lesson.
             </p>
           </div>
