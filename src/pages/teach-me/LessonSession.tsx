@@ -3,6 +3,8 @@ import { AjibadePanel } from "@/components/features/ajibade";
 import { ConfirmDialog } from "@/components/dialog/ConfirmDialog";
 import { useLessonSession } from "@/lib/hooks/activity/useLessonSession";
 import { LessonContentArea } from "@/components/lesson/session/LessonContentArea";
+import { useToastStore } from "@/lib/store/toastStore";
+import { useEffect, useRef } from "react";
 
 export function LessonSession() {
   const {
@@ -49,6 +51,16 @@ export function LessonSession() {
     onPlayerReady,
     onStateChange,
   } = useLessonSession();
+
+  const { addToast } = useToastStore();
+  const hasShownCompletionToast = useRef(false);
+
+  useEffect(() => {
+    if (isCompleted && !hasShownCompletionToast.current) {
+      addToast("Class would be deleted upon completion", "info");
+      hasShownCompletionToast.current = true;
+    }
+  }, [isCompleted, addToast]);
 
   if (!sessionId) return null;
   const isChatDisabled = !manualChatEnabled;
