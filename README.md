@@ -5,17 +5,20 @@ An AI-powered educational platform for self-directed learners, featuring interac
 ## ✨ Features
 
 ### 🎓 Learning Modes
+
 - **Topic Tutor** - AI generates personalized lessons on any topic you want to learn
 - **YouTube Tutor** - Transform any YouTube video into an interactive learning experience with AI-guided explanations
 - **PDF Tutor** - Upload documents and get AI-powered summaries, explanations, and interactive lessons
 
 ### 🤖 AI-Powered Learning
+
 - **Ajibade AI Tutor** - Your personal AI learning assistant available during lessons
 - **Real-time Clarifications** - Ask questions during lessons and get instant AI responses
 - **Interactive Whiteboard** - Visual learning with AI-generated content
 - **Adaptive Quizzes** - AI-generated quizzes tailored to your learning progress
 
 ### 📊 Progress Tracking
+
 - **Learning Streaks** - Track your daily learning consistency
 - **Time Analytics** - Monitor total minutes spent learning
 - **Completion Tracking** - See your progress across all classes
@@ -23,6 +26,7 @@ An AI-powered educational platform for self-directed learners, featuring interac
 - **Weekly Goals** - Set and track weekly learning hour targets
 
 ### 🎨 User Experience
+
 - **Theme System** - Light, Dark, and System-adaptive themes
 - **Responsive Design** - Seamless experience across all devices
 - **Real-time Updates** - WebSocket-powered live lesson sessions
@@ -31,32 +35,39 @@ An AI-powered educational platform for self-directed learners, featuring interac
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - **React 19** + **TypeScript** - Modern React with full type safety
 - **Vite 5** - Lightning-fast build tool and dev server
 - **Tailwind CSS 4** - Utility-first CSS framework with Lightning CSS engine
 - **Framer Motion 11** - Smooth animations and transitions
 
 ### State Management & Data
+
 - **Zustand** - Lightweight state management
 - **@tanstack/react-query** - Server state management and caching
 - **Zod** - Runtime type validation
 - **js-cookie** - Cookie management for authentication
 
 ### Routing & Navigation
+
 - **React Router 6** - Client-side routing
 
 ### UI & Icons
+
 - **Lucide React** - Beautiful, consistent icon set
 - **tailwindcss-animate** - Pre-built animation utilities
 
 ### Communication
-- **HTTP** - HTTP client for API requests
-- **WebSocket** - Real-time bidirectional communication for lessons
+
+- **Axios** - HTTP client with request/response interceptors for JWT injection
+- **WebSocket** - Real-time bidirectional communication for live lesson sessions
+- **Audio Streaming** - OGG/Opus chunk-based streaming for instant AI tutor voice feedback
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - npm or yarn
 
 ### Installation
@@ -101,48 +112,21 @@ npm run preview
 ```
 src/
 ├── components/
-│   ├── ui/              # Atomic UI components (Button, Card, Input, Avatar, etc.)
-│   ├── layout/          # Layout components (Header, AppLayout)
-│   ├── features/        # Feature-specific components
-│   │   ├── ajibade/     # AI tutor chat interface
-│   │   └── lesson/      # Lesson-related components
-│   ├── shared/          # Shared reusable components
-│   ├── providers/       # Context providers (ThemeProvider)
-│   └── dialog/          # Dialog/Modal components
-├── config/              # App configuration
-│   └── routes.tsx       # Centralized route definitions
-├── hooks/               # Custom React hooks
-│   ├── useLessonWebSocket.ts  # WebSocket connection for lessons
-│   └── useTheme.ts      # Theme management hook
+│   ├── ui/              # Atomic UI components (Button, Card, Input, etc.)
+│   ├── layout/          # Layout components (Header, AuthMiddleware)
+│   ├── features/        # Business-heavy components (LessonSession, AjibadeChat)
+│   └── providers/       # Context providers (ThemeProvider)
+├── config/              # Centralized route & app configuration
 ├── lib/
-│   ├── services/        # API service layer
-│   │   ├── apiClient.ts      # HTTP client with interceptors
-│   │   ├── authService.ts    # Authentication endpoints
-│   │   └── classService.ts   # Class management endpoints
-│   ├── store/           # Zustand stores
-│   │   ├── authStore.ts      # Authentication state
-│   │   └── toastStore.ts     # Toast notifications state
-│   ├── hooks/           # Business logic hooks
-│   │   └── useAuth.ts        # Authentication mutations
-│   ├── types/           # TypeScript type definitions
-│   ├── utils/           # Utility functions
-│   │   └── youtube.ts        # YouTube API utilities
-│   ├── validation/      # Zod validation schemas
-│   └── constants.ts     # App-wide constants
-├── pages/               # Route page components
-│   ├── Landing.tsx           # Landing page
-│   ├── Login.tsx             # Login page
-│   ├── Signup.tsx            # Signup page
-│   ├── VerifyOtp.tsx         # OTP verification
-│   ├── ForgotPassword.tsx    # Password reset
-│   ├── Dashboard.tsx         # Main dashboard
-│   ├── Classes.tsx           # Classes overview
-│   ├── Settings.tsx          # User settings
-│   └── teach-me/             # Topic tutor pages
-│       ├── SessionSetup.tsx  # Create new class
-│       ├── LessonUnitsList.tsx  # Class curriculum
-│       └── LessonSession.tsx    # Active lesson session
-└── styles/              # Global styles and CSS
+│   ├── services/        # Infrastructure layer (apiClient, authService)
+│   ├── store/           # Zustand state management
+│   ├── hooks/           # Extracted business logic
+│   │   ├── activity/    # WebSocket & Audio streaming orchestrators
+│   │   └── theme/       # UI preference logic
+│   ├── validation/      # Zod schemas for data integrity
+│   └── utils/           # Shared utility functions (youtube.ts)
+├── pages/               # Route-level components (Lazy-loaded)
+└── styles/              # Global CSS & Tailwind configuration
 
 ```
 
@@ -150,20 +134,20 @@ src/
 
 All routes are centrally configured in `src/config/routes.tsx` with lazy loading for optimal performance.
 
-| Path | Description | Auth Required |
-|------|-------------|---------------|
-| `/` | Landing page | No |
-| `/login` | User login | No |
-| `/signup` | User registration | No |
-| `/verify-otp` | OTP verification | No |
-| `/forgot-password` | Password reset | No |
-| `/dashboard` | Main dashboard | Yes |
-| `/classes` | All classes | Yes |
-| `/teach-me` | Create topic class | Yes |
-| `/teach-me/class/units` | View class units | Yes |
-| `/teach-me/session/:sessionId` | Active lesson session | Yes |
-| `*` | 404 Not Found page | No |
-| `/settings` | User settings | Yes |
+| Path                           | Description           | Auth Required |
+| ------------------------------ | --------------------- | ------------- |
+| `/`                            | Landing page          | No            |
+| `/login`                       | User login            | No            |
+| `/signup`                      | User registration     | No            |
+| `/verify-otp`                  | OTP verification      | No            |
+| `/forgot-password`             | Password reset        | No            |
+| `/dashboard`                   | Main dashboard        | Yes           |
+| `/classes`                     | All classes           | Yes           |
+| `/teach-me`                    | Create topic class    | Yes           |
+| `/teach-me/class/units`        | View class units      | Yes           |
+| `/teach-me/session/:sessionId` | Active lesson session | Yes           |
+| `*`                            | 404 Not Found page    | No            |
+| `/settings`                    | User settings         | Yes           |
 
 ## 🔐 Authentication Flow
 
@@ -182,14 +166,16 @@ All authentication uses JWT tokens stored in HTTP-only cookies.
 5. **Complete Quizzes** - Test your understanding
 6. **Track Progress** - Monitor your learning journey
 
-## 📡 API Integration
+The frontend integrates with a RESTful API and a dedicated WebSocket server:
 
-The frontend integrates with a RESTful API and WebSocket server:
+- **REST API**: Handles high-level orchestration (Auth, Class Creation, Profiles).
+- **WebSocket (Lesson Session)**:
+  - **Handshake**: Initiated with `sessionId` and JWT.
+  - **Message Flow**: Synchronized via `NEXT_STEP`, `STEP_COMPLETED`, and `USER_QUESTION`.
+  - **Audio Delivery**: Streaming `AUDIO_CHUNK` messages (Base64 OGG) for low-latency voice synthesis.
+  - **YouTube Sync**: Pause-point synchronization via `YOUTUBE_STEP`.
 
-- **REST API**: Authentication, class management, user profile
-- **WebSocket**: Real-time lesson sessions with AI tutor
-
-See `FRONTEND_INTEGRATION_GUIDE.md` for complete API documentation.
+See [FRONTEND_INTEGRATION_GUIDE.md](./FRONTEND_INTEGRATION_GUIDE.md) for full message schemas.
 
 ## 🧪 Validation
 
@@ -197,6 +183,80 @@ All API requests are validated using Zod schemas before sending to ensure type s
 
 See `src/lib/validation/schemas.ts` for all validation schemas.
 
+## 🏗️ Core Module Deep-Dive
+
+### 📡 The Orchestration Layer (`src/lib/hooks/activity`)
+
+This is the "brain" of the frontend. It manages the complex lifecycle of a lesson session:
+
+- **`useLessonWebSocket`**: Orchestrates the duplex communication with the server, handling event routing for lesson steps, questions, and sync points.
+- **`useAudioStreaming`**: Manages the `AudioContext` and chunked buffer strategy for the OGG/Opus stream, ensuring seamless playback without blocking the UI.
+
+### 🔐 Infrastructure & Services (`src/lib/services`)
+
+A robust communication layer that abstracts the backend complexity:
+
+- **`apiClient`**: A customized Axios instance with global interceptors for header injection and automated error handling (e.g., recursive logout on session expiration).
+- **Service SDKs**: Strongly typed methods for Auth, Class management, and User stats, ensuring the UI remains decoupled from API endpoints.
+
+### 🧠 State Management Foundation (`src/lib/store`)
+
+Uses **Zustand** for high-performance, atomic state updates:
+
+- **`authStore`**: Manages user session lifecycle, persistence, and hydration.
+- **`toastStore`**: A centralized notification system for consistent user feedback across async operations.
+
+### 🎨 Design System (`src/components/ui`)
+
+A collection of atomic, highly reusable components built on top of **Tailwind CSS**. These components are "dumb"—they focus purely on presentation and accessibility, ensuring a consistent visual language across the entire application.
+
+### 🚀 Feature Modules (`src/components/features`)
+
+Where the business logic meets the UI. Modules like `ajibade/` and `lesson/` integrate state and hooks to create complex interactive experiences, such as the AI Chat interface and the synchronized YouTube player.
+
+---
+
+## 🚶 App Walkthrough
+
+Experience Cognito's seamless journey from discovery to deep learning.
+
+### 1. Onboarding & Security
+
+Begin your journey at the **Landing Page**, showcasing the platform's core capabilities. Create an account or sign in to be greeted by our **OTP Verification** system, ensuring a secure and personalized environment for your learning data.
+
+### 2. The Learning Command Center (Dashboard)
+
+Your **Dashboard** is the pulse of your learning journey. Monitor your **Learning Streaks**, track your **Weekly Goals**, and see your **Global Ranking** in real-time. The "Recent Classes" section allows you to jump back into your studies with a single click.
+
+### 3. Creating Your Custom Curriculum
+
+Navigate to **"Teach Me"** to choose your learning source:
+
+- **Topic**: Type any subject, and watch Cognito architect a structured syllabus.
+- **YouTube**: Paste a URL and let AI partition the video into interactive lesson units.
+- **PDF**: Upload complex documents for AI-guided ingestion and explanation.
+
+### 4. Interactive Learning Sessions
+
+Enter an active **Lesson Session** to experience the power of synchronized learning. As you progress through lesson units, **Ajibade**—your AI Tutor—is always present to provide voice-guided explanations and respond to real-time questions.
+
+### 5. Mastery through Interaction
+
+Test your knowledge with **AI-Generated Quizzes** integrated directly into the lesson flow. Use the **Interactive Whiteboard** to visualize complex concepts as Ajibade breaks them down for you.
+
+---
+
+## 👥 Contributors
+
+Meet the engineers behind Cognito:
+
+| Contributor              | GitHub Profile                                     |
+| :----------------------- | :------------------------------------------------- |
+| **Mosimiloluwa Adebisi** | [@A-Simie](https://github.com/A-Simie)             |
+| **Amina**                | [@aminatukekere](https://github.com/aminatukekere) |
+| **Rahmannugar**          | [@Rahmannugar](https://github.com/Rahmannugar)     |
+
+---
 
 ## 🤝 Contributing
 

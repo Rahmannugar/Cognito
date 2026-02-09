@@ -84,7 +84,7 @@ export const useAuth = () => {
   const logout = () => {
     storeLogout();
     addToast("Logged out successfully", "success");
-    navigate("/login", { replace: true });
+    navigate("/", { replace: true });
   };
 
   return {
