@@ -15,8 +15,6 @@ export default function Landing() {
     isMenuOpen,
     setIsMenuOpen,
     scrolled,
-    demoStatus,
-    setDemoStatus,
     heroRef,
     ecoRef,
     mockupY,
@@ -29,7 +27,7 @@ export default function Landing() {
   } = useLandingAnimations();
 
   return (
-    <div className="min-h-screen bg-background-light dark:bg-[#02040c] text-slate-900 dark:text-white selection:bg-blue-500/30 font-['Outfit'] overflow-x-hidden relative">
+    <div className="min-h-screen bg-background-light dark:bg-[#02040c] text-slate-900 dark:text-white selection:bg-blue-500/30 font-sans overflow-x-hidden relative">
       <LandingBackground />
 
       <LandingHeader
@@ -41,12 +39,7 @@ export default function Landing() {
       <main className="relative z-10">
         <LandingHero heroRef={heroRef} opacity={opacity} scale={scale} />
 
-        <LandingProductMockup
-          mockupY={mockupY}
-          innerMockupY={innerMockupY}
-          demoStatus={demoStatus}
-          setDemoStatus={setDemoStatus}
-        />
+        <LandingProductMockup mockupY={mockupY} innerMockupY={innerMockupY} />
 
         <LandingEcosystem
           ecoRef={ecoRef}

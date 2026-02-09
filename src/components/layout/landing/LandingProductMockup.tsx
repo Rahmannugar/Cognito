@@ -8,8 +8,6 @@ import { useIsMobile } from "@/lib/hooks/activity/useMediaQuery";
 interface LandingProductMockupProps {
   mockupY: MotionValue<number>;
   innerMockupY: MotionValue<number>;
-  demoStatus: DemoStatus;
-  setDemoStatus: (status: DemoStatus) => void;
 }
 
 interface Message {
@@ -256,9 +254,8 @@ const InputArea = () => (
 export const LandingProductMockup = ({
   mockupY,
   innerMockupY,
-  demoStatus,
-  setDemoStatus,
 }: LandingProductMockupProps) => {
+  const [demoStatus, setDemoStatus] = useState<DemoStatus>("extracting");
   const [visibleMessages, setVisibleMessages] = useState<Message[]>([]);
 
   useEffect(() => {

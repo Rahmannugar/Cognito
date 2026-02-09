@@ -56,11 +56,11 @@ export const LandingEcosystem = ({
         <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-5 md:gap-8 lg:gap-10">
           {/* Feature 1: Topic Tutor - Large Square */}
           <motion.div
-            style={{ y: ecoY1 }}
-            initial={{ opacity: 0, scale: isMobile ? 1 : 0.9 }}
+            style={{ y: isMobile ? 0 : ecoY1 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{
               opacity: 1,
-              scale: 1,
+              y: 0,
             }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{
@@ -75,7 +75,7 @@ export const LandingEcosystem = ({
               <div className="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center mb-10 shadow-lg shadow-blue-500/20">
                 <GraduationCap className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-3xl font-black mb-6 uppercase leading-none tracking-tight">
+              <h3 className="text-xl md:text-2xl font-black mb-6 uppercase leading-none tracking-tight">
                 Topic
                 <br />
                 Guide
@@ -90,11 +90,11 @@ export const LandingEcosystem = ({
 
           {/* Feature 2: YouTube Tutor - Wide */}
           <motion.div
-            style={{ y: ecoY2 }}
-            initial={{ opacity: 0, scale: isMobile ? 1 : 0.9 }}
+            style={{ y: isMobile ? 0 : ecoY2 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{
               opacity: 1,
-              scale: 1,
+              y: 0,
             }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{
@@ -110,7 +110,7 @@ export const LandingEcosystem = ({
               <div className="w-12 h-12 rounded-xl bg-red-500 flex items-center justify-center mb-8 shadow-lg shadow-red-500/20">
                 <Play className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-2xl font-black mb-4 uppercase tracking-tight">
+              <h3 className=" text-xl md:text-2xl font-black mb-4 uppercase tracking-tight">
                 Video Lessons
               </h3>
               <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
@@ -127,11 +127,11 @@ export const LandingEcosystem = ({
 
           {/* Feature 3: PDF Tutor - Small */}
           <motion.div
-            style={{ y: ecoY3 }}
-            initial={{ opacity: 0, scale: isMobile ? 1 : 0.9 }}
+            style={{ y: isMobile ? 0 : ecoY3 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{
               opacity: 1,
-              scale: 1,
+              y: 0,
             }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{
@@ -147,7 +147,7 @@ export const LandingEcosystem = ({
               <FileText className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h3 className="text-2xl font-black mb-3 uppercase tracking-tight">
+              <h3 className=" text-xl md:text-2xl font-black mb-3 uppercase tracking-tight">
                 Smart Notes
               </h3>
               <p className="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
@@ -159,10 +159,10 @@ export const LandingEcosystem = ({
 
           {/* Feature 4: Ajibade - Wide/Medium */}
           <motion.div
-            initial={{ opacity: 0, scale: isMobile ? 1 : 0.9 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{
               opacity: 1,
-              scale: 1,
+              y: 0,
             }}
             viewport={{ once: true }}
             transition={{
@@ -178,7 +178,7 @@ export const LandingEcosystem = ({
               <Sparkles className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h3 className="text-2xl font-black mb-3 uppercase text-white tracking-tight">
+              <h3 className=" text-xl md:text-2xl font-black mb-3 uppercase text-white tracking-tight">
                 Ajibade AI Tutor
               </h3>
               <p className="text-sm text-blue-50/80 font-medium leading-relaxed">
@@ -193,10 +193,10 @@ export const LandingEcosystem = ({
 
           {/* Feature 5: Quizzes - Vertical */}
           <motion.div
-            initial={{ opacity: 0, scale: isMobile ? 1 : 0.9 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{
               opacity: 1,
-              scale: 1,
+              y: 0,
             }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{
@@ -212,7 +212,7 @@ export const LandingEcosystem = ({
               <Target className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h3 className="text-2xl font-black mb-3 uppercase tracking-tight">
+              <h3 className=" text-xl md:text-2xl font-black mb-3 uppercase tracking-tight">
                 Smart Quizzes
               </h3>
               <p className="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
@@ -224,10 +224,10 @@ export const LandingEcosystem = ({
 
           {/* Feature 6: Analytics - Small Square */}
           <motion.div
-            initial={{ opacity: 0, scale: isMobile ? 1 : 0.9 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{
               opacity: 1,
-              scale: 1,
+              y: 0,
             }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{
@@ -243,7 +243,7 @@ export const LandingEcosystem = ({
               <div className="w-12 h-12 rounded-xl bg-purple-500 flex items-center justify-center mb-8">
                 <Activity className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-2xl font-black mb-4 uppercase text-white tracking-tight">
+              <h3 className=" text-xl md:text-2xl font-black mb-4 uppercase text-white tracking-tight">
                 Analytics
               </h3>
               <p className="text-sm text-slate-400 font-medium leading-relaxed mb-6">
@@ -268,10 +268,10 @@ export const LandingEcosystem = ({
 
           {/* Feature 7: Live Sessions - Small Square */}
           <motion.div
-            initial={{ opacity: 0, scale: isMobile ? 1 : 0.9 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{
               opacity: 1,
-              scale: 1,
+              y: 0,
             }}
             viewport={{ once: true }}
             transition={{
@@ -287,7 +287,7 @@ export const LandingEcosystem = ({
               <Zap className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h3 className="text-2xl font-black mb-3 uppercase tracking-tight">
+              <h3 className=" text-xl md:text-2xl font-black mb-3 uppercase tracking-tight">
                 Live Sessions
               </h3>
               <p className="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed">

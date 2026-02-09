@@ -3,6 +3,7 @@
 @variant dark (&:where(.dark, .dark *));
 
 
+
 @theme {
   /* Colors */
   --color-primary: #2563eb;
@@ -25,7 +26,7 @@
   --color-warning: #F59E0B;
 
   /* Font families */
-  --font-sans: 'Outfit', 'Inter', sans-serif;
+  --font-sans: 'Roboto', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
   /* Border radius */
