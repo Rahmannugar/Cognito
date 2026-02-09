@@ -3,6 +3,7 @@ import { motion, MotionValue, AnimatePresence } from "framer-motion";
 import { Play, Zap, Lock, FileText, Cpu } from "lucide-react";
 import { cn } from "@/lib/utils/utils";
 import { DemoStatus } from "@/lib/types/landing";
+import { useIsMobile } from "@/lib/hooks/activity/useMediaQuery";
 
 interface LandingProductMockupProps {
   mockupY: MotionValue<number>;
@@ -142,14 +143,14 @@ const Sidebar = ({ innerMockupY }: { innerMockupY: MotionValue<number> }) => (
 
 const ActiveLearningCard = ({ demoStatus }: { demoStatus: DemoStatus }) => (
   <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-4 h-48 mb-4 shrink-0">
-    <div className="rounded-2xl overflow-hidden relative group border border-slate-200 dark:border-white/10 shadow-lg transition-transform hover:scale-[1.02] active:scale-[1.02]">
+    <div className="rounded-2xl overflow-hidden relative group border border-slate-200 dark:border-white/10 shadow-lg transition-transform md:hover:scale-[1.02] md:active:scale-[1.02]">
       <img
         src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800"
         className="w-full h-full object-cover opacity-80"
         alt="AI Visualization"
       />
       <div className="absolute inset-0 bg-blue-900/40 flex items-center justify-center">
-        <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-xl border border-white/40 flex items-center justify-center group-hover:scale-110 group-active:scale-110 transition-transform">
+        <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-xl border border-white/40 flex items-center justify-center md:group-hover:scale-110 md:group-active:scale-110 transition-transform">
           <Play className="w-5 h-5 text-white fill-current" />
         </div>
       </div>
@@ -189,52 +190,55 @@ const ActiveLearningCard = ({ demoStatus }: { demoStatus: DemoStatus }) => (
 );
 
 const ChatMessage = forwardRef<HTMLDivElement, { msg: Message }>(
-  ({ msg }, ref) => (
-    <motion.div
-      ref={ref}
-      layout
-      initial={{ opacity: 0, y: 20, scale: 0.95 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.4, type: "spring", bounce: 0.4 }}
-      className={cn(
-        "flex gap-3 max-w-[85%]",
-        msg.role === "user" ? "ml-auto justify-end max-w-[80%]" : "",
-      )}
-    >
-      {msg.role === "ai" && (
-        <div className="w-8 h-8 rounded-full bg-white dark:bg-slate-900 flex items-center justify-center shrink-0 shadow-sm border border-slate-200 dark:border-white/10 overflow-hidden">
-          <img
-            src="/vite.svg"
-            className="w-5 h-5 object-contain"
-            alt="AI Agent"
-          />
-        </div>
-      )}
-
-      <div
+  ({ msg }, ref) => {
+    const isMobile = useIsMobile();
+    return (
+      <motion.div
+        ref={ref}
+        layout
+        initial={{ opacity: 0, y: 20, scale: isMobile ? 1 : 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.4, type: "spring", bounce: 0.4 }}
         className={cn(
-          "p-3 md:p-4 rounded-2xl shadow-sm border",
-          msg.role === "ai"
-            ? "bg-white dark:bg-slate-800/90 backdrop-blur-xl border-slate-200 dark:border-white/5 rounded-tl-none"
-            : "bg-linear-to-br from-blue-600 to-blue-700 border-blue-400/20 rounded-tr-none shadow-blue-500/20",
+          "flex gap-3 max-w-[85%]",
+          msg.role === "user" ? "ml-auto justify-end max-w-[80%]" : "",
         )}
       >
-        {msg.role === "ai" ? (
-          <p className="text-[12px] font-bold leading-relaxed text-slate-700 dark:text-slate-200">
-            {msg.content}
-          </p>
-        ) : (
-          <p className="text-[12px] font-bold text-white">{msg.content}</p>
+        {msg.role === "ai" && (
+          <div className="w-8 h-8 rounded-full bg-white dark:bg-slate-900 flex items-center justify-center shrink-0 shadow-sm border border-slate-200 dark:border-white/10 overflow-hidden">
+            <img
+              src="/vite.svg"
+              className="w-5 h-5 object-contain"
+              alt="AI Agent"
+            />
+          </div>
         )}
-      </div>
 
-      {msg.role === "user" && (
-        <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/10 flex items-center justify-center shrink-0 border border-slate-200 dark:border-white/5 overflow-hidden">
-          <div className="w-3 h-3 rounded-full bg-slate-400 dark:bg-blue-400/50" />
+        <div
+          className={cn(
+            "p-3 md:p-4 rounded-2xl shadow-sm border",
+            msg.role === "ai"
+              ? "bg-white dark:bg-slate-800/90 backdrop-blur-xl border-slate-200 dark:border-white/5 rounded-tl-none"
+              : "bg-linear-to-br from-blue-600 to-blue-700 border-blue-400/20 rounded-tr-none shadow-blue-500/20",
+          )}
+        >
+          {msg.role === "ai" ? (
+            <p className="text-[12px] font-bold leading-relaxed text-slate-700 dark:text-slate-200">
+              {msg.content}
+            </p>
+          ) : (
+            <p className="text-[12px] font-bold text-white">{msg.content}</p>
+          )}
         </div>
-      )}
-    </motion.div>
-  ),
+
+        {msg.role === "user" && (
+          <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/10 flex items-center justify-center shrink-0 border border-slate-200 dark:border-white/5 overflow-hidden">
+            <div className="w-3 h-3 rounded-full bg-slate-400 dark:bg-blue-400/50" />
+          </div>
+        )}
+      </motion.div>
+    );
+  },
 );
 ChatMessage.displayName = "ChatMessage";
 
@@ -243,7 +247,7 @@ const InputArea = () => (
     <div className="flex-1 text-sm font-bold text-slate-400 dark:text-slate-500">
       Message Ajibade...
     </div>
-    <div className="w-10 h-10 rounded-xl bg-linear-to-br from-blue-500 to-blue-700 flex items-center justify-center shadow-lg shadow-blue-500/30 cursor-pointer hover:scale-105 transition-all active:scale-95 group/send group-active/send:scale-105">
+    <div className="w-10 h-10 rounded-xl bg-linear-to-br from-blue-500 to-blue-700 flex items-center justify-center shadow-lg shadow-blue-500/30 cursor-pointer md:hover:scale-105 transition-all md:active:scale-95 group/send md:group-active/send:scale-105">
       <Zap className="w-4 h-4 text-white group-hover/send:rotate-12 group-active/send:rotate-12 transition-transform" />
     </div>
   </div>

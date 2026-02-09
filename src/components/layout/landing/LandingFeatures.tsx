@@ -35,7 +35,7 @@ export const LandingFeatures = () => {
                 ease: "easeOut",
               }}
               className={cn(
-                "group relative p-10 rounded-3xl border border-slate-100 dark:border-white/5 bg-slate-50/30 dark:bg-white/1 hover:bg-white dark:hover:bg-white/2 transition-colors duration-300 cursor-pointer overflow-hidden shadow-sm hover:shadow-2xl hover:border-blue-500/20 active:scale-95 active:bg-white dark:active:bg-white/2 active:shadow-2xl active:border-blue-500/20",
+                "group relative p-10 rounded-3xl border border-slate-100 dark:border-white/5 bg-slate-50/30 dark:bg-white/1 hover:bg-white dark:hover:bg-white/2 transition-colors duration-300 cursor-pointer overflow-hidden shadow-sm hover:shadow-2xl hover:border-blue-500/20 md:active:scale-95 active:bg-white dark:active:bg-white/2 active:shadow-2xl active:border-blue-500/20",
                 feature.className,
               )}
             >
@@ -47,7 +47,7 @@ export const LandingFeatures = () => {
                 <div className="w-12 h-12 flex items-center justify-center mb-10 relative">
                   <div className="absolute inset-0 bg-blue-500/5 dark:bg-white/5 backdrop-blur-xl rounded-2xl border border-white/20 dark:border-white/10 shadow-inner" />
                   <div className="absolute -inset-1 bg-blue-600/10 rounded-[20px] blur-md opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity" />
-                  <feature.icon className="w-6 h-6 text-blue-600 relative z-10 group-hover:scale-110 group-active:scale-110 transition-transform duration-500" />
+                  <feature.icon className="w-6 h-6 text-blue-600 relative z-10 md:group-hover:scale-110 md:group-active:scale-110 transition-transform duration-500" />
                 </div>
 
                 <h3 className="text-2xl font-black mb-4 tracking-[-0.02em] leading-none">

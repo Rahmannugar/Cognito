@@ -57,7 +57,7 @@ export const LandingEcosystem = ({
           {/* Feature 1: Topic Tutor - Large Square */}
           <motion.div
             style={{ y: ecoY1 }}
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: isMobile ? 1 : 0.9 }}
             whileInView={{
               opacity: 1,
               scale: 1,
@@ -67,8 +67,8 @@ export const LandingEcosystem = ({
               duration: 0.8,
               ease: "easeOut",
             }}
-            whileHover={{ y: -8, scale: 1.02 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={isMobile ? {} : { y: -8, scale: 1.02 }}
+            whileTap={isMobile ? {} : { scale: 0.95 }}
             className="md:col-span-3 lg:col-span-4 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-6 md:p-12 flex flex-col justify-between shadow-sm hover:shadow-2xl hover:border-blue-500/20 transition-colors duration-300 min-h-[300px] md:min-h-[350px]"
           >
             <div className="relative z-10">
@@ -91,7 +91,7 @@ export const LandingEcosystem = ({
           {/* Feature 2: YouTube Tutor - Wide */}
           <motion.div
             style={{ y: ecoY2 }}
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: isMobile ? 1 : 0.9 }}
             whileInView={{
               opacity: 1,
               scale: 1,
@@ -102,8 +102,8 @@ export const LandingEcosystem = ({
               delay: 0.1,
               ease: "easeOut",
             }}
-            whileHover={{ y: -8, scale: 1.02 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={isMobile ? {} : { y: -8, scale: 1.02 }}
+            whileTap={isMobile ? {} : { scale: 0.95 }}
             className="md:col-span-3 lg:col-span-8 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-[#f8fafc] dark:bg-blue-900/10 border border-slate-200 dark:border-white/10 p-6 md:p-12 flex flex-col lg:flex-row gap-8 md:gap-10 items-center shadow-sm hover:shadow-2xl hover:border-blue-500/20 transition-colors duration-300 min-h-[300px] md:min-h-[350px]"
           >
             <div className="flex-1 relative z-10">
@@ -128,7 +128,7 @@ export const LandingEcosystem = ({
           {/* Feature 3: PDF Tutor - Small */}
           <motion.div
             style={{ y: ecoY3 }}
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: isMobile ? 1 : 0.9 }}
             whileInView={{
               opacity: 1,
               scale: 1,
@@ -139,8 +139,8 @@ export const LandingEcosystem = ({
               delay: 0.2,
               ease: "easeOut",
             }}
-            whileHover={{ y: -8, scale: 1.02 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={isMobile ? {} : { y: -8, scale: 1.02 }}
+            whileTap={isMobile ? {} : { scale: 0.95 }}
             className="md:col-span-3 lg:col-span-4 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-6 md:p-12 flex flex-col justify-between shadow-sm hover:shadow-2xl hover:border-blue-500/20 transition-colors duration-300 min-h-[300px] md:min-h-[280px]"
           >
             <div className="w-12 h-12 rounded-xl bg-sky-500 flex items-center justify-center mb-8">
@@ -159,7 +159,7 @@ export const LandingEcosystem = ({
 
           {/* Feature 4: Ajibade - Wide/Medium */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: isMobile ? 1 : 0.9 }}
             whileInView={{
               opacity: 1,
               scale: 1,
@@ -169,11 +169,9 @@ export const LandingEcosystem = ({
               duration: 1,
               delay: 0.3,
               ease: [0.16, 1, 0.3, 1],
-              scale: isMobile ? { duration: 0.8, times: [0, 0.5, 1] } : {},
-              y: isMobile ? { duration: 0.8, times: [0, 0.5, 1] } : {},
             }}
-            whileHover={{ y: -8, scale: 1.02 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={isMobile ? {} : { y: -8, scale: 1.02 }}
+            whileTap={isMobile ? {} : { scale: 0.95 }}
             className="md:col-span-3 lg:col-span-8 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-blue-600 p-6 md:p-12 flex flex-col lg:flex-row items-start gap-8 md:gap-10 shadow-xl shadow-blue-500/20 transition-colors duration-300 min-h-[300px] md:min-h-[280px]"
           >
             <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-xl flex items-center justify-center mb-8 md:mb-0">
@@ -195,7 +193,7 @@ export const LandingEcosystem = ({
 
           {/* Feature 5: Quizzes - Vertical */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: isMobile ? 1 : 0.9 }}
             whileInView={{
               opacity: 1,
               scale: 1,
@@ -206,8 +204,8 @@ export const LandingEcosystem = ({
               delay: 0.1,
               ease: "easeOut",
             }}
-            whileHover={{ y: -8, scale: 1.02 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={isMobile ? {} : { y: -8, scale: 1.02 }}
+            whileTap={isMobile ? {} : { scale: 0.95 }}
             className="md:col-span-3 lg:col-span-4 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-6 md:p-12 flex flex-col justify-between shadow-sm hover:shadow-2xl hover:border-blue-500/20 transition-colors duration-300 min-h-[300px]"
           >
             <div className="w-12 h-12 rounded-xl bg-green-500 flex items-center justify-center mb-8">
@@ -226,7 +224,7 @@ export const LandingEcosystem = ({
 
           {/* Feature 6: Analytics - Small Square */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: isMobile ? 1 : 0.9 }}
             whileInView={{
               opacity: 1,
               scale: 1,
@@ -237,8 +235,8 @@ export const LandingEcosystem = ({
               delay: 0.2,
               ease: "easeOut",
             }}
-            whileHover={{ y: -8, scale: 1.02 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={isMobile ? {} : { y: -8, scale: 1.02 }}
+            whileTap={isMobile ? {} : { scale: 0.95 }}
             className="md:col-span-3 lg:col-span-4 cursor-pointer group relative overflow-hidden rounded-[3rem] bg-slate-900 border border-slate-800 p-6 md:p-12 flex flex-col justify-between shadow-2xl transition-colors duration-300 min-h-[300px]"
           >
             <div className="flex-1">
@@ -270,7 +268,7 @@ export const LandingEcosystem = ({
 
           {/* Feature 7: Live Sessions - Small Square */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: isMobile ? 1 : 0.9 }}
             whileInView={{
               opacity: 1,
               scale: 1,
@@ -280,11 +278,9 @@ export const LandingEcosystem = ({
               duration: 1,
               delay: 0.3,
               ease: [0.16, 1, 0.3, 1],
-              scale: isMobile ? { duration: 0.8, times: [0, 0.5, 1] } : {},
-              y: isMobile ? { duration: 0.8, times: [0, 0.5, 1] } : {},
             }}
-            whileHover={{ y: -8, scale: 1.02 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={isMobile ? {} : { y: -8, scale: 1.02 }}
+            whileTap={isMobile ? {} : { scale: 0.95 }}
             className="md:col-span-6 lg:col-span-4 group cursor-pointer relative overflow-hidden rounded-[3rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 p-6 md:p-12 flex flex-col justify-between shadow-sm hover:shadow-2xl hover:border-blue-500/20 transition-colors duration-300 min-h-[300px]"
           >
             <div className="w-12 h-12 rounded-xl bg-yellow-500 flex items-center justify-center mb-8">

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion, MotionValue } from "framer-motion";
 import { Play } from "lucide-react";
+import { useIsMobile } from "@/lib/hooks/activity/useMediaQuery";
 
 interface LandingHeroProps {
   heroRef: React.RefObject<HTMLDivElement>;
@@ -9,11 +10,13 @@ interface LandingHeroProps {
 }
 
 export const LandingHero = ({ heroRef, opacity, scale }: LandingHeroProps) => {
+  const isMobile = useIsMobile();
+
   return (
     <section ref={heroRef} className="pt-32 pb-20 md:pt-48 md:pb-40 px-6">
       <div className="max-w-7xl mx-auto text-center">
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: isMobile ? 1 : 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-500/10 bg-blue-500/5 text-blue-600 dark:text-blue-400 text-[9px] font-black uppercase tracking-[0.4em] mb-8 md:mb-12 shadow-sm"
         >
@@ -21,8 +24,8 @@ export const LandingHero = ({ heroRef, opacity, scale }: LandingHeroProps) => {
           Cognition Agent
         </motion.div>
 
-        <motion.div style={{ opacity, scale }}>
-          <h1 className="text-4xl md:text-7xl lg:text-9xl font-black leading-[0.9] tracking-[-0.05em] mb-8 md:mb-12 max-w-6xl mx-auto">
+        <motion.div style={{ opacity, scale: isMobile ? 1 : scale }}>
+          <h1 className="text-4xl md:text-7xl lg:text-9xl font-black leading-tight md:leading-[0.9] tracking-[-0.05em] mb-8 md:mb-12 max-w-6xl mx-auto">
             {["The", "Intelligence", "Layer."].map((word, i) => (
               <motion.span
                 key={i}
@@ -39,7 +42,7 @@ export const LandingHero = ({ heroRef, opacity, scale }: LandingHeroProps) => {
               </motion.span>
             ))}
             <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-linear-to-b from-blue-700 via-blue-600 to-blue-800 bg-size-[200%_auto] animate-gradient-x drop-shadow-[0_0_20px_rgba(37,99,235,0.2)]">
+            <span className="text-transparent bg-clip-text bg-linear-to-b from-blue-700 via-blue-600 to-blue-800 bg-size-[200%_auto] animate-gradient-x">
               {["Master", "Any", "Topic."].map((word, i) => (
                 <motion.span
                   key={i}
@@ -82,12 +85,12 @@ export const LandingHero = ({ heroRef, opacity, scale }: LandingHeroProps) => {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-5"
         >
           <Link to="/signup" className="w-full sm:w-auto">
-            <button className="w-full h-14 px-10 rounded-2xl cursor-pointer bg-blue-700 text-white font-black text-lg hover:bg-blue-900 transition-all active:scale-95 border-t border-white/10 active:bg-blue-900">
+            <button className="w-full h-14 px-10 rounded-2xl cursor-pointer bg-blue-700 text-white font-black text-lg hover:bg-blue-900 transition-all md:active:scale-95 border-t border-white/10 active:bg-blue-900">
               Start Learning
             </button>
           </Link>
           <Link to="/login" className="w-full sm:w-auto">
-            <button className="w-full h-14 px-10 rounded-2xl cursor-pointer border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/5 hover:bg-slate-200 hover:border-stone-700 dark:hover:bg-white/10 transition-all active:scale-95 font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3 active:bg-slate-200 dark:active:bg-white/10">
+            <button className="w-full h-14 px-10 rounded-2xl cursor-pointer border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/5 hover:bg-slate-200 hover:border-stone-700 dark:hover:bg-white/10 transition-all md:active:scale-95 font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3 active:bg-slate-200 dark:active:bg-white/10">
               <Play className="w-3 h-3 fill-current" />
               Watch Overview
             </button>

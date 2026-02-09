@@ -75,13 +75,13 @@ export const LandingHeader = ({
             <ThemeToggle />
             <div className="hidden md:flex items-center">
               <Link to={isAuthenticated ? "/dashboard" : "/signup"}>
-                <Button className="h-10 px-6 rounded-full bg-blue-600 dark:bg-white text-white dark:text-white font-black text-[10px] uppercase tracking-wider hover:scale-105 transition-all border-none active:scale-95">
+                <Button className="h-10 px-6 rounded-full bg-blue-600 dark:bg-white text-white dark:text-white font-black text-[10px] uppercase tracking-wider md:hover:scale-105 transition-all border-none md:active:scale-95">
                   {isAuthenticated ? "Dashboard" : "Get Started"}
                 </Button>
               </Link>
             </div>
             <button
-              className="md:hidden p-2 text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-all active:scale-95"
+              className="md:hidden p-2 text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-all md:active:scale-95"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? (
@@ -97,9 +97,9 @@ export const LandingHeader = ({
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.05 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             className="fixed inset-0 z-40 bg-white/95 dark:bg-[#02040a]/95 backdrop-blur-2xl pt-32 px-10 md:hidden"
           >
             <nav className="flex flex-col gap-10">
@@ -131,7 +131,7 @@ export const LandingHeader = ({
                   to={isAuthenticated ? "/dashboard" : "/signup"}
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  <Button className="w-full h-16 text-xl bg-blue-600 text-white rounded-3xl font-black uppercase tracking-widest active:scale-95">
+                  <Button className="w-full h-16 text-xl bg-blue-600 text-white rounded-3xl font-black uppercase tracking-widest md:active:scale-95">
                     {isAuthenticated ? "Dashboard" : "Get Started"}
                   </Button>
                 </Link>

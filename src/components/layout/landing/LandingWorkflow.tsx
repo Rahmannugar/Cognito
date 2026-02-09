@@ -44,7 +44,7 @@ export const LandingWorkflow = () => {
               className="relative flex flex-col items-center group"
             >
               <div className="relative mb-16">
-                <div className="absolute inset-0 bg-blue-600/20 blur-[60px] rounded-full scale-150 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-1000" />
+                <div className="absolute inset-0 bg-blue-600/20 blur-[60px] rounded-full md:scale-150 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-1000" />
 
                 <div className="w-24 h-24 md:w-32 md:h-32 flex items-center justify-center relative">
                   {i === 0 && (

@@ -2,6 +2,7 @@ import { useEffect, useCallback, type ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils/utils";
+import { useIsMobile } from "@/lib/hooks/activity/useMediaQuery";
 
 interface ModalProps {
   isOpen: boolean;
@@ -18,6 +19,7 @@ export function Modal({
   children,
   className,
 }: ModalProps) {
+  const isMobile = useIsMobile();
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -48,9 +50,9 @@ export function Modal({
             onClick={onClose}
           />
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 10 }}
+            initial={{ opacity: 0, scale: isMobile ? 1 : 0.95, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 10 }}
+            exit={{ opacity: 0, scale: isMobile ? 1 : 0.95, y: 10 }}
             transition={{ type: "spring", duration: 0.3 }}
             className={cn(
               "relative w-full max-w-[600px] max-h-[90vh] overflow-hidden",
