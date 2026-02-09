@@ -17,6 +17,6 @@ export default defineConfig({
         secure: false,
       },
     },
-    allowedHosts: ["excited-democracy.outray.app"],
+    allowedHosts: [],
   },
 });

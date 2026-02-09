@@ -25,15 +25,20 @@ export const LandingFeatures = () => {
           {FEATURES.map((feature, i) => (
             <motion.div
               key={feature.title}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{
+                opacity: isMobile ? 0.8 : 0,
+                y: isMobile ? 20 : 20,
+                scale: isMobile ? 0.98 : 1,
+              }}
               whileInView={{
                 opacity: 1,
                 y: 0,
+                scale: 1,
               }}
-              viewport={{ once: true, margin: "-20px" }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{
-                duration: 0.5,
-                delay: isMobile ? 0 : i * 0.05,
+                duration: 0.8,
+                delay: isMobile ? 0 : i * 0.1,
                 ease: "easeOut",
               }}
               className={cn(

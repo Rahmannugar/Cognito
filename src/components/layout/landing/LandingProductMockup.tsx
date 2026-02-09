@@ -143,9 +143,11 @@ const ActiveLearningCard = ({ demoStatus }: { demoStatus: DemoStatus }) => (
   <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-4 h-48 mb-4 shrink-0">
     <div className="rounded-2xl overflow-hidden relative group border border-slate-200 dark:border-white/10 shadow-lg transition-transform md:hover:scale-[1.02] md:active:scale-[1.02]">
       <img
-        src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800"
+        src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800&auto=compress"
         className="w-full h-full object-cover opacity-80"
         alt="AI Visualization"
+        loading="lazy"
+        decoding="async"
       />
       <div className="absolute inset-0 bg-blue-900/40 flex items-center justify-center">
         <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-xl border border-white/40 flex items-center justify-center md:group-hover:scale-110 md:group-active:scale-110 transition-transform">
