@@ -133,11 +133,12 @@ export default function Dashboard() {
 
   const stats = user?.stats;
   const weeklyGoalHours = stats?.weeklyGoalHours || 1;
-  const currentHours = Math.floor((stats?.totalMinutesSpent || 0) / 60);
-  const goalProgress = Math.min(
-    100,
-    Math.round((currentHours / weeklyGoalHours) * 100),
-  );
+  const totalGoalMinutes = weeklyGoalHours * 60;
+  const minutesSpent = stats?.totalMinutesSpent || 0;
+ const goalProgress = Math.min(
+   100,
+   ((minutesSpent / totalGoalMinutes) * 100),
+ );
 
   return (
     <AppLayout>
@@ -169,7 +170,7 @@ export default function Dashboard() {
               </div>
               <div className="shrink-0">
                 <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 flex flex-col items-center justify-center min-w-[120px]">
-                  <span className="text-3xl font-bold">{goalProgress}%</span>
+                  <span className="text-3xl font-bold">{goalProgress.toFixed(2)}%</span>
                   <span className="text-xs text-blue-100 uppercase tracking-wide">
                     Weekly Goal ({stats?.weeklyGoalHours || "?"}h)
                   </span>
