@@ -8,7 +8,7 @@ import { useAuthStore } from "@/lib/store/authStore";
  * It checks for the auth token on every route change and window focus.
  */
 export function AuthMiddleware({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, logout, checkAuth } = useAuthStore();
+  const { user, isAuthenticated, logout, checkAuth } = useAuthStore();
 
   // Check auth on mount, location change, and window focus
   useEffect(() => {
@@ -21,16 +21,14 @@ export function AuthMiddleware({ children }: { children: React.ReactNode }) {
         return;
       }
 
-      // If we have a token but state says not authenticated, verify it
-      if (!isAuthenticated && token) {
+      // If we have a token but state is incomplete, verify it
+      if (token && (!isAuthenticated || !user)) {
         checkAuth();
       }
     };
 
-    // Run verification on mount/update (only if not already authenticated but token exists)
-    if (!isAuthenticated && Cookies.get("auth_token")) {
-      verifyAuth();
-    }
+    // Run verification on mount
+    verifyAuth();
 
     // Run verification on window focus (user comes back to tab)
     window.addEventListener("focus", verifyAuth);
@@ -42,7 +40,7 @@ export function AuthMiddleware({ children }: { children: React.ReactNode }) {
       window.removeEventListener("focus", verifyAuth);
       window.removeEventListener("storage", verifyAuth);
     };
-  }, [isAuthenticated, logout, checkAuth]);
+  }, [user, isAuthenticated, logout, checkAuth]);
 
   return <>{children}</>;
 }

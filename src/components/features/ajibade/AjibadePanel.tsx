@@ -4,8 +4,8 @@ import { Avatar } from "@/components/ui/Avatar";
 import { MessageBubble } from "./MessageBubble";
 import { cn } from "@/lib/utils/utils";
 import { motion } from "framer-motion";
-
 import { AJIBADE_AVATAR } from "@/lib/types/constants";
+import { useToastStore } from "@/lib/store/toastStore";
 
 interface Message {
   id: string;
@@ -72,6 +72,7 @@ export function AjibadePanel({
   const [isRecording, setIsRecording] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+  const { addToast } = useToastStore();
   const chatRef = useRef<HTMLDivElement>(null);
   const onPlaybackEndedRef = useRef(onPlaybackEnded);
 
@@ -353,8 +354,9 @@ export function AjibadePanel({
       setIsRecording(true);
     } catch (err) {
       console.error("Error accessing microphone:", err);
-      alert(
+      addToast(
         "Could not access microphone. Please ensure permissions are granted.",
+        "error",
       );
     }
   };

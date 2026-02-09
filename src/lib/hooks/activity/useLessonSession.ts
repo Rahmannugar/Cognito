@@ -27,10 +27,6 @@ export function useLessonSession() {
   const [hasStarted, setHasStarted] = useState(false);
   const [isAudioFinished, setIsAudioFinished] = useState(false);
 
-  // Latest Fix States
-  const [ttsRequestedForStep, setTtsRequestedForStep] = useState<string | null>(
-    null,
-  );
   const [isPlayerReady, setIsPlayerReady] = useState(false);
   const [introStatus, setIntroStatus] = useState<
     "NONE" | "REQUESTED" | "FINISHED"
@@ -40,6 +36,9 @@ export function useLessonSession() {
   const [timeUntilNextStep, setTimeUntilNextStep] = useState<number | null>(
     null,
   );
+
+  const requestedTtsIds = useRef<Set<string>>(new Set());
+  const pauseTriggeredSteps = useRef<Set<string>>(new Set());
 
   const {
     steps,
@@ -112,7 +111,6 @@ export function useLessonSession() {
       setIsQuizActive(false);
       setManualChatEnabled(false);
     }
-    setTtsRequestedForStep(null);
   }, [currentStep]);
 
   useEffect(() => {
@@ -142,7 +140,6 @@ export function useLessonSession() {
     manualChatEnabled,
     currentStep,
     isAudioFinished,
-    ttsRequestedForStep,
   });
 
   useEffect(() => {
@@ -151,15 +148,8 @@ export function useLessonSession() {
       manualChatEnabled,
       currentStep,
       isAudioFinished,
-      ttsRequestedForStep,
     };
-  }, [
-    isQuizActive,
-    manualChatEnabled,
-    currentStep,
-    isAudioFinished,
-    ttsRequestedForStep,
-  ]);
+  }, [isQuizActive, manualChatEnabled, currentStep, isAudioFinished]);
 
   const onPlayerReady = useCallback(() => {
     console.log("YouTube Player Ready");
@@ -176,7 +166,6 @@ export function useLessonSession() {
           manualChatEnabled,
           currentStep,
           isAudioFinished,
-          ttsRequestedForStep,
         } = stateRef.current;
 
         // If video ended but we have a quiz or explanation that hasn't finished yet,
@@ -190,10 +179,10 @@ export function useLessonSession() {
 
           if (
             currentStep?.stepPayload?.textToSpeak &&
-            ttsRequestedForStep !== currentStep.id
+            !requestedTtsIds.current.has(currentStep.id)
           ) {
             requestTTS(currentStep.stepPayload.textToSpeak);
-            setTtsRequestedForStep(currentStep.id);
+            requestedTtsIds.current.add(currentStep.id);
           }
         } else if (
           !isQuizActive &&
@@ -216,13 +205,17 @@ export function useLessonSession() {
     }
   }, [isYouTubeMode, hasStarted, isConnected, introStatus, unit, requestTTS]);
 
-  // The interval MUST run even if isQuizActive is true, 
+  // The interval MUST run even if isQuizActive is true,
   // because we need to REACH the pause mark before showing the quiz.
   useEffect(() => {
-    console.log(`[YouTube Monitor] Effect Triggered. currentStep: ${currentStep?.id}, isYouTubeMode: ${isYouTubeMode}`);
+    console.log(
+      `[YouTube Monitor] Effect Triggered. currentStep: ${currentStep?.id}, isYouTubeMode: ${isYouTubeMode}`,
+    );
     if (!currentStep?.id || !isYouTubeMode) return;
 
-    console.log(`[YouTube Monitor] Starting interval for step: ${currentStep.id}. Target: ${currentStep.stepPayload.pauseAtSeconds}s`);
+    console.log(
+      `[YouTube Monitor] Starting interval for step: ${currentStep.id}. Target: ${currentStep.stepPayload.pauseAtSeconds}s`,
+    );
 
     const interval = setInterval(() => {
       if (
@@ -243,31 +236,43 @@ export function useLessonSession() {
 
           // Log every ~1 second to identify if it's running without flooding
           if (Math.floor(currentTime * 5) % 5 === 0) {
-            console.log(`[YouTube Monitor] Time: ${currentTime.toFixed(2)}s, Target: ${pauseTime}s, Diff: ${diff.toFixed(2)}s`);
+            console.log(
+              `[YouTube Monitor] Time: ${currentTime.toFixed(2)}s, Target: ${pauseTime}s, Diff: ${diff.toFixed(2)}s`,
+            );
           }
 
           // Robust check: Catch if we reached or slightly passed the mark (up to 1.5s tolerance)
           if (currentTime >= pauseTime && currentTime < pauseTime + 1.5) {
             const state = playerRef.current.getPlayerState();
-            console.log(`[YouTube Monitor] TARGET MATCH! State: ${state}, isCurrentlyPausing: ${isCurrentlyPausing}`);
+            console.log(
+              `[YouTube Monitor] TARGET MATCH! State: ${state}, isCurrentlyPausing: ${isCurrentlyPausing}`,
+            );
 
             // State 1 = Playing
-            if (state === 1 && !isCurrentlyPausing) {
-              console.log(`🎯 PAUSE TRIGGERED at ${currentTime.toFixed(2)}s (Target: ${pauseTime}s)`);
+            if (
+              state === 1 &&
+              !isCurrentlyPausing &&
+              !pauseTriggeredSteps.current.has(currentStep.id)
+            ) {
+              console.log(
+                `🎯 PAUSE TRIGGERED at ${currentTime.toFixed(2)}s (Target: ${pauseTime}s)`,
+              );
+              pauseTriggeredSteps.current.add(currentStep.id);
               setIsCurrentlyPausing(true);
               playerRef.current.pauseVideo();
               setTimeUntilNextStep(0);
 
-              // Reset audio state for this segment so the quiz waits
               setIsAudioFinished(!currentStep.stepPayload.textToSpeak);
 
               if (
                 currentStep.stepPayload.textToSpeak &&
-                ttsRequestedForStep !== currentStep.id
+                !requestedTtsIds.current.has(currentStep.id)
               ) {
-                console.log(`[YouTube Monitor] Requesting TTS for step ${currentStep.id}`);
+                console.log(
+                  `[YouTube Monitor] Requesting TTS for step ${currentStep.id}`,
+                );
                 requestTTS(currentStep.stepPayload.textToSpeak);
-                setTtsRequestedForStep(currentStep.id);
+                requestedTtsIds.current.add(currentStep.id);
               }
             }
           } else if (currentTime > pauseTime + 1.5) {
@@ -277,23 +282,27 @@ export function useLessonSession() {
         }
       } else {
         // If no player, log occasionally
-        if (Math.random() < 0.05) console.log("[YouTube Monitor] Player not yet available in interval...");
+        if (Math.random() < 0.05)
+          console.log(
+            "[YouTube Monitor] Player not yet available in interval...",
+          );
       }
     }, 200);
 
     return () => {
-      console.log(`[YouTube Monitor] Clearing interval for step: ${currentStep.id}`);
+      console.log(
+        `[YouTube Monitor] Clearing interval for step: ${currentStep.id}`,
+      );
       clearInterval(interval);
     };
   }, [
     currentStep,
     requestTTS,
     isPlayerReady,
-    ttsRequestedForStep,
     isQuizActive,
     isCurrentlyPausing,
     isYouTubeMode,
-    setIsAudioFinished // Added dependency
+    setIsAudioFinished, // Added dependency
   ]);
 
   useEffect(() => {
@@ -310,6 +319,16 @@ export function useLessonSession() {
       }
     }
   }, [currentStep?.id]);
+
+  useEffect(() => {
+    if (
+      clarificationResponse?.stepPayload?.textToSpeak &&
+      !requestedTtsIds.current.has(clarificationResponse.id)
+    ) {
+      requestTTS(clarificationResponse.stepPayload.textToSpeak);
+      requestedTtsIds.current.add(clarificationResponse.id);
+    }
+  }, [clarificationResponse, requestTTS]);
 
   const handleBackClick = () => setShowExitDialog(true);
   const handleConfirmExit = () => {

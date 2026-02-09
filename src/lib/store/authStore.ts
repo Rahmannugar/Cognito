@@ -16,7 +16,7 @@ interface AuthState {
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   isAuthenticated: !!Cookies.get("auth_token"),
-  isLoading: true,
+  isLoading: !!Cookies.get("auth_token"),
 
   setUser: (user) => set({ user, isAuthenticated: !!user }),
 

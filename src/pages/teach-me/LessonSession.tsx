@@ -281,12 +281,11 @@ export function LessonSession() {
             isYouTubeMode && introStatus === "REQUESTED"
               ? `I am Ajibade, your AI tutor. We will be watching this lesson on ${unit?.title || "the topic"}. Just watch, and I will pause the video if I need to explain something or ask a question. Let's get started!`
               : clarificationResponse?.stepPayload?.textToSpeak ||
-              (isYouTubeMode &&
+                (isYouTubeMode &&
                 !isCurrentlyPausing &&
-                isPlaying &&
                 introStatus === "FINISHED"
-                ? ""
-                : currentStep?.stepPayload?.textToSpeak)
+                  ? ""
+                  : currentStep?.stepPayload?.textToSpeak)
           }
           onPlaybackEnded={handleAudioEnded}
           onAudioStatusChange={handleAudioStatusChange}

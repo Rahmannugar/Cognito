@@ -10,6 +10,7 @@ import { useTheme } from "@/lib/hooks/theme/useTheme";
 import { cn } from "@/lib/utils/utils";
 import { authService } from "@/lib/services/authService";
 import { useAuthStore } from "@/lib/store/authStore";
+import { useToastStore } from "@/lib/store/toastStore";
 import { useNavigate } from "react-router-dom";
 
 const MENU_ITEMS = [
@@ -22,6 +23,7 @@ export default function Settings() {
   const [activeTab, setActiveTab] = useState("profile");
   const { theme, setTheme } = useTheme();
   const { user, checkAuth, logout } = useAuthStore();
+  const { addToast } = useToastStore();
   const [loading, setLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -36,7 +38,7 @@ export default function Settings() {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 2 * 1024 * 1024) {
-        alert("File too large. Max 2MB.");
+        addToast("File too large. Max 2MB.", "warning");
         return;
       }
       const reader = new FileReader();
@@ -54,10 +56,10 @@ export default function Settings() {
       await authService.updateProfile({ base64Image: selectedImage });
       await checkAuth();
       setSelectedImage(null);
-      alert("Profile updated successfully!");
+      addToast("Profile updated successfully!", "success");
     } catch (e) {
       console.error("Update failed", e);
-      alert("Failed to update profile.");
+      addToast("Failed to update profile.", "error");
     } finally {
       setLoading(false);
     }
